@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>Country Dashboard</title>
+ 	
+	<link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.css">
+	<!-- <link rel="stylesheet" href="css/styleguide.css"> -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script src="js/chosen.jquery.min.js"></script>
+	<script src="https://js.arcgis.com/3.21/"></script>
+	<script src="js/makevariables.js"></script>
+	<script src="js/cdcharts.js"></script>
+	<script src="js/cdclicks.js"></script>
+	<script src="js/cdinit.js"></script>
+</head>
+
+<body>
+	<div id="cd_wrap">
+		<div id="cd_left">
+			<section id="top-wrap" >
+				<h3 style="margin-top:10px; font-size:17px;">NDC Targets & NCS Mitigation</h3>
+				<div class="flex-wrap">
+					<div class="chosen-wrap" style="margin-bottom:4px;">
+						<select data-placeholder="Select a Country" id="selectCountry" class="chosen">
+							<option></option>
+						</select>
+					</div>
+					<div class="c-sel dl-wrap">
+						<button class="button button-default" id="dl-cr">Country Report</button>
+					</div>	
+				</div>
+				<div class="flex-wrap">	
+					<div class="att-div c-sel" style="margin-left:0;">
+						<div class="sum-label">NDC Reduction Target</div>
+						<div id="emiss_redux_1" class="sum-att">XX</div>
+					</div>
+					<div class="att-div c-sel">
+						<div class="sum-label">Emissions Reduction Target</div>
+						<div id="emiss_cut" class="sum-att">XX</div>
+						<div class="sum-att-label">Mt CO<sub>2</sub>e/yr</div> 
+					</div>
+					<div class="att-div att-div-last c-sel">
+						<div class="sum-label">NCS Mitigation Potential</div>
+						<div id="nscMitPoten" class="sum-att sum-att-last">XX</div>
+						<div class="sum-att-label">Mt CO<sub>2</sub>e/yr</div> 
+					</div>
+				</div>
+			</section>
+			<section class="c-sel">
+				<h3 style="margin:14px 0 8px 0;">Mitigation Potential for Select Pathways <img src="images/info.png" alt="show mitigation potential info" class="sty_infoIcon" id="mpInfo"> <span id="hideInfo" class="hideInfo">Close</span></h3>
+				<div id="mpInfoText" class="mpInfo">	
+					<p>The scientific analysis underlying this website considered 20 pathways. The 10 spatially explicit pathways presented here represent 75% of the total global NCS mitigation potential.</p>
+					<p>The 10 pathways not detailed on this website are: Improved (Forest) Plantations, (Forest) Fire Management, Avoided Coastal Wetland Impactsbeyond mangroves (seagrass and salt marsh), Coastal Wetland Restoration(mangroves, seagrass, and salt marsh), Avoided Grassland Conversion, Biochar, Cropland Nutrient Management, Conservation Agriculture, Trees in Croplands, Grazing –Improved Feed, Grazing –Animal Management.</p>
+					<p>The global data for these pathways were either not spatially explicit or were insufficient to disaggregate at the country level.</p>
+				</div>	
+				<div style="position:relative">
+					<div class="pathway-name-wrap">
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#reforestation" target="_blank">Reforestation</a></div>
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#forest-protection" target="_blank">Avoided Forest Conversion</a></div>
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#forest-carbon-solutions" target="_blank">Natural Forest Management</a></div>
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#peatlands" target="_blank">Peatland Restoration</a></div>
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#peatlands" target="_blank">Avoided Peat Impacts</a></div>
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#forest-carbon-solutions" target="_blank">Avoided Woodfuel Harvest</a></div>
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#coastal-wetlands" target="_blank">Avoided Mangrove Impacts</a></div>
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Improved Rice Cultivation</a></div>
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Grazing - Optimal Intensity</a></div>
+						<div class="pathway-name"><a href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Grazing - Legumes</a></div>			
+					</div>
+					<div class="pathway-arrow-wrap">
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+						<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
+					</div>
+					<!-- <div class="pathway-units">Mt CO<sub>2</sub>e/yr</div> -->
+					<div class="flex-wrap">
+						<div class="pathway-label-wrap">
+							<div class="pathway-label"></div>
+							<div class="pathway-label"></div>
+							<div class="pathway-label"></div>
+							<div class="pathway-label"></div>
+							<div class="pathway-label"></div>
+							<div class="pathway-label"></div>
+							<div class="pathway-label"></div>
+							<div class="pathway-label"></div>
+							<div class="pathway-label"></div>
+							<div class="pathway-label"></div>
+						</div>
+						<div class='pathway-wrap'>	
+							<canvas id="pathwayChart" height="250px"></canvas>
+						</div>
+					</div>
+				</div>		
+			</section>
+			<section class="c-sel">
+				<h3>NCS Contribution to Paris Commitment</h3>
+				<div style="position:relative; display:flex; margin-top:-10px;">
+					<div class='commitment-wrap'>	
+						<canvas id="commitmentChart" height="150px"></canvas>
+					</div>
+					<div class="lgnd-wrap">
+						<div class="pathway-units1">Mt CO<sub>2</sub>e/yr</div>
+						<div style="display:flex">
+							<div class="mp-box lgnd-box"></div>
+							<div class="lgnd-text">Maximum Potential</div>
+						</div>
+						<div style="display:flex; margin-top:8px;">
+							<div class="dg-box lgnd-box"></div>
+							<div class="lgnd-text">Cost<br>Effective</div>
+						</div>
+					</div>
+				</div>
+				<div class="lbl-wrap">
+					<div>Total Commitment</div>
+					<div style="text-align:right; flex:1;">Natural Systems</div>
+				</div>	
+				<p style="margin-left:10px; font-size:12px;">Proportion of climate mitigation provided by natural systems and agriculture management compared to this country’s submitted NDC</p>
+			</section>	
+		</div>
+		<div id="cd_map"></div>
+	</div>	
+</body>
+</html>
