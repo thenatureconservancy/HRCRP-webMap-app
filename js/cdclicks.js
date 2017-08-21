@@ -26,7 +26,7 @@ $( document ).ready(function() {
 						if (w != -99){
 							w = w * 100;
 							w = roundTo(w,0);
-							$("#emiss_redux_1").html(w + "%" + v.eu)
+							$("#emiss_redux_1").html(w + "%" /* + v.eu*/)
 						}
 						else{
 							$("#emiss_redux_1").html("N/A")
