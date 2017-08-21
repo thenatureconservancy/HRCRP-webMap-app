@@ -1,7 +1,7 @@
 // chosen menu and listeners
 $( document ).ready(function() {
 	// set up chosen country menu
-	$("#selectCountry").chosen({allow_single_deselect:true, width:"260px"})
+	$("#selectCountry").chosen({allow_single_deselect:false, width:"260px"})
 		.change(function(c){
 			var val = c.target.value;
 			cd.country = $("#selectCountry option:selected").text();
