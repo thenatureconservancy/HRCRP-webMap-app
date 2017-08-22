@@ -12,11 +12,13 @@ function createChart(){
 	        datasets: [{
 	            label: '# of Votes',
 	            data: [12, 19, 3, 1400, 8, 3, 7, 9, 10, 5],
-	            backgroundColor:"#389E41",
+	            backgroundColor:"#3fb149",
 	            borderWidth: 0
 	        }]
 	    },
 	    options: {
+	    	responsive: true,
+			maintainAspectRatio: false,
 	        scales: {
 	            xAxes: [{ ticks: { beginAtZero:true, max:40 } }]
 	        }
@@ -45,6 +47,8 @@ function createChart(){
 	  type: 'bar',
 	  data: data,
 	  options: {
+	  	responsive: true,
+		maintainAspectRatio: false,
 	    scales: {
 	  		xAxes: [{stacked: true}],
 	    	yAxes: [{
@@ -79,7 +83,7 @@ function updateChart(){
 			var y = roundTo(cd.lblArray[i], 4)
 			y = commaSeparateNumber(y)
 			if (i == 1 || i == 2 || i == 4 || i == 6 || i == 7 || i == 8 || i == 9){
-				$(v).html('<img src="images/lowCost.png" height="17px" width="17px" style="margin-top:1px; margin-right:2px;">' + y)	
+				$(v).html('<img src="images/lowCost.png" height="17px" width="17px" style="margin-top:-2px; margin-right:2px;">' + y)	
 			}else{
 				$(v).html(y)	
 			}

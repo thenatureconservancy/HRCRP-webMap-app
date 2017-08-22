@@ -1,15 +1,23 @@
 html, body{
 	height:100%; padding:0; margin:0; 
 }
+@font-face {
+    font-family: "Brown-Regular";
+    src: url(Brown-Regular.otf) format("opentype");
+}
+@font-face {
+    font-family: "Brown-Light";
+    src: url(Brown-Light.otf) format("opentype");
+}
 #cd_wrap{
 	display:flex; height:100%; width:100%; color:#3C454A; font-size:13px;
-	font-family:futura;
+	font-family:Brown-Regular;
 }
 #cd_wrap h3{
-	font-size:15px; font-weight:normal;
+	font-size:15px; font-weight:normal; margin:14px 0 8px 0;
 }
 #cd_left{
-	flex:0 0 430px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; overflow-y:auto; background:#f7f7f7;
+	flex:0 0 380px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; overflow-y:auto; background:#f7f7f7;
 }
 #cd_map{
 	height:100%; width:100%;
@@ -36,7 +44,7 @@ html, body{
 /*button*/
 .button{
  	display:inline-block; -webkit-appearance:none; cursor:pointer; vertical-align:middle; text-align:center; text-decoration:none;
- 	overflow:visible; font-size:13px; line-height:1.5; padding:7px 15px; border-radius:0px; background-color:#fff; border:1px solid #A7ACAF; color:#3C454A;
+ 	overflow:visible; font-size:13px; line-height:1.5; padding:7px 10px; border-radius:0px; background-color:#fff; border:1px solid #A7ACAF; color:#3C454A;
 }
 
 
@@ -47,19 +55,19 @@ html, body{
 	display:flex;
 }
 .att-div{
-	width:114px; margin:3px; border:1pt solid #A7ACAF; padding:5px; position:relative;
+	width:102px; margin:3px; border:1pt solid #A7ACAF; padding:5px; position:relative; min-height:72px;
 }
 .sum-att{
 	color:#3C454A; font-size:24px; font-weight:bold; text-align:center; margin-top:10px; margin-bottom:0px;
 }
 .sum-att-label{
-	font-size:11px; text-align:center; margin:0; color:#A7ACAF;
+	font-size:11px; text-align:center; margin:0; color:#8a8a8a;
 }
 .sum-att-label1{
 	font-size:14px; text-align:center; margin:-5px 0 -1px 0;
 }
 .sum-label{
-	text-align:center;
+	text-align:center; font-family:Brown-Light;
 }
 .att-div-last{
 	background:#3C454A; color:#fff;
@@ -67,8 +75,8 @@ html, body{
 .sum-att-last{
 	color:#fff;
 }
-.sum-att-last::before,
-.sum-att-last::after {
+.green-corner::before,
+.green-corner::after {
     content: '';
     position: absolute;
     top: 0;
@@ -77,17 +85,17 @@ html, body{
     border-style: solid;
 }
 
-.sum-att-last::before {
+.green-corner::before {
     border-width: 1px;
     border-right-color:#3C454A;
     border-top-color:#3C454A;
 }
 
-.sum-att-last::after {
+.green-corner::after {
     border-radius: 0;
-    border-width: 10px;
-    border-right-color: #389E41;
-    border-top-color: #389E41;
+    border-width: 8px;
+    border-right-color: #3fb149;
+    border-top-color: #3fb149;
 }
 .c-sel{
 	display:none;
@@ -95,32 +103,38 @@ html, body{
 .dl-wrap{
 	margin-left:6px; text-align:center;
 }
+#pathwayChart{
+	height:260px !important; width:312px !important;
+}
+#commitmentChart{
+	height:150px !important; width:250px !important;
+}
 .pathway-wrap{
 	width:340px; margin-left:-15px;
 }
 .pathway-label-wrap{
-	width:68px; display:flex; flex-direction:column; height:248px; margin-top:10px; text-align:right;
+	width:60px; display:flex; flex-direction:column; height:225px; margin-top:12px; text-align:right;
 }
 .pathway-label{
-	flex:1; display:flex; justify-content:flex-end; font-size:14px;
+	flex:1; display:flex; justify-content:flex-end; font-size:14px; font-family:Brown-Light;
 }
 .pathway-units{
 	position:absolute; top:-12px; left:0px; font-size:11px; font-weight:bold;
 }
 .pathway-units1{
-	position:absolute; top:-1px; left:0px; font-size:11px; color:#A7ACAF;
+	position:absolute; top:-1px; left:0px; font-size:11px; color:#8a8a8a;
 }
 .pathway-name-wrap{
-	display:flex; flex-direction:column; height:248px; position:absolute; top:10px; left:77px; 
+	display:flex; flex-direction:column; height:225px; position:absolute; top:12px; left:68px; 
 }
 .pathway-name{
 	flex:1;
 }
 .pathway-name a{
-	color: #3C454A; text-decoration: none; font-size:14px;
+	color: #0921ea; text-decoration: none; font-size:14px; font-family:Brown-Light;
 }
 .pathway-arrow-wrap{
-	display:flex; flex-direction:column; height:250px; position:absolute; top:8px; left:376px;	
+	display:flex; flex-direction:column; height:225px; position:absolute; top:11px; left:343px;	
 }
 .pathway-name{
 	flex:1;
@@ -131,11 +145,14 @@ html, body{
 .p-a{
 	color:#3C454A; font-weight:bold; font-size:14px;
 }
+.commit-div{
+	position:relative; display:flex; width:360px;
+}
 .commitment-wrap{
-	width:300px; margin-top:2rem;
+	 margin-top:17px;
 }
 .lgnd-box{
-	height:24px; width:24px; margin:3px 5px 0 4px;
+	height:24px; width:24px; margin:1px 5px 0 4px;
 }
 .mp-box{
 	background:#49B2E3; box-shadow:0 1px 1px rgba(16,22,26,.2);
@@ -144,23 +161,36 @@ html, body{
 	background:#247BB6; box-shadow:0 1px 1px rgba(16,22,26,.2);
 }
 .lgnd-text{
-	font-size:11px; width:70px;
+	font-size:13px; width:70px; font-family:Brown-Light;
 }
 .lgnd-wrap{
-	margin-top:63px; margin-left:4px;
+	margin-top:50px; margin-left:10px;
 }
 .lbl-wrap{
-	display:flex; font-size:11px; margin:-25px 0px 6px 54px; width:223px;
+	display:flex; font-size:13px; margin:-23px 0px 0px 58px; width:171px; font-family:Brown-Light;
 }
-.sty_infoIcon {
+.infoIconAttDiv{
+	cursor:pointer; position:absolute; bottom:2px; right:2px;
+}
+.hideInfoIconAttDiv{
+	display:none; cursor:pointer; position:absolute; bottom:2px; right:2px;
+}
+.h3InfoIcon {
     margin-bottom:-2px; margin-left:3px; cursor:pointer;
 }
-.mpInfo{
-	display:none; 
+.hideH3InfoIcon {
+    margin-bottom:-2px; margin-left:3px; cursor:pointer; display:none;
+}
+.h3Info{
+	display:none; font-family:Brown-Light; color:#8a8a8a; margin:-4 10px 0 4px;
+}
+.sum-att-info{
+	display:none; font-family:Brown-Light; color:#8a8a8a; margin-top:4px;
 }
 .hideInfo{
-	display:none; color:blue; margin-left:5px; cursor:pointer;
+	display:none; cursor:pointer;
 }
+
 
 .launchpad-plugin .button{
 	background-color:#95d7ae !important; border: 1px solid #bbb !important;
@@ -178,7 +208,7 @@ and (max-device-width : 480px) {
 	}
 	
 }*/
-@media (max-width:600px){
+@media (max-width:500px){
 	#cd_wrap{
 		background:#f7f7f7;
 	}
@@ -188,4 +218,40 @@ and (max-device-width : 480px) {
 	#cd_map{
 		display:none; 
 	}
+	
 }
+@media (max-width:360px){
+	#cd_left{
+		flex:0 0 312px;
+	}
+	.att-div{
+		width:84px; padding:5px 5px 12px 5px; 
+	}
+	#selectCountry_chosen{
+		width:190px !important; 
+	}
+	.sty_infoIcon {
+    	margin-left: -2px;
+	}
+	.button{
+		padding:7px 5px; margin-top:0;
+	}
+	#pathwayChart{
+		width:250px !important;
+	}
+	.pathway-wrap{
+		margin-left:-10px;
+	}
+	.pathway-arrow-wrap{
+		left:286px;
+	}
+	#commitmentChart{
+		height:150px !important; width:200px !important;
+	}
+	.commit-div{
+		width:310px;
+	}
+	.lbl-wrap {
+    	margin: -23px 0px 0px 38px; width: 143px;
+	}
+}	

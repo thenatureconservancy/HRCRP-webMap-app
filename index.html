@@ -39,25 +39,37 @@
 					<div class="att-div c-sel" style="margin-left:0;">
 						<div class="sum-label">NDC Reduction Target</div>
 						<div id="emiss_redux_1" class="sum-att">XX</div>
+						<div class="sum-att-info">Brief explanation of this box</div>
+						<img src="images/info.png" alt="Explain NDC Reduction Target" class="infoIconAttDiv">
+						<img src="images/infoClose.png" alt="Close NDC Reduction Target" class="hideInfoIconAttDiv">
 					</div>
 					<div class="att-div c-sel">
 						<div class="sum-label">Emissions Reduction Target</div>
 						<div id="emiss_cut" class="sum-att">XX</div>
 						<div class="sum-att-label">Mt CO<sub>2</sub>e/yr</div> 
+						<div class="sum-att-info">Brief explanation of this box</div>
+						<img src="images/info.png" alt="Explain Emissions Reduction Target" class="infoIconAttDiv">
+						<img src="images/infoClose.png" alt="Close Emissions Reduction Target" class="hideInfoIconAttDiv">
 					</div>
 					<div class="att-div att-div-last c-sel">
 						<div class="sum-label">NCS Mitigation Potential</div>
 						<div id="nscMitPoten" class="sum-att sum-att-last">XX</div>
+						<div class="green-corner"></div>
 						<div class="sum-att-label">Mt CO<sub>2</sub>e/yr</div> 
+						<div class="sum-att-info">Brief explanation of this box</div>
+						<img src="images/info.png" alt="Explain NCS Mitigation Potential" class="infoIconAttDiv">
+						<img src="images/infoClose.png" alt="Close NCS Mitigation Potential" class="hideInfoIconAttDiv">
 					</div>
 				</div>
 			</section>
 			<section class="c-sel">
-				<h3 style="margin:14px 0 8px 0;">Mitigation Potential for Select Pathways <img src="images/info.png" alt="show mitigation potential info" class="sty_infoIcon" id="mpInfo"> <span id="hideInfo" class="hideInfo">Close</span></h3>
-				<div id="mpInfoText" class="mpInfo">	
-					<p>The scientific analysis underlying this website considered 20 pathways. The 10 spatially explicit pathways presented here represent 75% of the total global NCS mitigation potential.</p>
-					<p>The 10 pathways not detailed on this website are: Improved (Forest) Plantations, (Forest) Fire Management, Avoided Coastal Wetland Impactsbeyond mangroves (seagrass and salt marsh), Coastal Wetland Restoration(mangroves, seagrass, and salt marsh), Avoided Grassland Conversion, Biochar, Cropland Nutrient Management, Conservation Agriculture, Trees in Croplands, Grazing –Improved Feed, Grazing –Animal Management.</p>
-					<p>The global data for these pathways were either not spatially explicit or were insufficient to disaggregate at the country level.</p>
+				<div>	
+					<h3>Mitigation Potential for Select Pathways<img src="images/info.png" alt="show mitigation potential info" class="h3InfoIcon"><img src="images/infoClose.png" alt="hide mitigation potential info" class="hideH3InfoIcon"></h3>
+					<div class="h3Info">	
+						<p>The scientific analysis underlying this website considered 20 pathways. The 10 spatially explicit pathways presented here represent 75% of the total global NCS mitigation potential.</p>
+						<p>The 10 pathways not detailed on this website are: Improved (Forest) Plantations, (Forest) Fire Management, Avoided Coastal Wetland Impactsbeyond mangroves (seagrass and salt marsh), Coastal Wetland Restoration(mangroves, seagrass, and salt marsh), Avoided Grassland Conversion, Biochar, Cropland Nutrient Management, Conservation Agriculture, Trees in Croplands, Grazing –Improved Feed, Grazing –Animal Management.</p>
+						<p>The global data for these pathways were either not spatially explicit or were insufficient to disaggregate at the country level.</p>
+					</div>	
 				</div>	
 				<div style="position:relative">
 					<div class="pathway-name-wrap">
@@ -99,16 +111,21 @@
 							<div class="pathway-label"></div>
 						</div>
 						<div class='pathway-wrap'>	
-							<canvas id="pathwayChart" height="250px"></canvas>
+							<canvas id="pathwayChart"></canvas>
 						</div>
 					</div>
 				</div>		
 			</section>
 			<section class="c-sel">
-				<h3>NCS Contribution to Paris Commitment</h3>
-				<div style="position:relative; display:flex; margin-top:-10px;">
+				<div>
+					<h3>NCS Contribution to Paris Commitment<img src="images/info.png" alt="show NCS Contribution info" class="h3InfoIcon"><img src="images/infoClose.png" alt="hide NCS Contribution info" class="hideH3InfoIcon"></h3>
+					<div class="h3Info">
+						<p>Proportion of climate mitigation provided by natural systems and agriculture management compared to this country’s submitted NDC</p>
+					</div>
+				</div>
+				<div class="commit-div">
 					<div class='commitment-wrap'>	
-						<canvas id="commitmentChart" height="150px"></canvas>
+						<canvas id="commitmentChart"></canvas>
 					</div>
 					<div class="lgnd-wrap">
 						<div class="pathway-units1">Mt CO<sub>2</sub>e/yr</div>
@@ -122,11 +139,10 @@
 						</div>
 					</div>
 				</div>
-				<div class="lbl-wrap">
-					<div>Total Commitment</div>
-					<div style="text-align:right; flex:1;">Natural Systems</div>
+				<div class="lbl-wrap" style="text-align:center;">
+					<div>Total<br>Commitment</div>
+					<div style="text-align:right; flex:1;">Natural<br>Systems</div>
 				</div>	
-				<p style="margin-left:10px; font-size:12px;">Proportion of climate mitigation provided by natural systems and agriculture management compared to this country’s submitted NDC</p>
 			</section>	
 		</div>
 		<div id="cd_map"></div>

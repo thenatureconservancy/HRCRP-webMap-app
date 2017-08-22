@@ -1,7 +1,7 @@
 // chosen menu and listeners
 $( document ).ready(function() {
 	// set up chosen country menu
-	$("#selectCountry").chosen({allow_single_deselect:false, width:"260px"})
+	$("#selectCountry").chosen({allow_single_deselect:false, width:"235px"})
 		.change(function(c){
 			var val = c.target.value;
 			cd.country = $("#selectCountry option:selected").text();
@@ -26,7 +26,7 @@ $( document ).ready(function() {
 						if (w != -99){
 							w = w * 100;
 							w = roundTo(w,0);
-							$("#emiss_redux_1").html(w + "%" + v.eu)
+							$("#emiss_redux_1").html(w + "%" /*+ v.eu*/)
 						}
 						else{
 							$("#emiss_redux_1").html("N/A")
@@ -109,15 +109,63 @@ $( document ).ready(function() {
 				});	
 			}
 		});
-		$("#mpInfo").click(function(){
-			$("#mpInfoText").slideDown();
-			$("#mpInfo").hide();
-			$("#hideInfo").show();
+
+
+		$(".h3InfoIcon").hover(function(){
+			if (!$(this).parent().parent().find(".h3Info").hasClass("closeH3Info")){
+				$(this).parent().parent().find(".h3Info").removeClass("shown").slideDown();
+			}
+		}, function(){
+			if (!$(this).parent().parent().find(".h3Info").hasClass("shown")){
+				$(this).parent().parent().find(".h3Info").slideUp();
+			}	
+			$(this).parent().parent().find(".h3Info").removeClass("closeH3Info")
+		});
+		$(".h3InfoIcon").click(function(){
+			$(this).parent().parent().find(".h3Info").addClass("shown").slideDown();
+			$(this).hide();
+			$(this).parent().find(".hideH3InfoIcon").show();
 		})
-		$("#hideInfo").click(function(){
-			$("#mpInfoText").slideUp();
-			$("#hideInfo").hide();
-			$("#mpInfo").show();	
+		$(".hideH3InfoIcon").click(function(){
+			$(this).parent().parent().find(".h3Info").slideUp();
+			$(this).parent().parent().find(".h3Info").addClass("closeH3Info")
+			$(this).hide();
+			$(this).parent().find(".h3InfoIcon").show();	
+		})	
+		
+		// Att Box info hover and clicks
+		// Hover on att div show info
+		$(".infoIconAttDiv").hover(function(){
+			if (!$(this).parent().find(".sum-att-info").hasClass("closeAtInfo")){
+				$(this).parent().find(".sum-att-info").removeClass("shown").show();
+				$(this).parent().find(".sum-att").hide();
+				$(this).parent().find(".sum-att-label").hide();
+			}	
+		}, 
+		function(){
+			if (!$(this).parent().find(".sum-att-info").hasClass("shown")){
+				$(this).parent().find(".sum-att-info").hide();
+				$(this).parent().find(".sum-att").show();
+				$(this).parent().find(".sum-att-label").show();
+			}	
+			$(this).parent().find(".sum-att-info").removeClass("closeAtInfo")
+		});
+		// Click on att div show info
+		$(".infoIconAttDiv").click(function(){
+			$(this).parent().find(".sum-att-info").addClass("shown").show();
+			$(this).hide();
+			$(this).parent().find(".sum-att").hide();
+			$(this).parent().find(".sum-att-label").hide();
+			$(this).parent().find(".hideInfoIconAttDiv").show();
+		})
+		// Click on att div hide info
+		$(".hideInfoIconAttDiv").click(function(){
+			$(this).hide();
+			$(this).parent().find(".sum-att-info").hide();
+			$(this).parent().find(".sum-att").show();
+			$(this).parent().find(".sum-att-label").show();
+			$(this).parent().find(".sum-att-info").addClass("closeAtInfo");
+			$(this).parent().find(".infoIconAttDiv").show();
 		})	
 		$("#dl-cr").click(function(){
 			cd.country = cd.country.replace(/ /g,"%20");
