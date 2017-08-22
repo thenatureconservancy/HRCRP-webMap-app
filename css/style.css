@@ -187,6 +187,9 @@ html, body{
 .sum-att-info{
 	display:none; font-family:Brown-Light; color:#8a8a8a; margin-top:4px;
 }
+.att-div-last .sum-att-info{
+	color:#fff;
+}
 .hideInfo{
 	display:none; cursor:pointer;
 }
