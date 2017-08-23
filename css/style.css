@@ -77,25 +77,13 @@ html, body{
 }
 .green-corner::before,
 .green-corner::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-color: transparent;
-    border-style: solid;
+    content:''; position:absolute; top:0; right:0; border-color: transparent; border-style:solid;
 }
-
 .green-corner::before {
-    border-width: 1px;
-    border-right-color:#3C454A;
-    border-top-color:#3C454A;
+    border-width: 1px; border-right-color:#B0D6EA; border-top-color:#B0D6EA;
 }
-
 .green-corner::after {
-    border-radius: 0;
-    border-width: 8px;
-    border-right-color: #3fb149;
-    border-top-color: #3fb149;
+    border-radius:0; border-width:8px; border-right-color:#B0D6EA; border-top-color:#B0D6EA;
 }
 .c-sel{
 	display:none;

@@ -12,7 +12,7 @@ function createChart(){
 	        datasets: [{
 	            label: '# of Votes',
 	            data: [12, 19, 3, 1400, 8, 3, 7, 9, 10, 5],
-	            backgroundColor:"#3fb149",
+	            backgroundColor:"#B0D6EA",
 	            borderWidth: 0
 	        }]
 	    },
