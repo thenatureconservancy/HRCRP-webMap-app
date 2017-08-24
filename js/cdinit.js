@@ -64,9 +64,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
 			if (e.features.length > 0){
 				var obid = e.features[0].attributes.OBJECTID;
 				$("#selectCountry").val(obid).trigger("chosen:updated").trigger("change");						
-			}else{
-				$("#selectCountry").val("").trigger("chosen:updated").trigger("change");	
-			}	
+			}
 		})	
 	})
 });
