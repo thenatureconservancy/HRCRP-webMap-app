@@ -19,48 +19,52 @@
 </head>
 
 <body>
+	<!-- wrapper for map and controls -->
 	<div id="cd_wrap">
+		<!-- wrapper for controls -->
 		<div id="cd_left">
-			<section id="top-wrap" >
-				<h3 style="margin-top:10px; font-size:17px;">NDC Targets & NCS Mitigation</h3>
-				<div class="flex-wrap">
-					<div class="chosen-wrap" style="margin-bottom:4px;">
-						<select data-placeholder="Select a Country" id="selectCountry" class="chosen">
-							<option></option>
-						</select>
-					</div>
-					<div class="country-selected country-report-wrap">
-						<button class="cr-button" id="dl-cr">Country Report</button>
-					</div>	
+			<h3 style="margin-top:10px; font-size:17px;">NDC Targets & NCS Mitigation</h3>
+			<!-- wrapper for chosen country menu and country report -->
+			<div class="flex-wrap">
+				<div class="chosen-wrap" style="margin-bottom:4px;">
+					<select data-placeholder="Select a Country" id="selectCountry" class="chosen">
+						<option></option>
+					</select>
 				</div>
-				<div class="flex-wrap">	
-					<div class="att-div country-selected" style="margin-left:0;">
-						<div class="sum-label">NDC Reduction Target</div>
-						<div id="emiss_redux_1" class="sum-att">XX</div>
-						<div class="sum-att-info">Brief explanation of this box</div>
-						<img src="images/info.png" alt="Explain NDC Reduction Target" class="infoIconAttDiv">
-						<img src="images/infoClose.png" alt="Close NDC Reduction Target" class="hideInfoIconAttDiv">
-					</div>
-					<div class="att-div country-selected">
-						<div class="sum-label">Emissions Reduction Target</div>
-						<div id="emiss_cut" class="sum-att">XX</div>
-						<div class="sum-att-label">Mt CO<sub>2</sub>e/yr</div> 
-						<div class="sum-att-info">Brief explanation of this box</div>
-						<img src="images/info.png" alt="Explain Emissions Reduction Target" class="infoIconAttDiv">
-						<img src="images/infoClose.png" alt="Close Emissions Reduction Target" class="hideInfoIconAttDiv">
-					</div>
-					<div class="att-div att-div-last country-selected">
-						<div class="sum-label">NCS Mitigation Potential</div>
-						<div id="nscMitPoten" class="sum-att sum-att-last">XX</div>
-						<div class="ur-corner"></div>
-						<div class="sum-att-label">Mt CO<sub>2</sub>e/yr</div> 
-						<div class="sum-att-info">Brief explanation of this box</div>
-						<img src="images/info.png" alt="Explain NCS Mitigation Potential" class="infoIconAttDiv">
-						<img src="images/infoClose.png" alt="Close NCS Mitigation Potential" class="hideInfoIconAttDiv">
-					</div>
+				<div class="country-selected country-report-wrap">
+					<button class="cr-button" id="dl-cr">Country Report</button>
+				</div>	
+			</div>
+			<!-- wrapper for attribute boxes -->
+			<div class="flex-wrap">	
+				<div class="att-div country-selected" style="margin-left:0;">
+					<div class="sum-label">NDC Reduction Target</div>
+					<div id="emiss_redux_1" class="sum-att">XX</div>
+					<div class="sum-att-info">Brief explanation of this box</div>
+					<img src="images/info.png" alt="Explain NDC Reduction Target" class="infoIconAttDiv">
+					<img src="images/infoClose.png" alt="Close NDC Reduction Target" class="hideInfoIconAttDiv">
 				</div>
-			</section>
-			<section class="country-selected">
+				<div class="att-div country-selected">
+					<div class="sum-label">Emissions Reduction Target</div>
+					<div id="emiss_cut" class="sum-att">XX</div>
+					<div class="sum-att-label">Mt CO<sub>2</sub>e/yr</div> 
+					<div class="sum-att-info">Brief explanation of this box</div>
+					<img src="images/info.png" alt="Explain Emissions Reduction Target" class="infoIconAttDiv">
+					<img src="images/infoClose.png" alt="Close Emissions Reduction Target" class="hideInfoIconAttDiv">
+				</div>
+				<div class="att-div att-div-last country-selected">
+					<div class="sum-label">NCS Mitigation Potential</div>
+					<div id="nscMitPoten" class="sum-att sum-att-last">XX</div>
+					<div class="ur-corner"></div>
+					<div class="sum-att-label">Mt CO<sub>2</sub>e/yr</div> 
+					<div class="sum-att-info">Brief explanation of this box</div>
+					<img src="images/info.png" alt="Explain NCS Mitigation Potential" class="infoIconAttDiv">
+					<img src="images/infoClose.png" alt="Close NCS Mitigation Potential" class="hideInfoIconAttDiv">
+				</div>
+			</div>
+			<!-- wrapper for both charts set to display none at startup -->
+			<div class="country-selected">
+				<!-- wrapper for pathways chart header and info text - added to select parent on info clicks -->
 				<div>	
 					<h3>Mitigation Potential for Select Pathways<img src="images/info.png" alt="show mitigation potential info" class="h3InfoIcon"><img src="images/infoClose.png" alt="hide mitigation potential info" class="hideH3InfoIcon"></h3>
 					<div class="h3Info">	
@@ -68,7 +72,8 @@
 						<p>The 10 pathways not detailed on this website are: Improved (Forest) Plantations, (Forest) Fire Management, Avoided Coastal Wetland Impactsbeyond mangroves (seagrass and salt marsh), Coastal Wetland Restoration(mangroves, seagrass, and salt marsh), Avoided Grassland Conversion, Biochar, Cropland Nutrient Management, Conservation Agriculture, Trees in Croplands, Grazing –Improved Feed, Grazing –Animal Management.</p>
 						<p>The global data for these pathways were either not spatially explicit or were insufficient to disaggregate at the country level.</p>
 					</div>	
-				</div>	
+				</div>
+				<!-- pathways chart and labels wrapper -->
 				<div style="position:relative">
 					<div class="chart-units">Mt CO<sub>2</sub>e/yr</div>
 					<canvas id="pathwayChart"></canvas>
@@ -124,13 +129,15 @@
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>			
 					</div>			
-				</div>		
-			</section>
-			<section class="country-selected">
-				<h3>NCS Contribution to Paris Commitment<img src="images/info.png" alt="show NCS Contribution info" class="h3InfoIcon"><img src="images/infoClose.png" alt="hide NCS Contribution info" class="hideH3InfoIcon"></h3>
-				<div class="h3Info">
-					<p>Proportion of climate mitigation provided by natural systems and agriculture management compared to this country’s submitted NDC</p>
 				</div>
+				<!-- wrapper for Paris commitment chart header and info text - added to select parent on info clicks -->	
+				<div>	
+					<h3>NCS Contribution to Paris Commitment<img src="images/info.png" alt="show NCS Contribution info" class="h3InfoIcon"><img src="images/infoClose.png" alt="hide NCS Contribution info" class="hideH3InfoIcon"></h3>
+					<div class="h3Info">
+						<p>Proportion of climate mitigation provided by natural systems and agriculture management compared to this country’s submitted NDC</p>
+					</div>
+				</div>
+				<!-- Paris commitment chart and labels wrapper -->
 				<div class="chart-units">Mt CO<sub>2</sub>e/yr</div>
 				<div class="commit-div">
 					<div class='commitment-wrap'>	
@@ -151,8 +158,9 @@
 					<div>Total<br>Commitment</div>
 					<div style="text-align:right; flex:1;">Natural<br>Systems</div>
 				</div>	
-			</section>	
+			</div>	
 		</div>
+		<!-- map div -->
 		<div id="cd_map"></div>
 	</div>	
 </body>
