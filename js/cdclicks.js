@@ -170,26 +170,28 @@ $( document ).ready(function() {
 			window.open("https://nsttnc.blob.core.windows.net/ncs/" + cd.country + "%20Report.pdf")
 		});	
 		// hover on pathways
-		$(".pathway-link").hover(
-			function(){
-				$(this).css({color: "#3C454A", fontFamily: "Brown-Regular"})
-				var pathway = this.classList[1];
-				var h = cd.highArray.indexOf(pathway + "_high");
-				var ceVal = cd.highVals[h];
-				var m = cd.maxArray.indexOf(pathway + "_max");
-				var mpVal =cd.maxVals[m];
-				cd.mcPieChart.data.datasets[0].data = [ceVal,mpVal];
-				cd.mcPieChart.update();
-				$("#ceVal").html( commaSeparateNumber(roundTo(ceVal,1)) );
-				$("#mpVal").html( commaSeparateNumber(roundTo(mpVal,1)) );
-				var position = $(this).offset().top + 16;
-				$("#pieChartDiv").css( {position:"absolute", top:position, left: 78}).show();
-			},
-			function(){
-				$("#pieChartDiv").hide();
-				$(this).css({color: "#0921ea", fontFamily:"Brown-Light"})
-			}
-		)
+		$(".pathway-link").click(function(){
+			$(".pathway-link").css({color: "#0921ea", fontFamily: "Brown-Light"})
+			$(this).css({color: "#3C454A", fontFamily: "Brown-Regular"})
+			cd.pathway = this.classList[1];
+			var h = cd.highArray.indexOf(cd.pathway + "_high");
+			var ceVal = cd.highVals[h];
+			var m = cd.maxArray.indexOf(cd.pathway + "_max");
+			var mpVal =cd.maxVals[m];
+			cd.mcPieChart.data.datasets[0].data = [ceVal,mpVal];
+			cd.mcPieChart.update();
+			$("#ceVal").html( commaSeparateNumber(roundTo(ceVal,1)) );
+			$("#mpVal").html( commaSeparateNumber(roundTo(mpVal,1)) );
+			var position = $(this).offset().top + 16;
+			$("#pieChartDiv").css( {position:"absolute", top:position, left: 78}).show();
+		})
+		$("#closePieInfo").click(function(){
+			$(".pathway-link").css({color: "#0921ea", fontFamily: "Brown-Light"})
+			$("#pieChartDiv").hide()
+		})
+		$("#pie-link").click(function(){
+			window.open(cd.linkArray[cd.pathway])
+		})
 	//create chart
 	createChart();	
 });

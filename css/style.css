@@ -127,7 +127,7 @@ html, body{
 	display:flex; justify-content:flex-end; flex:0 0 66px;
 }
 .pathway-link{
-	color:#0921ea; text-decoration:none; flex:0 0 267px; margin-left:8px;
+	color:#0921ea; text-decoration:none; flex:0 0 267px; margin-left:8px; cursor:pointer;
 }
 .pathway-arrow{
 	flex:1; 
@@ -153,10 +153,22 @@ html, body{
 	margin-top:6px;
 }
 .pie-box{
-	height:14px; width:14px; margin:1px 4px 0 5px;
+	height:12px; width:12px; margin:1px 4px 0 5px;
 }
 .pie-text{
 	font-size:13px; font-family:Brown-Light; margin-top:2px;
+}
+#pieCloseWrap{
+	margin-left:4px;
+}
+#closePieInfo{
+	cursor:pointer; margin:-1px -1px 0 0;
+}
+#pie-learn-more-wrap{
+	text-align:center; margin-top:2px; color:#0921ea; font-size:13px; font-family:Brown-Light;
+}
+#pie-link{
+	cursor:pointer; 
 }
 
 /* contribution to paris commitment chart and labels */
