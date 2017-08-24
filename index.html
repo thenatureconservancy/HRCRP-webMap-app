@@ -80,55 +80,73 @@
 					<div class="pathway-name-wrap">
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#reforestation" target="_blank">Reforestation</a>
+							<a class="pathway-link refor" href="http://naturalclimatesolutions.org/#reforestation" target="_blank">Reforestation</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#forest-protection" target="_blank">Avoided Forest Conversion</a>
+							<a class="pathway-link defor" href="http://naturalclimatesolutions.org/#forest-protection" target="_blank">Avoided Forest Conversion</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#forest-carbon-solutions" target="_blank">Natural Forest Management</a>
+							<a class="pathway-link natfor" href="http://naturalclimatesolutions.org/#forest-carbon-solutions" target="_blank">Natural Forest Management</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#peatlands" target="_blank">Peatland Restoration</a>
+							<a class="pathway-link peat_res" href="http://naturalclimatesolutions.org/#peatlands" target="_blank">Peatland Restoration</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#peatlands" target="_blank">Avoided Peat Impacts</a>
+							<a class="pathway-link peat_loss" href="http://naturalclimatesolutions.org/#peatlands" target="_blank">Avoided Peat Impacts</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#forest-carbon-solutions" target="_blank">Avoided Woodfuel Harvest</a>
+							<a class="pathway-link wfuel" href="http://naturalclimatesolutions.org/#forest-carbon-solutions" target="_blank">Avoided Woodfuel Harvest</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#coastal-wetlands" target="_blank">Avoided Mangrove Impacts</a>
+							<a class="pathway-link mangrove" href="http://naturalclimatesolutions.org/#coastal-wetlands" target="_blank">Avoided Mangrove Impacts</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Improved Rice Cultivation</a>
+							<a class="pathway-link rice" href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Improved Rice Cultivation</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Grazing - Optimal Intensity</a>
+							<a class="pathway-link optint" href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Grazing - Optimal Intensity</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
-							<a class="pathway-link" href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Grazing - Legumes</a>
+							<a class="pathway-link legumes" href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Grazing - Legumes</a>
 							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>			
 					</div>			
+				</div>
+				<!-- pie chart and wrapper -->
+				<div id="pieChartDiv">
+					<div class="flex-wrap">	
+						<div>
+							<canvas id="mcPieChart"></canvas>
+						</div>
+						<div class="pieinfo-wrap">
+							<div class="flex-wrap">
+								<div class="max-potential-box pie-box"></div>
+								<div class="pie-text">Max Potential: <span id="mpVal"></span></div>
+							</div>
+							<div class="flex-wrap">
+								<div class="cost-efective-box pie-box"></div>
+								<div class="pie-text">Cost Effective: <span id="ceVal"></span></div>
+							</div>
+						</div>
+					</div>	
 				</div>
 				<!-- wrapper for Paris commitment chart header and info text - added to select parent on info clicks -->	
 				<div>	

@@ -113,7 +113,7 @@ html, body{
 	display:none; cursor:pointer; position:absolute; bottom:2px; right:2px;
 }
 
-/* mitigation portential for select pathway chart and labels */
+/* mitigation portential for select pathways chart and labels */
 #pathwayChart{
 	height:257px !important; width:300px !important; margin-left:54px;
 }
@@ -137,6 +137,26 @@ html, body{
 }
 .chart-units{
 	font-size:11px; color:#8a8a8a; margin-bottom:-5px;
+}
+
+/*pie chart showing max vs cost effective*/
+#mcPieChart{
+	height:40px !important; width:40px !important;
+}
+#pieChartDiv{
+	border:1px solid #A7ACAF; background:#fff; box-shadow:0 1px 1px rgba(16,22,26,.2); display:none; padding:3px; 
+}
+.pieinfo-wrap{
+	font-size:13px; font-family:Brown-Light; text-align:center; margin-top:2px;
+}
+.pieinfo-wrap .flex-wrap:last-of-type{
+	margin-top:6px;
+}
+.pie-box{
+	height:14px; width:14px; margin:1px 4px 0 5px;
+}
+.pie-text{
+	font-size:13px; font-family:Brown-Light; margin-top:2px;
 }
 
 /* contribution to paris commitment chart and labels */

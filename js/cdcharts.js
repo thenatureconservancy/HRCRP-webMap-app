@@ -60,6 +60,24 @@ function createChart(){
 	    }
 	  }
 	});
+
+	// max value vs cost effective pie chart
+	var mcc = $("#mcPieChart");
+	var pdata = {
+    	datasets: [{
+        	data: [10, 20],
+        	backgroundColor: ["#247BB6", "#49B2E3"],
+        	borderColor: "#247BB6",
+        	borderWidth: 0,
+        	hoverBackgroundColor: ["#247BB6", "#49B2E3"],
+        	hoverBorderColor: "#247BB6",
+        	hoverBorderWidth: 0
+    	}]
+	};
+	cd.mcPieChart = new Chart(mcc,{
+    	type: 'pie',
+    	data: pdata
+	});
 }
 function updateChart(){
 	var max = 0;

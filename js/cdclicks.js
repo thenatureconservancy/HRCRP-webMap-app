@@ -130,21 +130,23 @@ $( document ).ready(function() {
 		
 		// Att Box info hover and clicks
 		// Hover on att div show info
-		$(".infoIconAttDiv").hover(function(){
-			if (!$(this).parent().find(".sum-att-info").hasClass("closeAtInfo")){
-				$(this).parent().find(".sum-att-info").removeClass("shown").show();
-				$(this).parent().find(".sum-att").hide();
-				$(this).parent().find(".sum-att-label").hide();
-			}	
-		}, 
-		function(){
-			if (!$(this).parent().find(".sum-att-info").hasClass("shown")){
-				$(this).parent().find(".sum-att-info").hide();
-				$(this).parent().find(".sum-att").show();
-				$(this).parent().find(".sum-att-label").show();
-			}	
-			$(this).parent().find(".sum-att-info").removeClass("closeAtInfo")
-		});
+		$(".infoIconAttDiv").hover(
+			function(){
+				if (!$(this).parent().find(".sum-att-info").hasClass("closeAtInfo")){
+					$(this).parent().find(".sum-att-info").removeClass("shown").show();
+					$(this).parent().find(".sum-att").hide();
+					$(this).parent().find(".sum-att-label").hide();
+				}	
+			}, 
+			function(){
+				if (!$(this).parent().find(".sum-att-info").hasClass("shown")){
+					$(this).parent().find(".sum-att-info").hide();
+					$(this).parent().find(".sum-att").show();
+					$(this).parent().find(".sum-att-label").show();
+				}	
+				$(this).parent().find(".sum-att-info").removeClass("closeAtInfo")
+			}
+		);
 		// Click on att div show info
 		$(".infoIconAttDiv").click(function(){
 			$(this).parent().find(".sum-att-info").addClass("shown").show();
@@ -161,11 +163,33 @@ $( document ).ready(function() {
 			$(this).parent().find(".sum-att-label").show();
 			$(this).parent().find(".sum-att-info").addClass("closeAtInfo");
 			$(this).parent().find(".infoIconAttDiv").show();
-		})	
+		})
+		// click on country report	
 		$("#dl-cr").click(function(){
 			cd.country = cd.country.replace(/ /g,"%20");
 			window.open("https://nsttnc.blob.core.windows.net/ncs/" + cd.country + "%20Report.pdf")
 		});	
+		// hover on pathways
+		$(".pathway-link").hover(
+			function(){
+				$(this).css({color: "#3C454A", fontFamily: "Brown-Regular"})
+				var pathway = this.classList[1];
+				var h = cd.highArray.indexOf(pathway + "_high");
+				var ceVal = cd.highVals[h];
+				var m = cd.maxArray.indexOf(pathway + "_max");
+				var mpVal =cd.maxVals[m];
+				cd.mcPieChart.data.datasets[0].data = [ceVal,mpVal];
+				cd.mcPieChart.update();
+				$("#ceVal").html( commaSeparateNumber(roundTo(ceVal,1)) );
+				$("#mpVal").html( commaSeparateNumber(roundTo(mpVal,1)) );
+				var position = $(this).offset().top + 16;
+				$("#pieChartDiv").css( {position:"absolute", top:position, left: 78}).show();
+			},
+			function(){
+				$("#pieChartDiv").hide();
+				$(this).css({color: "#0921ea", fontFamily:"Brown-Light"})
+			}
+		)
 	//create chart
 	createChart();	
 });
