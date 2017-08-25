@@ -3,6 +3,7 @@ $( document ).ready(function() {
 	// set up chosen country menu
 	$("#selectCountry").chosen({allow_single_deselect:false, width:"235px"})
 		.change(function(c){
+			$("#closePieInfo").trigger("click");
 			var val = c.target.value;
 			cd.country = $("#selectCountry option:selected").text();
 			var rep = "no";
