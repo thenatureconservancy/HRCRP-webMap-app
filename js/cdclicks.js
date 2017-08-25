@@ -107,6 +107,9 @@ $( document ).ready(function() {
 
 
 		$(".h3InfoIcon").hover(function(){
+			if ( $(this).hasClass("top-one") ){
+				$("#closePieInfo").trigger("click");
+			}
 			if (!$(this).parent().parent().find(".h3Info").hasClass("closeH3Info")){
 				$(this).parent().parent().find(".h3Info").removeClass("shown").slideDown();
 			}
@@ -117,6 +120,9 @@ $( document ).ready(function() {
 			$(this).parent().parent().find(".h3Info").removeClass("closeH3Info")
 		});
 		$(".h3InfoIcon").click(function(){
+			if ( $(this).hasClass("top-one") ){
+				$("#closePieInfo").trigger("click");
+			}
 			$(this).parent().parent().find(".h3Info").addClass("shown").slideDown();
 			$(this).hide();
 			$(this).parent().find(".hideH3InfoIcon").show();
