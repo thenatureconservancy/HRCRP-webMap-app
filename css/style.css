@@ -146,6 +146,9 @@ html, body{
 #pieChartDiv{
 	border:1px solid #A7ACAF; background:#fff; box-shadow:0 1px 1px rgba(16,22,26,.2); display:none; padding:3px; 
 }
+#pie-fill{
+	background:#49b2e3; position:absolute; width:10px; height:10px; border:1px solid #000;
+}
 .pieinfo-wrap{
 	font-size:13px; font-family:Brown-Light; text-align:center; margin-top:2px;
 }

@@ -76,7 +76,10 @@ function createChart(){
 	};
 	cd.mcPieChart = new Chart(mcc,{
     	type: 'pie',
-    	data: pdata
+    	data: pdata,
+    	options: {
+    		cutoutPercentage:-1
+    	}
 	});
 }
 function updateChart(){
