@@ -200,7 +200,7 @@ html, body{
 	font-size:13px; width:70px; font-family:Brown-Light;
 }
 .label-wrap{
-	display:flex; font-size:13px; margin:-23px 0px 0px 58px; width:171px; font-family:Brown-Light; text-align:center;
+	display:flex; font-size:13px; margin:-23px 0px 0px 58px; width:164px; font-family:Brown-Light; text-align:center;
 }
 /* esri slider position and colors */
 .esriSimpleSliderTL {
@@ -261,6 +261,6 @@ html, body{
 		width:310px;
 	}
 	.label-wrap {
-    	margin:-23px 0px 0px 38px; width:143px;
+    	margin:-23px 0px 0px 44px; width:139px;
 	}
 }	
