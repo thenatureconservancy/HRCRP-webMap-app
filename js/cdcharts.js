@@ -12,7 +12,7 @@ function createChart(){
 	        datasets: [{
 	            label: '# of Votes',
 	            data: [12, 19, 3, 1400, 8, 3, 7, 9, 10, 5],
-	            backgroundColor:"#B0D6EA",
+	            backgroundColor:"#81d08f",
 	            borderWidth: 0
 	        }]
 	    },
@@ -29,12 +29,12 @@ function createChart(){
 	var data = {
 	  labels: ["", ""],
 	  datasets: [{
-	      backgroundColor: "#247BB6",
-	      borderColor: "#247BB6",
+	      backgroundColor: "#39984a",
+	      borderColor: "#39984a",
 	      data: [0,40]
 	    }, {
-	      backgroundColor: "#49B2E3",
-	      borderColor: "#49B2E3",
+	      backgroundColor: "#983958",
+	      borderColor: "#983958",
 	      data: [0,60]
 	    }, {
 	      backgroundColor: "#3C454A",
@@ -66,11 +66,11 @@ function createChart(){
 	var pdata = {
     	datasets: [{
         	data: [10, 20],
-        	backgroundColor: ["#247BB6", "#49B2E3"],
-        	borderColor: "#247BB6",
+        	backgroundColor: ["#39984a","#983958"],
+        	borderColor: "#C8841D",
         	borderWidth: 0,
-        	hoverBackgroundColor: ["#247BB6", "#49B2E3"],
-        	hoverBorderColor: "#247BB6",
+        	hoverBackgroundColor: ["#39984a","#983958"],
+        	hoverBorderColor: "#983958",
         	hoverBorderWidth: 0
     	}]
 	};
@@ -104,7 +104,7 @@ function updateChart(){
 			var y = roundTo(cd.lblArray[i], 4)
 			y = commaSeparateNumber(y)
 			if (i == 1 || i == 2 || i == 4 || i == 6 || i == 7 || i == 8 || i == 9){
-				$(v).html('<img src="images/lowCost.png" height="17px" width="17px" style="margin-top:-2px; margin-right:2px;">' + y)	
+				$(v).html('<img src="images/lowCost.png" height="17px" width="17px" style="margin-top:3px; margin-right:2px;">' + y)	
 			}else{
 				$(v).html(y)	
 			}

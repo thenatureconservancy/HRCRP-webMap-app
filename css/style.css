@@ -17,10 +17,11 @@ html, body{
 	display:flex; height:100%; width:100%; color:#3C454A; font-size:13px; font-family:Brown-Regular;
 }
 #cd_left{
-	flex:0 0 380px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; overflow-y:auto; background:#f7f7f7;
+	flex:0 0 480px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; overflow-y:auto; background:#f7f7f7;
 }
 #cd_map{
-	height:100%; width:100%;
+	height:100%; width:100%; background: #bbb; background: -webkit-radial-gradient(#eee, #bbb); 
+    background: -moz-radial-gradient(#eee, #bbb); background: radial-gradient(#eee, #bbb); 
 }
 
 /* h3 styles and info icon and text */
@@ -34,7 +35,7 @@ html, body{
     margin-bottom:-2px; margin-left:3px; cursor:pointer; display:none;
 }
 .h3Info{
-	display:none; font-family:Brown-Light; color:#8a8a8a; margin:-4 10px 0 4px;
+	display:none; font-family:Brown-Light; color:#3c454a; margin:0px 10px 25px 4px; line-height:15px; 
 }
 
 /* wrapper div for flexbox rows */
@@ -44,11 +45,11 @@ html, body{
 
 /* chosen */
 .chosen-wrap .chosen-container-single .chosen-single{
- 	padding:6px 0 0 10px; height:35px; border:1px solid #A7ACAF; border-radius:0px; background:#fff; background-clip:padding-box;
- 	color:#3C454A; text-decoration:none; white-space:nowrap; line-height:1.5; text-align:left; box-shadow:none;
+ 	padding:6px 0 0 10px; height:28px; border:1px solid #A7ACAF; border-radius:0px; background:#fff; background-clip:padding-box;
+ 	color:#3C454A; text-decoration:none; white-space:nowrap; line-height:1.2; text-align:left; box-shadow:none;
 }
 .chosen-wrap .chosen-container-single .chosen-single div b{
- 	margin-top:4px
+ 	margin-top:2px
 }
 .chosen-wrap .chosen-container-single .chosen-single abbr{
  	top:10px;right:20px
@@ -68,12 +69,12 @@ html, body{
 }	
 .cr-button{
  	display:inline-block; -webkit-appearance:none; cursor:pointer; vertical-align:middle; text-align:center; text-decoration:none; overflow:visible; 
- 	font-size:13px; line-height:1.5; padding:7px 10px; border-radius:0px; background-color:#fff; border:1px solid #A7ACAF; color:#3C454A;
+ 	font-size:13px; line-height:1.2; border-radius:0px; background-color:#fff; border:1px solid #A7ACAF; color:#3C454A; height:28px; width:148px;
 }
 
 /* three large attribute divs */
 .att-div{
-	width:102px; margin:3px; border:1pt solid #A7ACAF; padding:5px; position:relative; min-height:72px;
+	margin:3px; border:1pt solid #A7ACAF; padding:5px; position:relative; min-height:72px; background:#fff; flex:1;
 }
 .sum-att{
 	color:#3C454A; font-size:24px; font-weight:bold; text-align:center; margin-top:10px; margin-bottom:0px;
@@ -82,7 +83,7 @@ html, body{
 	font-size:11px; text-align:center; margin:0; color:#8a8a8a;
 }
 .sum-label{
-	text-align:center; font-family:Brown-Light;
+	text-align:center; font-family:Brown-Light; height:25px; padding:6px 6px 3px 6px;
 }
 .att-div-last{
 	background:#3C454A; color:#fff;
@@ -91,7 +92,7 @@ html, body{
 	color:#fff;
 }
 .sum-att-info{
-	display:none; font-family:Brown-Light; color:#8a8a8a; margin-top:4px;
+	display:none; font-family:Brown-Light; color:#8a8a8a; margin-top:4px; font-size:11px; margin-right:12px;
 }
 .att-div-last .sum-att-info{
 	color:#fff;
@@ -104,7 +105,7 @@ html, body{
     border-width: 1px; border-right-color:#B0D6EA; border-top-color:#B0D6EA;
 }
 .ur-corner::after {
-    border-radius:0; border-width:8px; border-right-color:#B0D6EA; border-top-color:#B0D6EA;
+    border-radius:0; border-width:8px; border-right-color:#81d08f; border-top-color:#81d08f;
 }
 .infoIconAttDiv{
 	cursor:pointer; position:absolute; bottom:2px; right:2px;
@@ -115,22 +116,22 @@ html, body{
 
 /* mitigation portential for select pathways chart and labels */
 #pathwayChart{
-	height:257px !important; width:300px !important; margin-left:54px;
+	height:263px !important; width:400px !important; margin-left:54px;
 }
 .pathway-name-wrap{
-	position:absolute; top:20px; left:0px; 
+	position:absolute; top:18px; left:0px; 
 }
 .pathway-name{
-	display:flex; font-size:14px; font-family:Brown-Light; margin-bottom:8px;
+	display:flex; font-size:14px; font-family:Brown-Light; line-height:1.7;
 }
 .pathway-label{
 	display:flex; justify-content:flex-end; flex:0 0 66px;
 }
 .pathway-link{
-	color:#0921ea; text-decoration:none; flex:0 0 267px; margin-left:8px; cursor:pointer;
+	color:#3C454A; text-decoration:none; flex:0 0 366px; margin-left:8px; cursor:pointer;
 }
 .pathway-arrow{
-	flex:1; 
+	flex:1; margin-top:-1px;
 }
 .p-a{
 	color:#3C454A; font-weight:bold; font-size:14px; font-family:Brown-Light;
@@ -179,28 +180,28 @@ html, body{
 	 margin-top:17px;
 }
 #commitmentChart{
-	height:150px !important; width:250px !important;
+	height:110px !important; width:350px !important;
 }
 .legend-wrap{
-	margin-top:50px; margin-left:10px;
+	margin-top:20px; margin-left:10px;
 }
 .legend-wrap .flex-wrap:last-of-type{
 	margin-top:8px;
 }
 .legend-box{
-	height:24px; width:24px; margin:1px 5px 0 4px;
+	height:19px; width:19px; margin:3px 5px 0 4px;
 }
 .max-potential-box{
-	background:#49B2E3; box-shadow:0 1px 1px rgba(16,22,26,.2);
+	background:#983958; box-shadow:0 1px 1px rgba(16,22,26,.2);
 }
 .cost-efective-box{
-	background:#247BB6; box-shadow:0 1px 1px rgba(16,22,26,.2);
+	background:#39984a; box-shadow:0 1px 1px rgba(16,22,26,.2);
 }
 .legend-text{
 	font-size:13px; width:70px; font-family:Brown-Light;
 }
 .label-wrap{
-	display:flex; font-size:13px; margin:-23px 0px 0px 58px; width:164px; font-family:Brown-Light; text-align:center;
+	display:flex; font-size:13px; margin:-23px 0px 0px 66px; width:256px; font-family:Brown-Light; text-align:center;
 }
 /* esri slider position and colors */
 .esriSimpleSliderTL {

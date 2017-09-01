@@ -1,7 +1,7 @@
 // chosen menu and listeners
 $( document ).ready(function() {
 	// set up chosen country menu
-	$("#selectCountry").chosen({allow_single_deselect:false, width:"235px"})
+	$("#selectCountry").chosen({allow_single_deselect:false, width:"303px"})
 		.change(function(c){
 			$("#closePieInfo").trigger("click");
 			var val = c.target.value;
@@ -178,7 +178,7 @@ $( document ).ready(function() {
 		});	
 		// hover on pathways
 		$(".pathway-link").click(function(){
-			$(".pathway-link").css({color: "#0921ea", fontFamily: "Brown-Light"})
+			$(".pathway-link").css({color: "#3C454A", fontFamily: "Brown-Light"})
 			$(this).css({color: "#3C454A", fontFamily: "Brown-Regular"})
 			cd.pathway = this.classList[1];
 			var h = cd.highArray.indexOf(cd.pathway + "_high");
@@ -193,7 +193,7 @@ $( document ).ready(function() {
 			$("#pieChartDiv").css( {position:"absolute", top:position, left: 78}).show();
 		})
 		$("#closePieInfo").click(function(){
-			$(".pathway-link").css({color: "#0921ea", fontFamily: "Brown-Light"})
+			$(".pathway-link").css({color: "#3C454A", fontFamily: "Brown-Light"})
 			$("#pieChartDiv").hide()
 		})
 		$("#pie-link").click(function(){
