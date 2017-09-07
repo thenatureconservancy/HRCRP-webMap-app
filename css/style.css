@@ -1,3 +1,48 @@
+/* style rest */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
 html, body{
 	height:100%; padding:0; margin:0; 
 }
@@ -119,7 +164,7 @@ html, body{
 	height:263px !important; width:400px !important; margin-left:54px;
 }
 .pathway-name-wrap{
-	position:absolute; top:18px; left:0px; 
+	position:absolute; top:13px; left:0px; 
 }
 .pathway-name{
 	display:flex; font-size:14px; font-family:Brown-Light; line-height:1.7;
@@ -128,7 +173,7 @@ html, body{
 	display:flex; justify-content:flex-end; flex:0 0 66px;
 }
 .pathway-link{
-	color:#3C454A; text-decoration:none; flex:0 0 366px; margin-left:8px; cursor:pointer;
+	color:blue; text-decoration:none; flex:0 0 366px; margin-left:8px; cursor:pointer;
 }
 .pathway-arrow{
 	flex:1; margin-top:-1px;
