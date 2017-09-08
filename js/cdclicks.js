@@ -166,8 +166,8 @@ $( document ).ready(function() {
 		});	
 		// clicks on pathways
 		$(".pathway-link").click(function(){
-			$(".pathway-link").css({color: "blue", fontFamily: "Brown-Light"})
-			$(this).css({color: "#3C454A", fontFamily: "Brown-Regular"})
+			$(".pathway-link").css({color: "blue", fontFamily: "Lato-Light"})
+			$(this).css({color: "#3C454A", fontFamily: "Lato-Regular"})
 			cd.pathway = this.classList[1];
 			var h = cd.highArray.indexOf(cd.pathway + "_high");
 			var ceVal = cd.highVals[h];
@@ -184,7 +184,7 @@ $( document ).ready(function() {
 			$("#pieChartDiv").css( {position:"absolute", top:position, left: 78}).show();
 		})
 		$("#closePieInfo").click(function(){
-			$(".pathway-link").css({color: "blue", fontFamily: "Brown-Light"})
+			$(".pathway-link").css({color: "blue", fontFamily: "Lato-Light"})
 			$("#pieChartDiv").hide()
 		})
 		$("#pie-link").click(function(){

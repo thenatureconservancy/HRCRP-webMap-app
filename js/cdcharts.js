@@ -10,8 +10,7 @@ function createChart(){
 	    data: {
 	        labels: ["", "", "", "", "", "", "", "", "", ""],
 	        datasets: [{
-	            label: '# of Votes',
-	            data: [12, 19, 3, 1400, 8, 3, 7, 9, 10, 5],
+	            data: [12, 19, 3, 14, 8, 3, 7, 9, 10, 5],
 	            backgroundColor:"#81d08f",
 	            borderWidth: 0
 	        }]
@@ -20,8 +19,11 @@ function createChart(){
 	    	responsive: true,
 			maintainAspectRatio: false,
 	        scales: {
-	            xAxes: [{ ticks: { beginAtZero:true, max:40 } }]
-	        }
+	            xAxes: [{ ticks: { beginAtZero:true, max:40, fontFamily:"Lato-Light" } }],
+	            yAxes:[{ ticks: { beginAtZero:true} }]
+	        },
+	        events: false,
+			showTooltips: false
 	    }
 	});
 	// Commitment chart
@@ -84,7 +86,7 @@ function createChart(){
 		yAxes: [{
 			stacked: false,
 			ticks: {
-				beginAtZero: true
+				beginAtZero: true, fontFamily:"Lato-Light"
 			},
 			afterFit: function(scaleInstance) {
         		scaleInstance.width = 40; // sets the width to 100px

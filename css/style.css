@@ -49,17 +49,21 @@ html, body{
 
 /* bring in fonts */
 @font-face {
-    font-family: "Brown-Regular";
-    src: url(Brown-Regular.otf) format("opentype");
+    font-family: "Lato-Regular";
+    src: url(fonts/Lato-Regular.woff);
 }
 @font-face {
-    font-family: "Brown-Light";
-    src: url(Brown-Light.otf) format("opentype");
+    font-family: "Lato-Light";
+    src: url(fonts/Lato-Light.woff);
+}
+@font-face {
+    font-family: "Lato-Bold";
+    src: url(fonts/Lato-Bold.woff);
 }
 
 /* main div with left/app div and right/map div */
 #cd_wrap{
-	display:flex; height:100%; width:100%; color:#3C454A; font-size:13px; font-family:Brown-Regular;
+	display:flex; height:100%; width:100%; color:#3C454A; font-size:13px; font-family:"Lato-Regular";
 }
 #cd_left{
 	flex:0 0 480px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; overflow-y:auto; background:#f7f7f7;
@@ -71,7 +75,7 @@ html, body{
 
 /* h3 styles and info icon and text */
 #cd_wrap h3{
-	font-size:15px; font-weight:normal; margin:14px 0 8px 0;
+	font-size:15px; font-weight:normal; margin:14px 0 8px 0; font-family:"Lato-Bold";
 }
 .h3InfoIcon {
     margin-bottom:-2px; margin-left:3px; cursor:pointer;
@@ -80,7 +84,7 @@ html, body{
     margin-bottom:-2px; margin-left:3px; cursor:pointer; display:none;
 }
 .h3Info{
-	display:none; font-family:Brown-Light; color:#3c454a; margin:0px 10px 25px 4px; line-height:15px; 
+	display:none; font-family:Lato-Light; color:#3c454a; margin:0px 10px 25px 4px; line-height:15px; 
 }
 
 /* wrapper div for flexbox rows */
@@ -91,7 +95,7 @@ html, body{
 /* chosen */
 .chosen-wrap .chosen-container-single .chosen-single{
  	padding:6px 0 0 10px; height:28px; border:1px solid #A7ACAF; border-radius:0px; background:#fff; background-clip:padding-box;
- 	color:#3C454A; text-decoration:none; white-space:nowrap; line-height:1.2; text-align:left; box-shadow:none;
+ 	color:#3C454A; text-decoration:none; white-space:nowrap; line-height:1.2; text-align:left; box-shadow:none; font-family:"Lato-Light";
 }
 .chosen-wrap .chosen-container-single .chosen-single div b{
  	margin-top:2px
@@ -100,7 +104,13 @@ html, body{
  	top:10px;right:20px
 }
 .chosen-wrap .chosen-container-single span{
- 	color:#3C454A; margin-right:0; font-size:14px;
+ 	color:#3C454A; margin-right:0; font-size:14px; font-family:"Lato-Regular";
+}
+.chosen-container .chosen-default span{
+	font-family: "Lato-Light" !important;
+}
+.chosen-container .chosen-results li.active-result {
+	font-family: "Lato-Light";
 }
 
 /* hide stats before initial country selection */
@@ -125,10 +135,10 @@ html, body{
 	color:#3C454A; font-size:24px; font-weight:bold; text-align:center; margin-top:10px; margin-bottom:0px;
 }
 .sum-att-label{
-	font-size:11px; text-align:center; margin:0; color:#8a8a8a;
+	font-size:11px; text-align:center; margin:0; color:#8a8a8a; font-family:Lato-Light;
 }
 .sum-label{
-	text-align:center; font-family:Brown-Light; height:25px; padding:6px 6px 3px 6px;
+	text-align:center; font-family:Lato-Light; height:25px; padding:6px 6px 3px 6px;
 }
 .att-div-last{
 	background:#3C454A; color:#fff;
@@ -137,7 +147,7 @@ html, body{
 	color:#fff;
 }
 .sum-att-info{
-	display:none; font-family:Brown-Light; color:#8a8a8a; margin-top:4px; font-size:11px; margin-right:12px;
+	display:none; font-family:Lato-Light; color:#8a8a8a; margin-top:4px; font-size:11px; margin-right:12px;
 }
 .att-div-last .sum-att-info{
 	color:#fff;
@@ -161,28 +171,28 @@ html, body{
 
 /* mitigation portential for select pathways chart and labels */
 #pathwayChart{
-	height:263px !important; width:400px !important; margin-left:54px;
+	height:264px !important; width:400px !important; margin-left:54px;
 }
 .pathway-name-wrap{
 	position:absolute; top:13px; left:0px; 
 }
 .pathway-name{
-	display:flex; font-size:14px; font-family:Brown-Light; line-height:1.7;
+	display:flex; font-size:14px; font-family:Lato-Light; line-height:1.65;
 }
 .pathway-label{
 	display:flex; justify-content:flex-end; flex:0 0 66px;
 }
 .pathway-link{
-	color:blue; text-decoration:none; flex:0 0 366px; margin-left:8px; cursor:pointer;
+	color:blue; text-decoration:none; flex:0 0 366px; margin-left:8px; cursor:pointer; 
 }
 .pathway-arrow{
 	flex:1; margin-top:-1px;
 }
 .p-a{
-	color:#3C454A; font-weight:bold; font-size:14px; font-family:Brown-Light;
+	color:#3C454A; font-weight:bold; font-size:14px; font-family:Lato-Light;
 }
 .chart-units{
-	font-size:11px; color:#8a8a8a; margin-bottom:-5px; margin-left:5px;
+	font-size:11px; color:#8a8a8a; margin-bottom:-5px; margin-left:5px; font-family:Lato-Light;
 }
 
 /* chart showing max vs cost effective */
@@ -197,7 +207,7 @@ html, body{
 	position:absolute; bottom:0px; left:5px; height:25px; width:60px; background:#39984a; 
 }
 .pieinfo-wrap{
-	font-size:13px; font-family:Brown-Light; text-align:center; margin-top:4px;
+	font-size:13px; font-family:Lato-Light; text-align:center; margin-top:4px;
 }
 .pieinfo-wrap .flex-wrap:last-of-type{
 	margin-top:6px;
@@ -206,7 +216,7 @@ html, body{
 	height:12px; width:12px; margin:0px 4px 0 5px;
 }
 .pie-text{
-	font-size:13px; font-family:Brown-Light; margin-top:1px;
+	font-size:13px; font-family:Lato-Light; margin-top:1px;
 }
 #pieCloseWrap{
 	margin-left:6px;
@@ -215,7 +225,7 @@ html, body{
 	cursor:pointer; margin:-1px -1px 0 0;
 }
 #pie-learn-more-wrap{
-	text-align:center; margin-top:6px; color:#0921ea; font-size:13px; font-family:Brown-Light;
+	text-align:center; margin-top:6px; color:#0921ea; font-size:13px; font-family:Lato-Light;
 }
 #pie-link{
 	cursor:pointer; 
@@ -247,16 +257,16 @@ html, body{
 	background:#39984a; box-shadow:0 1px 1px rgba(16,22,26,.2);
 }
 .total-commitment-box{
-	border-top:3px solid #252b2e; margin-top:10px;
+	border-top:2px solid #252b2e; margin-top:10px;
 }
 .legend-text{
-	font-size:13px; width:120px; font-family:Brown-Light;
+	font-size:13px; width:120px; font-family:Lato-Light;
 }
 #cd_perCe, #ceVal{
-	font-family:Brown-Regular;
+	font-family:Lato-Regular;
 }
 .label-wrap{
-	font-size:13px; font-family:Brown-Light; margin:-21px 0px 0px 107px;
+	font-size:13px; font-family:Lato-Light; margin:-21px 0px 0px 107px;
 }
 /* esri slider position and colors */
 .esriSimpleSliderTL {
@@ -270,7 +280,7 @@ html, body{
     border-bottom: 1px solid #A7ACAF; -webkit-border-radius:0; border-radius:0;
 }
 .esriSimpleSlider div {
-    width:26px; height:26px; font-family: Brown-Regular; line-height:26px;
+    width:26px; height:26px; font-family: Lato-Regular; line-height:26px;
 }
 
 /* media queries */
