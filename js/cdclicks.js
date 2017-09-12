@@ -19,7 +19,6 @@ $( document ).ready(function() {
 			}
 			$.each(cd.atts,function(i,v){
 				if(val == v.OBJECTID){
-					console.log(v)
 					var w = v.emiss_redux_1;
 					if (w != -99){
 						w = w * 100;
@@ -173,10 +172,7 @@ $( document ).ready(function() {
 			var ceVal = cd.highVals[h];
 			var m = cd.maxArray.indexOf(cd.pathway + "_max");
 			var mpVal = cd.maxVals[m];
-			//mpVal = mpVal - ceVal;
-			console.log(mpVal)
 			var bh = ceVal/mpVal*50;
-			console.log(bh)
 			$("#cd_pwbd-chart").animate({height: bh + "px"}, 500 );
 			$("#ceVal").html( commaSeparateNumber(roundTo(ceVal/mpVal*100,0)));
 			$("#mpVal").html( commaSeparateNumber(roundTo(mpVal,1)) );
