@@ -4,28 +4,34 @@ html, body{
 
 /* bring in fonts */
 @font-face {
-    font-family: "Brown-Regular";
-    src: url(Brown-Regular.otf) format("opentype");
+    font-family: "Lato-Regular";
+    src: url(fonts/Lato-Regular.woff);
 }
 @font-face {
-    font-family: "Brown-Light";
-    src: url(Brown-Light.otf) format("opentype");
+    font-family: "Lato-Light";
+    src: url(fonts/Lato-Light.woff);
+}
+@font-face {
+    font-family: "Lato-Bold";
+    src: url(fonts/Lato-Bold.woff);
 }
 
 /* main div with left/app div and right/map div */
 #cd_wrap{
-	display:flex; height:100%; width:100%; color:#3C454A; font-size:13px; font-family:Brown-Regular;
+	display:flex; height:100%; width:100%; color:#3C454A; font-size:13px; font-family:"Lato-Regular";
 }
 #cd_left{
-	flex:0 0 380px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; overflow-y:auto; background:#f7f7f7;
+	flex:0 0 480px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
+	overflow-y:auto; background:#f7f7f7;
 }
 #cd_map{
-	height:100%; width:100%;
+	height:100%; width:100%; background: #bbb; background: -webkit-radial-gradient(#fff, #bbb); 
+    background: -moz-radial-gradient(#fff, #bbb); background: radial-gradient(#fff, #bbb); 
 }
 
 /* h3 styles and info icon and text */
 #cd_wrap h3{
-	font-size:15px; font-weight:normal; margin:14px 0 8px 0;
+	font-size:15px; font-weight:normal; margin:14px 0 8px 0; font-family:"Lato-Bold";
 }
 .h3InfoIcon {
     margin-bottom:-2px; margin-left:3px; cursor:pointer;
@@ -34,7 +40,7 @@ html, body{
     margin-bottom:-2px; margin-left:3px; cursor:pointer; display:none;
 }
 .h3Info{
-	display:none; font-family:Brown-Light; color:#8a8a8a; margin:-4 10px 0 4px;
+	display:none; font-family:Lato-Light; color:#3c454a; margin:0px 10px 25px 4px; line-height:15px; 
 }
 
 /* wrapper div for flexbox rows */
@@ -44,17 +50,23 @@ html, body{
 
 /* chosen */
 .chosen-wrap .chosen-container-single .chosen-single{
- 	padding:6px 0 0 10px; height:35px; border:1px solid #A7ACAF; border-radius:0px; background:#fff; background-clip:padding-box;
- 	color:#3C454A; text-decoration:none; white-space:nowrap; line-height:1.5; text-align:left; box-shadow:none;
+ 	padding:6px 0 0 10px; height:28px; border:1px solid #A7ACAF; border-radius:0px; background:#fff; background-clip:padding-box;
+ 	color:#3C454A; text-decoration:none; white-space:nowrap; line-height:1.2; text-align:left; box-shadow:none; font-family:"Lato-Light";
 }
 .chosen-wrap .chosen-container-single .chosen-single div b{
- 	margin-top:4px
+ 	margin-top:2px
 }
 .chosen-wrap .chosen-container-single .chosen-single abbr{
  	top:10px;right:20px
 }
 .chosen-wrap .chosen-container-single span{
- 	color:#3C454A; margin-right:0; font-size:14px;
+ 	color:#3C454A; margin-right:0; font-size:14px; font-family:"Lato-Regular";
+}
+.chosen-container .chosen-default span{
+	font-family: "Lato-Light" !important;
+}
+.chosen-container .chosen-results li.active-result {
+	font-family: "Lato-Light";
 }
 
 /* hide stats before initial country selection */
@@ -68,21 +80,24 @@ html, body{
 }	
 .cr-button{
  	display:inline-block; -webkit-appearance:none; cursor:pointer; vertical-align:middle; text-align:center; text-decoration:none; overflow:visible; 
- 	font-size:13px; line-height:1.5; padding:7px 10px; border-radius:0px; background-color:#fff; border:1px solid #A7ACAF; color:#3C454A;
+ 	font-size:13px; line-height:1.2; border-radius:0px; background-color:#fff; border:1px solid #A7ACAF; color:#3C454A; height:28px; width:148px;
 }
 
 /* three large attribute divs */
+.att-div-wrap{
+	margin-right:21px;
+}
 .att-div{
-	width:102px; margin:3px; border:1pt solid #A7ACAF; padding:5px; position:relative; min-height:72px;
+	margin:3px; border:1pt solid #A7ACAF; padding:5px; position:relative; min-height:84px; background:#fff; flex:1;
 }
 .sum-att{
 	color:#3C454A; font-size:24px; font-weight:bold; text-align:center; margin-top:10px; margin-bottom:0px;
 }
 .sum-att-label{
-	font-size:11px; text-align:center; margin:0; color:#8a8a8a;
+	font-size:11px; text-align:center; margin:0; color:#8a8a8a; font-family:Lato-Light;
 }
 .sum-label{
-	text-align:center; font-family:Brown-Light;
+	text-align:center; font-family:Lato-Light; height:25px; padding:6px 6px 3px 6px;
 }
 .att-div-last{
 	background:#3C454A; color:#fff;
@@ -91,7 +106,7 @@ html, body{
 	color:#fff;
 }
 .sum-att-info{
-	display:none; font-family:Brown-Light; color:#8a8a8a; margin-top:4px;
+	display:none; font-family:Lato-Light; color:#8a8a8a; margin-top:4px; font-size:11px; margin-right:12px;
 }
 .att-div-last .sum-att-info{
 	color:#fff;
@@ -104,7 +119,7 @@ html, body{
     border-width: 1px; border-right-color:#B0D6EA; border-top-color:#B0D6EA;
 }
 .ur-corner::after {
-    border-radius:0; border-width:8px; border-right-color:#B0D6EA; border-top-color:#B0D6EA;
+    border-radius:0; border-width:8px; border-right-color:#81d08f; border-top-color:#81d08f;
 }
 .infoIconAttDiv{
 	cursor:pointer; position:absolute; bottom:2px; right:2px;
@@ -113,67 +128,123 @@ html, body{
 	display:none; cursor:pointer; position:absolute; bottom:2px; right:2px;
 }
 
-/* mitigation portential for select pathway chart and labels */
+/* mitigation portential for select pathways chart and labels */
 #pathwayChart{
-	height:257px !important; width:300px !important; margin-left:54px;
+	height:264px !important; width:400px !important; margin-left:54px;
 }
 .pathway-name-wrap{
-	position:absolute; top:20px; left:0px; 
+	position:absolute; top:18px; left:0px; 
 }
 .pathway-name{
-	display:flex; font-size:14px; font-family:Brown-Light; margin-bottom:8px;
+	display:flex; font-size:14px; font-family:Lato-Light; line-height:1.65;
 }
 .pathway-label{
 	display:flex; justify-content:flex-end; flex:0 0 66px;
 }
 .pathway-link{
-	color:#0921ea; text-decoration:none; flex:0 0 267px; margin-left:8px;
+	color:blue; text-decoration:none; flex:0 0 366px; margin-left:8px; cursor:pointer; 
 }
 .pathway-arrow{
-	flex:1; 
+	flex:1; margin-top:-1px;
 }
 .p-a{
-	color:#3C454A; font-weight:bold; font-size:14px; font-family:Brown-Light;
+	color:#3C454A; font-weight:bold; font-size:14px; font-family:Lato-Light;
 }
 .chart-units{
-	font-size:11px; color:#8a8a8a; margin-bottom:-5px;
+	font-size:11px; color:#8a8a8a; margin-bottom:-5px; margin-left:5px; font-family:Lato-Light;
+}
+
+/* chart showing max vs cost effective */
+#pieChartDiv{
+	border:1px solid #A7ACAF; background:#fff; box-shadow:0 1px 1px rgba(16,22,26,.4); display:none; padding:5px; z-index:50;
+}
+.pwbd-wrap{
+	position:relative; margin:4px 2px 2px 4px; height:50px; width:70px; background:#81d08f; border-bottom:1px solid #a6a6a6;
+    border-left:2px solid #fff; border-right:2px solid #fff;
+}
+#cd_pwbd-chart{
+	position:absolute; bottom:0px; left:5px; height:25px; width:60px; background:#39984a; 
+}
+.pieinfo-wrap{
+	font-size:13px; font-family:Lato-Light; text-align:center; margin-top:4px;
+}
+.pieinfo-wrap .flex-wrap:last-of-type{
+	margin-top:6px;
+}
+.pie-box{
+	height:12px; width:12px; margin:0px 4px 0 5px;
+}
+.pie-text{
+	font-size:13px; font-family:Lato-Light; margin-top:1px;
+}
+#pieCloseWrap{
+	margin-left:6px;
+}
+#closePieInfo{
+	cursor:pointer; margin:-1px -1px 0 0;
+}
+#pie-learn-more-wrap{
+	text-align:center; margin-top:6px; color:#0921ea; font-size:13px; font-family:Lato-Light;
+}
+#pie-link{
+	cursor:pointer; 
 }
 
 /* contribution to paris commitment chart and labels */
 .commit-div{
-	position:relative; display:flex; width:360px; margin-top:-10px;
+	position:relative; display:flex; margin-top:-10px; 
 }
 .commitment-wrap{
 	 margin-top:17px;
 }
 #commitmentChart{
-	height:150px !important; width:250px !important;
+	height:110px !important; width:252px !important; margin-left:33px;
 }
 .legend-wrap{
-	margin-top:50px; margin-left:10px;
+	margin-top:10px; margin-left:10px;
 }
-.legend-wrap .flex-wrap:last-of-type{
-	margin-top:8px;
+.legend-wrap .flex-wrap{
+	margin-top:11px;
 }
 .legend-box{
-	height:24px; width:24px; margin:1px 5px 0 4px;
+	height:19px; width:19px; margin:-4px 5px 0 4px;
 }
 .max-potential-box{
-	background:#49B2E3; box-shadow:0 1px 1px rgba(16,22,26,.2);
+	background:#81d08f; box-shadow:0 1px 1px rgba(16,22,26,.2);
 }
 .cost-efective-box{
-	background:#247BB6; box-shadow:0 1px 1px rgba(16,22,26,.2);
+	background:#39984a; box-shadow:0 1px 1px rgba(16,22,26,.2);
+}
+.total-commitment-box{
+	border-top:2px solid #252b2e; margin-top:10px;
 }
 .legend-text{
-	font-size:13px; width:70px; font-family:Brown-Light;
+	font-size:13px; width:120px; font-family:Lato-Light;
+}
+#cd_perCe, #ceVal{
+	font-family:Lato-Regular;
 }
 .label-wrap{
-	display:flex; font-size:13px; margin:-23px 0px 0px 58px; width:171px; font-family:Brown-Light; text-align:center;
+	font-size:13px; font-family:Lato-Light; margin:-21px 0px 0px 107px;
+}
+/* esri slider position and colors */
+.esriSimpleSliderTL {
+    top:10px; left:10px;
+}
+.esriSimpleSlider {
+    border: 1px solid #A7ACAF; background-color:#f7f7f7; color:#3C454A; -webkit-border-radius:0px; -moz-border-radius:0px;
+    -o-border-radius:0px; border-radius:0px;
+}
+.esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
+    border-bottom: 1px solid #A7ACAF; -webkit-border-radius:0; border-radius:0;
+}
+.esriSimpleSlider div {
+    width:26px; height:26px; font-family: Lato-Regular; line-height:26px;
 }
 
 /* media queries */
 /* drop the map for anything less than 500px wide/portrait view */
-@media (max-width:500px){
+@media only screen and (max-device-width:600px) and (orientation: portrait){
 	#cd_wrap{
 		background:#f7f7f7;
 	}
@@ -183,22 +254,172 @@ html, body{
 	#cd_map{
 		display:none; 
 	}
+	/* width of three large attribute divs */
+	.att-div-wrap{
+		margin-right:4px;
+	}
+	.att-div{
+		padding:5px 5px 12px 5px; 
+	}
 }
-@media (max-width:360px){
+@media only screen and (max-device-width:420px) and (orientation: portrait), only screen and (max-device-width:740px) and (orientation: landscape){
+	/* left div width */
+	#cd_left{
+		flex:0 0 400px;
+	}
+	/* chosen menu and country report button widths */
+	#selectCountry_chosen{
+		width:260px !important; 
+	}
+	.cr-button{
+		padding:5px; width:128px;
+	}
+	.att-div-wrap{
+		margin-right:4px;
+	}
+	/* pathway chart width */
+	#pathwayChart{
+		width:330px !important;
+	}
+	.pathway-link{
+		flex:0 0 218px;
+	}
+	.legend-text{
+		width:90px;
+	}
+	.legend-box{
+		margin-top:4px;
+	}
+	.total-commitment-box {
+    	margin-top: 18px;
+	}
+	.legend-wrap{
+		margin-top:-6px;
+	}
+}	
+@media only screen and (max-device-width:375px) and (orientation: portrait), only screen and (max-device-width:650px) and (orientation: landscape){
+	/* left div width */
+	#cd_left{
+		flex:0 0 367px;
+	}
+	/* chosen menu and country report button widths */
+	#selectCountry_chosen{
+		width:238px !important; 
+	}
+	.cr-button{
+		padding:5px; width:116px;
+	}
+	.att-div-wrap{
+		margin-right:4px;
+	}
+	/* pathway chart width */
+	#pathwayChart{
+		width:300px !important;
+	}
+	.pathway-link{
+		flex:0 0 218px;
+	}
+
+	/* commitment chart width and label width */
+	#commitmentChart {
+		margin-left:43px;
+	}	
+	.commit-div{
+		flex-direction:column;
+	}
+	.legend-wrap{
+		display:flex; flex-wrap:wrap; justify-content:center; margin-top:8px;
+	}
+	.legend-box{
+		margin-top:0px;
+	}
+	.mobile-legend-wrap{
+		margin-left:10px;
+	}
+	.legend-wrap .flex-wrap {
+    	margin-top: 0px;
+	}
+	.legend-text{
+		width:auto;
+	}
+	.legend-wrap .flex-wrap:first-of-type{
+		margin-top:8px;
+	}
+	.legend-wrap .flex-wrap:last-of-type{
+		margin-top:8px;
+	}
+	.total-commitment-box {
+    	margin-top: 18px;
+	}
+}
+@media only screen and (max-device-width:360px) and (orientation: portrait), only screen and (max-device-width:580px) and (orientation: landscape){
+	/* left div width */
+	#cd_left{
+		flex:0 0 350px;
+	}
+	/* chosen menu and country report button widths */
+	#selectCountry_chosen{
+		width:228px !important; 
+	}
+	.cr-button{
+		padding:5px; width:110px;
+	}
+	.att-div-wrap{
+		margin-right:4px;
+	}
+	/* pathway chart width */
+	#pathwayChart{
+		width:286px !important;
+	}
+	.pathway-link{
+		flex:0 0 218px;
+	}
+	/* commitment chart width and label width */
+	#commitmentChart {
+		margin-left:43px;
+	}	
+	.commit-div{
+		flex-direction:column;
+	}
+	.legend-wrap{
+		display:flex; flex-wrap:wrap; justify-content:center; margin-top:8px;
+	}
+	.legend-box{
+		margin-top:0px;
+	}
+	.mobile-legend-wrap{
+		margin-left:10px;
+	}
+	.legend-wrap .flex-wrap {
+    	margin-top: 0px;
+	}
+	.legend-text{
+		width:auto;
+	}
+	.legend-wrap .flex-wrap:first-of-type{
+		margin-top:8px;
+	}
+	.legend-wrap .flex-wrap:last-of-type{
+		margin-top:8px;
+	}
+	.total-commitment-box {
+    	margin-top: 18px;
+	}
+}		
+@media only screen and (max-device-width:320px) and (orientation: portrait), only screen and (max-device-width:580px) and (orientation: landscape){
 	/* left div width */
 	#cd_left{
 		flex:0 0 312px;
-	}
-	/* width of three large attribute divs */
-	.att-div{
-		width:84px; padding:5px 5px 12px 5px; 
 	}
 	/* chosen menu and country report button widths */
 	#selectCountry_chosen{
 		width:190px !important; 
 	}
 	.cr-button{
-		padding:7px 5px; margin-top:0;
+		padding:5px; width:110px;
+	}
+	.att-div-wrap{
+		margin-right:4px;
 	}
 	/* pathway chart width */
 	#pathwayChart{
@@ -208,13 +429,34 @@ html, body{
 		flex:0 0 218px;
 	}
 	/* commitment chart width and label width */
-	#commitmentChart{
-		height:150px !important; width:200px !important;
-	}
+	#commitmentChart {
+		margin-left:40px;
+	}	
 	.commit-div{
-		width:310px;
+		flex-direction:column;
 	}
-	.label-wrap {
-    	margin:-23px 0px 0px 38px; width:143px;
+	.legend-wrap{
+		display:flex; flex-wrap:wrap; justify-content:center; margin-top:8px;
+	}
+	.legend-box{
+		margin-top:0px;
+	}
+	.mobile-legend-wrap{
+		margin-left:10px;
+	}
+	.legend-wrap .flex-wrap {
+    	margin-top: 0px;
+	}
+	.legend-text{
+		width:auto;
+	}
+	.legend-wrap .flex-wrap:first-of-type{
+		margin-top:8px;
+	}
+	.legend-wrap .flex-wrap:last-of-type{
+		margin-top:8px;
+	}
+	.total-commitment-box {
+    	margin-top: 18px;
 	}
 }	

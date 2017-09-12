@@ -10,9 +10,8 @@ function createChart(){
 	    data: {
 	        labels: ["", "", "", "", "", "", "", "", "", ""],
 	        datasets: [{
-	            label: '# of Votes',
-	            data: [12, 19, 3, 1400, 8, 3, 7, 9, 10, 5],
-	            backgroundColor:"#B0D6EA",
+	            data: [12, 19, 3, 14, 8, 3, 7, 9, 10, 5],
+	            backgroundColor:"#81d08f",
 	            borderWidth: 0
 	        }]
 	    },
@@ -20,45 +19,85 @@ function createChart(){
 	    	responsive: true,
 			maintainAspectRatio: false,
 	        scales: {
-	            xAxes: [{ ticks: { beginAtZero:true, max:40 } }]
-	        }
+	            xAxes: [{ ticks: { beginAtZero:true, max:40, fontFamily:"Lato-Light" } }],
+	            yAxes:[{ ticks: { beginAtZero:true} }]
+	        },
+	        events: false,
+			showTooltips: false
 	    }
 	});
 	// Commitment chart
 	var ctx1 = $("#commitmentChart");
-	var data = {
-	  labels: ["", ""],
-	  datasets: [{
-	      backgroundColor: "#247BB6",
-	      borderColor: "#247BB6",
-	      data: [0,40]
-	    }, {
-	      backgroundColor: "#49B2E3",
-	      borderColor: "#49B2E3",
-	      data: [0,60]
-	    }, {
-	      backgroundColor: "#3C454A",
-	      borderColor: "#3C454A",
-	      data: [85,0]
-	    }]
+	var commitData = {
+			labels: [""],
+			datasets: [{
+			borderWidth: 2,
+			borderColor: "#252b2e",
+			data: [7],
+			type: "line",
+			pointStyle: "line",
+			pointRadius: 105
+		}, {
+			label: "First",
+			backgroundColor: '#39984a',
+			borderWidth: 1,
+			data: [5],
+			xAxisID: "bar-x-axis1",
+		}, {
+			label: "Second",
+			backgroundColor: '#81d08f',
+			borderWidth: 1,
+			data: [10],
+			xAxisID: "bar-x-axis2",
+		}]
 	};
 
+	var commitOptions = {
+		responsive: true,
+		maintainAspectRatio: false,
+		tooltips: {enabled: false},
+		hover: {mode: null},
+		scales: {
+		xAxes: [{
+			stacked: false
+		}, {
+			display: false,
+			stacked: true,
+			id: "bar-x-axis1",
+			barThickness: 156,
+			type: 'category',
+			categoryPercentage: 1,
+			barPercentage: 1,
+			gridLines: {
+				offsetGridLines: true
+			}
+	    }, {
+			display: false,
+			stacked: true,
+			id: "bar-x-axis2",
+			barThickness: 170,
+			type: 'category',
+			categoryPercentage: 1,
+			barPercentage: 1,
+			gridLines: {
+				offsetGridLines: true
+			}
+		}],
+		yAxes: [{
+			stacked: false,
+			ticks: {
+				beginAtZero: true, fontFamily:"Lato-Light"
+			},
+			afterFit: function(scaleInstance) {
+        		scaleInstance.width = 40; // sets the width to 100px
+      		}
+		}]
+	  }
+	};
 	cd.mitParis = new Chart(ctx1, {
 	  type: 'bar',
-	  data: data,
-	  options: {
-	  	responsive: true,
-		maintainAspectRatio: false,
-	    scales: {
-	  		xAxes: [{stacked: true}],
-	    	yAxes: [{
-	      	stacked: true,
-	      	ticks: {
-	        	beginAtZero: true 
-	         }
-	      }]
-	    }
-	  }
+	  data: commitData,
+	  options: commitOptions 
 	});
 }
 function updateChart(){
@@ -70,11 +109,14 @@ function updateChart(){
 	$.each(cd.highVals,function(i,v){
 		high = high + v;
 	})
-	cd.mitParis.data.datasets[0].data = [0,high];
-	cd.mitParis.data.datasets[1].data = [0,max];
-	cd.mitParis.data.datasets[2].data = [cd.parisBar,0];
+	var per = roundTo(high/max*100, 0);
+	$("#cd_perCe").html(per);
+	//max = max - high;
+	cd.mitParis.data.datasets[0].data = [cd.parisBar];
+	cd.mitParis.data.datasets[1].data = [high];
+	cd.mitParis.data.datasets[2].data = [max];
 	cd.mitParis.update();
-	cd.mitPathChart.data.datasets[0].data = cd.sumVals;
+	cd.mitPathChart.data.datasets[0].data = cd.maxVals;
 	cd.mitPathChart.update();
 	$(" .pathway-label").each(function(i,v){
 		if (cd.lblArray[i] == -99){
@@ -83,7 +125,7 @@ function updateChart(){
 			var y = roundTo(cd.lblArray[i], 4)
 			y = commaSeparateNumber(y)
 			if (i == 1 || i == 2 || i == 4 || i == 6 || i == 7 || i == 8 || i == 9){
-				$(v).html('<img src="images/lowCost.png" height="17px" width="17px" style="margin-top:-2px; margin-right:2px;">' + y)	
+				$(v).html('<img src="images/lowCost.png" height="17px" width="17px" style="margin-top:3px; margin-right:2px;">' + y)	
 			}else{
 				$(v).html(y)	
 			}
