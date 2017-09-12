@@ -128,6 +128,20 @@ html, body{
 	display:none; cursor:pointer; position:absolute; bottom:2px; right:2px;
 }
 
+.pw-grid{
+	display:flex; width:400px; margin-left:54px;
+}
+.pw-grid div{
+	border-top:1pt solid #e5e5e5; border-right:1pt solid #e5e5e5;
+	height:20px; flex:1;
+}
+.pw-grid div:first-of-type{
+	flex:0.4;
+}	
+.pw-chart-wrap .pw-grid:last-of-type div{
+	height:10px;
+}
+
 /* mitigation portential for select pathways chart and labels */
 #pathwayChart{
 	height:264px !important; width:400px !important; margin-left:54px;
