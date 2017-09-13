@@ -165,7 +165,7 @@ html, body{
 	height:18px; background:#81d08f; width:205px; position:absolute; white-space:nowrap; box-shadow: 0 1px 1px rgba(16,22,26,0.6);
 }
 .pw-bar span{
-	padding-left:4px
+	padding-left:4px; line-height:22px;
 }
 .over-forty:after{
     content:""; position:absolute; right:-10px; top:0px; width:0;
@@ -185,7 +185,7 @@ html, body{
 	display:flex; font-family:Lato-Light; flex:1;
 }
 .pathway-label{
-	display:flex; justify-content:flex-end; flex:0 0 4.3em;
+	display:flex; justify-content:flex-end; flex:0 0 4.3em; line-height:22px;
 }
 .pathway-link{
 	color:blue; text-decoration:none; flex:0 0 366px; margin-left:5px; cursor:pointer; position:relative;
