@@ -150,7 +150,7 @@ html, body{
 	height:6px;
 }
 .pw-chart-blabel{
-	display:flex; width:107%; margin-left:4px;
+	display:flex; width:109%; margin-left:-36px; text-align:right;
 }
 .pw-chart-blabel div{
 	flex:1; font-size:0.9em; color:#a3a3a3; 
@@ -167,19 +167,9 @@ html, body{
 .pw-bar span{
 	padding-left:4px
 }
-.over-forty{
-	
-}
 .over-forty:after{
-    content: "";
-    position: absolute;
-    right: -10px;
-    top: 0px;
-	width: 0;
-	height: 0;
-	border-top: 0.6em solid transparent;
-	border-left: 0.7em solid #81d08f;
-	border-bottom: 0.6em solid transparent;
+    content:""; position:absolute; right:-10px; top:0px; width:0;
+	height:0; border-top:0.6em solid transparent; border-left:0.7em solid #81d08f; border-bottom:0.6em solid transparent;
 }
 
 
