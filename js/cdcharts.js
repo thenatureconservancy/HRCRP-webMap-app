@@ -119,7 +119,7 @@ function updateChart(){
 	// cd.mitPathChart.data.datasets[0].data = cd.maxVals;
 	// cd.mitPathChart.update();
 	var w = $(".pw-grid-wrap").children().eq(0).children().eq(1).outerWidth() * 8
-	$(".pw-bar-wrap div").each(function(i,v){
+	$(" .pw-bar").each(function(i,v){
 		var x = 0;
 		if (cd.maxVals[i] > 40){
 			x = w;
