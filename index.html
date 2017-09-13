@@ -62,19 +62,7 @@
 					<img src="images/infoClose.png" alt="Close NCS Mitigation Potential" class="hideInfoIconAttDiv">
 				</div>
 			</div>
-			<div class="pw-chart-wrap">
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-				<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
-			</div>
+			
 			<!-- wrapper for both charts set to display none at startup -->
 			<div class="country-selected">
 				<!-- wrapper for pathways chart header and info text - added to select parent on info clicks -->
@@ -87,59 +75,67 @@
 					</div>	
 				</div>
 				<!-- pathways chart and labels wrapper -->
-				<div style="position:relative">
-					<div class="chart-units">Mt CO<sub>2</sub>e/yr</div>
-					<canvas id="pathwayChart"></canvas>
+				<div class="chart-units">Mt CO<sub>2</sub>e/yr</div>
+				<div class="pw-graph-wrap">
+					<div class="pw-grid-label-wrap">
+						<div class="pw-grid-wrap">
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+						</div>
+						<div class="pw-chart-blabel"><div>0</div><div>5</div><div>10</div><div>15</div><div>20</div><div>25</div><div>30</div><div>35</div><div>40</div></div>
+					</div>
+					<div class="pw-bar-wrap">
+						<div></div><div></div><div></div><div class="over-forty"></div><div></div><div></div><div></div><div></div><div></div><div></div>
+					</div>
 					<div class="pathway-name-wrap">
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link refor">Reforestation</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link defor">Avoided Forest Conversion</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link natfor">Natural Forest Management</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link peat_res">Peatland Restoration</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link peat_loss">Avoided Peat Impacts</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link wfuel">Avoided Woodfuel Harvest</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link mangrove">Avoided Mangrove Impacts</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link rice">Improved Rice Cultivation</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link optint">Grazing - Optimal Intensity</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>
 						<div class="pathway-name">
 							<div class="pathway-label"></div>
 							<div class="pathway-link">Grazing - Legumes</div>
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
 						</div>			
 					</div>			
 				</div>

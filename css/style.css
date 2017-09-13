@@ -128,44 +128,75 @@ html, body{
 	display:none; cursor:pointer; position:absolute; bottom:2px; right:2px;
 }
 
+.pw-graph-wrap{
+	position:relative; margin-top:0.4em; font-size:1.1em;
+}
+.pw-grid-label-wrap{
+	margin-left:4em; width:400px; 
+}
 .pw-grid{
-	display:flex; width:400px; margin-left:54px;
+	display:flex; width:100%; 
 }
 .pw-grid div{
 	border-top:1pt solid #e5e5e5; border-right:1pt solid #e5e5e5;
-	height:20px; flex:1;
+	height:1.6em; flex:1;
 }
 .pw-grid div:first-of-type{
-	flex:0.4;
+	flex:0.15;
 }	
-.pw-chart-wrap .pw-grid:last-of-type div{
-	height:10px;
+.pw-grid div:last-of-type{
+	flex:0.15; border-right:none
 }
+.pw-grid-wrap .pw-grid:last-of-type div{
+	height:6px;
+}
+.pw-chart-blabel{
+	display:flex; width:107%; margin-left:4px;
+}
+.pw-chart-blabel div{
+	flex:1; font-size:0.9em; color:#a3a3a3; 
+}
+.pw-bar-wrap{
+	position:absolute; top:1px; left:4.6em; display:flex; flex-direction:column; height:91%;
+}
+.pw-bar-wrap div{
+	height:18px; background:#81d08f; flex:1px; margin:3px 0 3px 0; width:75px;
+}
+.over-forty{
+	position: relative; width:250px;
+}
+.over-forty:after{
+    content: "";
+    position: absolute;
+    right: -10px;
+    top: 0px;
+	width: 0;
+	height: 0;
+	border-top: 0.6em solid transparent;
+	border-left: 0.7em solid #81d08f;
+	border-bottom: 0.6em solid transparent;
+}
+
+
 
 /* mitigation portential for select pathways chart and labels */
 #pathwayChart{
 	height:264px !important; width:400px !important; margin-left:54px;
 }
 .pathway-name-wrap{
-	position:absolute; top:18px; left:0px; 
+	position:absolute; top:0.25em; left:0em; display:flex; flex-direction:column; height:17em;
 }
 .pathway-name{
-	display:flex; font-size:14px; font-family:Lato-Light; line-height:1.65;
+	display:flex; font-family:Lato-Light; flex:1;
 }
 .pathway-label{
-	display:flex; justify-content:flex-end; flex:0 0 66px;
+	display:flex; justify-content:flex-end; flex:0 0 4.3em;
 }
 .pathway-link{
 	color:blue; text-decoration:none; flex:0 0 366px; margin-left:8px; cursor:pointer; 
 }
-.pathway-arrow{
-	flex:1; margin-top:-1px;
-}
-.p-a{
-	color:#3C454A; font-weight:bold; font-size:14px; font-family:Lato-Light;
-}
 .chart-units{
-	font-size:11px; color:#8a8a8a; margin-bottom:-5px; margin-left:5px; font-family:Lato-Light;
+	font-size:0.9em; color:#8a8a8a; margin-bottom:-5px; margin-left:5px; font-family:Lato-Light;
 }
 
 /* chart showing max vs cost effective */
