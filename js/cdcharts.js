@@ -137,7 +137,7 @@ function updateChart(){
 			var y = roundTo(cd.lblArray[i], 4)
 			y = commaSeparateNumber(y)
 			if (i == 1 || i == 2 || i == 4 || i == 6 || i == 7 || i == 8 || i == 9){
-				$(v).html('<img src="images/lowCost.png" height="17px" width="17px" style="margin-top:0px; margin-right:2px;">' + y)	
+				$(v).html('<img src="images/lowCost.png" height="17px" width="17px" style="margin-top:2px; margin-right:2px;">' + y)	
 			}else{
 				$(v).html(y)	
 			}
