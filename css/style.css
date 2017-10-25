@@ -31,7 +31,7 @@ html, body{
 
 /* h3 styles and info icon and text */
 #cd_wrap h3{
-	font-size:15px; font-weight:normal; margin:20px 0 8px 0; font-family:"Lato-Bold";
+	font-size:15px; font-weight:normal; margin:14px 0 8px 0; font-family:"Lato-Bold";
 }
 .h3InfoIcon {
     margin-bottom:-2px; margin-left:3px; cursor:pointer;
