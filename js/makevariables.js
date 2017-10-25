@@ -1,6 +1,6 @@
 // variables
 cd = {};
-cd.url = "http://tnc.eastus.cloudapp.azure.com/arcgis/rest/services/NaturalClimateSolutions/NCS_CountryDashboard/MapServer";
+cd.url = "http://services.coastalresilience.org:6080/arcgis/rest/services/NCS/NCS_CountryDashboard/MapServer";
 cd.querySource = "menu";
 cd.selectedCountry = 0;
 cd.countries = 1;
