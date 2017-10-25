@@ -1,5 +1,9 @@
 // chosen menu and listeners
 $( document ).ready(function() {
+	var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
+	if(isMac){
+		//$(".pathway-name-wrap").css("top","2px")
+	}
 	// set up chosen country menu
 	$("#selectCountry").chosen({allow_single_deselect:false, width:"303px"})
 		.change(function(c){
@@ -17,6 +21,7 @@ $( document ).ready(function() {
 			}else{
 				$("#dl-cr").hide();
 			}
+			$(".country-selected").slideDown();
 			$.each(cd.atts,function(i,v){
 				if(val == v.OBJECTID){
 					var w = v.emiss_redux_1;
@@ -79,7 +84,7 @@ $( document ).ready(function() {
 					$("#nscMitPoten").html(ma);
 				}
 			})
-			$(".country-selected").slideDown();
+			
 			var cnty = $("#selectCountry option:selected").text();
 			var query = new esri.tasks.Query();  
 			query.where = "country ='" + cnty + "'";
@@ -92,7 +97,6 @@ $( document ).ready(function() {
 				}	
 			});	
 		});
-
 
 		$(".h3InfoIcon").hover(function(){
 			if ( $(this).hasClass("top-one") ){

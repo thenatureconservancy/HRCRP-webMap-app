@@ -62,111 +62,12 @@
 					<img src="images/infoClose.png" alt="Close NCS Mitigation Potential" class="hideInfoIconAttDiv">
 				</div>
 			</div>
+			
 			<!-- wrapper for both charts set to display none at startup -->
 			<div class="country-selected">
-				<!-- wrapper for pathways chart header and info text - added to select parent on info clicks -->
-				<div>	
-					<h3>Mitigation Potential for Select Pathways<img src="images/info.png" alt="show mitigation potential info" class="h3InfoIcon top-one"><img src="images/infoClose.png" alt="hide mitigation potential info" class="hideH3InfoIcon"></h3>
-					<div class="h3Info">	
-						<p>The scientific analysis underlying the climate mitigation pathway data presented in the NCS Dashboard considered 20 pathways, however due to data limitations only 10 climate mitigation pathways area available to view at the country scale. The data for the pathways not included in the Dashboard are either not spatially explicit or only exist at a global scale and cannot be disaggregated accurately to the country level. The 10 spatially explicit pathways presented here represent 75% of the total global NCS mitigation potential.</p>
-						<br>
-						<p>The 10 pathways not detailed on this website are: Improved (Forest) Plantations, (Forest) Fire Management, Avoided Coastal Wetland Impacts of seagrass and salt marsh, Coastal Wetland Restoration of mangroves, seagrass, and salt marsh, Avoided Grassland Conversion, Biochar, Cropland Nutrient Management, Conservation Agriculture, Trees in Croplands, Grazing –Improved Feed, and Grazing –Animal Management.</p>
-					</div>	
-				</div>
-				<!-- pathways chart and labels wrapper -->
-				<div style="position:relative">
-					<div class="chart-units">Mt CO<sub>2</sub>e/yr</div>
-					<canvas id="pathwayChart"></canvas>
-					<div class="pathway-name-wrap">
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link refor">Reforestation</div>
-							<!-- <a class="pathway-link refor" href="http://naturalclimatesolutions.org/#reforestation" target="_blank">Reforestation</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link defor">Avoided Forest Conversion</div>
-							<!-- <a class="pathway-link defor" href="http://naturalclimatesolutions.org/#forest-protection" target="_blank">Avoided Forest Conversion</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link natfor">Natural Forest Management</div>
-							<!-- <a class="pathway-link natfor" href="http://naturalclimatesolutions.org/#forest-carbon-solutions" target="_blank">Natural Forest Management</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link peat_res">Peatland Restoration</div>
-							<!-- <a class="pathway-link peat_res" href="http://naturalclimatesolutions.org/#peatlands" target="_blank">Peatland Restoration</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link peat_loss">Avoided Peat Impacts</div>
-							<!-- <a class="pathway-link peat_loss" href="http://naturalclimatesolutions.org/#peatlands" target="_blank">Avoided Peat Impacts</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link wfuel">Avoided Woodfuel Harvest</div>
-							<!-- <a class="pathway-link wfuel" href="http://naturalclimatesolutions.org/#forest-carbon-solutions" target="_blank">Avoided Woodfuel Harvest</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link mangrove">Avoided Mangrove Impacts</div>
-							<!-- <a class="pathway-link mangrove" href="http://naturalclimatesolutions.org/#coastal-wetlands" target="_blank">Avoided Mangrove Impacts</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link rice">Improved Rice Cultivation</div>
-							<!-- <a class="pathway-link rice" href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Improved Rice Cultivation</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link optint">Grazing - Optimal Intensity</div>
-							<!-- <a class="pathway-link optint" href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Grazing - Optimal Intensity</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>
-						<div class="pathway-name">
-							<div class="pathway-label"></div>
-							<div class="pathway-link">Grazing - Legumes</div>
-							<!-- <a class="pathway-link legumes" href="http://naturalclimatesolutions.org/#agriculture-livestock" target="_blank">Grazing - Legumes</a> -->
-							<div class="pathway-arrow"><span class="p-a">&rarr;</span></div>
-						</div>			
-					</div>			
-				</div>
-				<!-- pie chart and wrapper -->
-				<div id="pieChartDiv">
-					<div class="flex-wrap">	
-						<div class="pwbd-wrap">
-							<div id="cd_pwbd-chart"></div>
-						</div>
-						<div class="pieinfo-wrap">
-							<div class="flex-wrap">
-								<div class="max-potential-box pie-box"></div>
-								<div class="pie-text">Max Potential: <span id="mpVal"></span></div>
-							</div>
-							<div class="flex-wrap" style="margin-top:6px;">
-								<div class="cost-efective-box pie-box"></div>
-								<div class="pie-text"><span id="ceVal"></span>% Cost Effective</div>
-							</div>
-							<div id="pie-learn-more-wrap">
-								<div id="pie-link">Learn More</div>
-							</div>	
-						</div>
-						<div id="pieCloseWrap">
-							<img src="images/infoClose.png" alt="close cost effect and maximum potential popup" id="closePieInfo">		
-						</div>
-					</div>	
-				</div>
 				<!-- wrapper for Paris commitment chart header and info text - added to select parent on info clicks -->	
 				<div>	
-					<h3>NCS Contribution to Paris Commitment<img src="images/info.png" alt="show NCS Contribution info" class="h3InfoIcon"><img src="images/infoClose.png" alt="hide NCS Contribution info" class="hideH3InfoIcon"></h3>
+					<h3>NCS Contribution to Paris Agreement<img src="images/info.png" alt="show NCS Contribution info" class="h3InfoIcon"><img src="images/infoClose.png" alt="hide NCS Contribution info" class="hideH3InfoIcon"></h3>
 					<div class="h3Info">
 						<p>Proportion of climate mitigation provided by the restoration and protection of natural systems and improved agriculture management compared to this country’s submitted NDC*.  The (color) bar represents the total climate mitigation potential of ten of the twenty climate mitigation pathways without cost constraints.  The dark green bar shows the percentage of the total that is considered cost-effective ($100USD/ton CO2 in 2030).</p>
 						<br>
@@ -196,6 +97,104 @@
 							</div>
 						</div>	
 					</div>
+				</div>
+				<!-- wrapper for pathways chart header and info text - added to select parent on info clicks -->
+				<div>	
+					<h3>Mitigation Potential for Selected Pathways<img src="images/info.png" alt="show mitigation potential info" class="h3InfoIcon top-one"><img src="images/infoClose.png" alt="hide mitigation potential info" class="hideH3InfoIcon"></h3>
+					<div class="h3Info">	
+						<p>The scientific analysis underlying the climate mitigation pathway data presented in the NCS Dashboard considered 20 pathways, however due to data limitations only 10 climate mitigation pathways area available to view at the country scale. The data for the pathways not included in the Dashboard are either not spatially explicit or only exist at a global scale and cannot be disaggregated accurately to the country level. The 10 spatially explicit pathways presented here represent 75% of the total global NCS mitigation potential.</p>
+						<br>
+						<p>The 10 pathways not detailed on this website are: Improved (Forest) Plantations, (Forest) Fire Management, Avoided Coastal Wetland Impacts of seagrass and salt marsh, Coastal Wetland Restoration of mangroves, seagrass, and salt marsh, Avoided Grassland Conversion, Biochar, Cropland Nutrient Management, Conservation Agriculture, Trees in Croplands, Grazing –Improved Feed, and Grazing –Animal Management.</p>
+					</div>	
+				</div>
+				<!-- pathways chart and labels wrapper -->
+				<div class="chart-units">Mt CO<sub>2</sub>e/yr</div>
+				<div class="pw-graph-wrap">
+					<div class="pw-grid-label-wrap">
+						<div class="pw-grid-wrap">
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+							<div class="pw-grid"><div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div></div>
+						</div>
+						<div class="pw-chart-blabel"><div>0</div><div>5</div><div>10</div><div>15</div><div>20</div><div>25</div><div>30</div><div>35</div><div>40</div></div>
+					</div>
+					<!-- <div class="pw-bar-wrap">
+						<div></div><div></div><div></div><div class="over-forty"></div><div></div><div></div><div></div><div></div><div></div><div></div>
+					</div> -->
+					<div class="pathway-name-wrap">
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link refor"><div class="pw-bar"><span>Reforestation</span></div></div>
+						</div>
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link defor"><div class="pw-bar"><span>Avoided Forest Conversion</span></div></div>
+						</div>
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link natfor"><div class="pw-bar"><span>Natural Forest Management</span></div></div>
+						</div>
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link peat_res"><div class="pw-bar"><span>Peatland Restoration</span></div></div>
+						</div>
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link peat_loss"><div class="pw-bar"><span>Avoided Peat Impacts</span></div></div>
+						</div>
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link wfuel"><div class="pw-bar"><span>Avoided Woodfuel Harvest</span></div></div>
+						</div>
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link mangrove"><div class="pw-bar"><span>Avoided Mangrove Impacts</span></div></div>
+						</div>
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link rice"><div class="pw-bar"><span>Improved Rice Cultivation</span></div></div>
+						</div>
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link optint"><div class="pw-bar"><span>Grazing - Optimal Intensity</span></div></div>
+						</div>
+						<div class="pathway-name">
+							<div class="pathway-label"></div>
+							<div class="pathway-link"><div class="pw-bar"><span>Grazing - Legumes</span></div></div>
+						</div>			
+					</div>			
+				</div>
+				<!-- pie chart and wrapper -->
+				<div id="pieChartDiv">
+					<div class="flex-wrap">	
+						<div class="pwbd-wrap">
+							<div id="cd_pwbd-chart"></div>
+						</div>
+						<div class="pieinfo-wrap">
+							<div class="flex-wrap">
+								<div class="max-potential-box pie-box"></div>
+								<div class="pie-text">Max Potential: <span id="mpVal"></span></div>
+							</div>
+							<div class="flex-wrap" style="margin-top:6px;">
+								<div class="cost-efective-box pie-box"></div>
+								<div class="pie-text"><span id="ceVal"></span>% Cost Effective</div>
+							</div>
+							<div id="pie-learn-more-wrap">
+								<div id="pie-link">Learn More</div>
+							</div>	
+						</div>
+						<div id="pieCloseWrap">
+							<img src="images/infoClose.png" alt="close cost effect and maximum potential popup" id="closePieInfo">		
+						</div>
+					</div>	
 				</div>
 			</div>	
 		</div>

@@ -8,7 +8,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
 	var bounds = new Extent({ "xmin":-13000000, "ymin":0, "xmax":13000000, "ymax":2000000, "spatialReference":{"wkid":54030}});
 	
 	// map and display feature layer
-	cd.map = new Map("cd_map", { showLabels:true, extent:bounds, isScrollWheel:false, logo:false, backgroundColor:"rgba(187,187,187,0)"});
+	cd.map = new Map("cd_map", { showLabels:true, extent:bounds, logo:false, backgroundColor:"rgba(187,187,187,0)"});
 	cd.fc = new FeatureLayer(cd.url + "/1", {opacity:0.9})
 	
 	// labels for display feature layer
