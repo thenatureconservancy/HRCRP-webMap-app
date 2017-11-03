@@ -28,10 +28,10 @@ $( document ).ready(function() {
 					var w = v.emiss_redux_1;
 					if (w == -99 || w == -999){
 						if (w == -99){
-							$("#emiss_redux_1").html("NI")	
+							$("#emiss_redux_1").html("Not Included")	
 						}
 						if (w == -999){
-							$("#emiss_redux_1").html("NA")	
+							$("#emiss_redux_1").html("No NDC")	
 						}
 					}	
 					else{
@@ -39,12 +39,19 @@ $( document ).ready(function() {
 						w = roundTo(w,0);
 						$("#emiss_redux_1").html(w + "%")
 					}
+					var crange = cd.country.replace(/ /g,"_")
+					if (cd.ndcRange[crange]){
+						$("#emiss_redux_1").html(cd.ndcRange[crange])
+					}
 					$("#tar_desc").html(v.tar_desc);
-					console.log(v.tar_desc.length)
 					var x = v.emiss_cut
 					if (x != -99){
-						x = roundTo(x,0);
-						x = commaSeparateNumber(x);
+						if (x < 1){
+							x = x
+						}else{
+							x = roundTo(x,0);
+							x = commaSeparateNumber(x);
+						}	
 					}else{
 						x = "N/A"
 					}
