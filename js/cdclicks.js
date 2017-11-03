@@ -7,6 +7,7 @@ $( document ).ready(function() {
 	// set up chosen country menu
 	$("#selectCountry").chosen({allow_single_deselect:false, width:"303px"})
 		.change(function(c){
+			$("#poweredBy").slideUp();
 			$("#closePieInfo").trigger("click");
 			var val = c.target.value;
 			cd.country = $("#selectCountry option:selected").text();
@@ -25,14 +26,21 @@ $( document ).ready(function() {
 			$.each(cd.atts,function(i,v){
 				if(val == v.OBJECTID){
 					var w = v.emiss_redux_1;
-					if (w != -99){
+					if (w == -99 || w == -999){
+						if (w == -99){
+							$("#emiss_redux_1").html("NI")	
+						}
+						if (w == -999){
+							$("#emiss_redux_1").html("NA")	
+						}
+					}	
+					else{
 						w = w * 100;
 						w = roundTo(w,0);
-						$("#emiss_redux_1").html(w + "%" /*+ v.eu*/)
+						$("#emiss_redux_1").html(w + "%")
 					}
-					else{
-						$("#emiss_redux_1").html("N/A")
-					}
+					$("#tar_desc").html(v.tar_desc);
+					console.log(v.tar_desc.length)
 					var x = v.emiss_cut
 					if (x != -99){
 						x = roundTo(x,0);

@@ -23,7 +23,7 @@
 	<div id="cd_wrap">
 		<!-- wrapper for controls -->
 		<div id="cd_left">
-			<h3 style="margin-top:30px; font-size:17px;">NDC Targets & NCS Mitigation</h3>
+			<h3 style="margin-top:30px; font-size:17px;">NDC Targets & NCS Mitigation - <a style="text-decoration:none;" href="" target="_blank">FAQ</a></h3>
 			<!-- wrapper for chosen country menu and country report -->
 			<div class="flex-wrap">
 				<div class="chosen-wrap" style="margin-bottom:4px;">
@@ -40,15 +40,16 @@
 				<div class="att-div country-selected" style="margin-left:0;">
 					<div class="sum-label">NDC Reduction Target</div>
 					<div id="emiss_redux_1" class="sum-att">XX</div>
+					<div id="tar_desc" class="sum-att-label" style="width:122px;"></div>
 					<div class="sum-att-info">The emissions reduction target stated in this country’s submitted NDC</div>
 					<img src="images/info.png" alt="Explain NDC Reduction Target" class="infoIconAttDiv">
 					<img src="images/infoClose.png" alt="Close NDC Reduction Target" class="hideInfoIconAttDiv">
 				</div>
 				<div class="att-div country-selected">
-					<div class="sum-label">Emissions Reduction Target</div>
+					<div class="sum-label">Estimated NDC Emission Reductions</div>
 					<div id="emiss_cut" class="sum-att">XX</div>
 					<div class="sum-att-label">Mt CO<sub>2</sub>e/yr</div> 
-					<div class="sum-att-info">Committed emissions reduction in carbon dioxide equivalents (CO2e) from all sectors</div>
+					<div class="sum-att-info">Committed emissions reduction in carbon dioxide equivalents (CO2e) excluding AFOLU</div>
 					<img src="images/info.png" alt="Explain Emissions Reduction Target" class="infoIconAttDiv">
 					<img src="images/infoClose.png" alt="Close Emissions Reduction Target" class="hideInfoIconAttDiv">
 				</div>
@@ -69,9 +70,16 @@
 				<div>	
 					<h3>NCS Contribution to Paris Agreement<img src="images/info.png" alt="show NCS Contribution info" class="h3InfoIcon"><img src="images/infoClose.png" alt="hide NCS Contribution info" class="hideH3InfoIcon"></h3>
 					<div class="h3Info">
-						<p>Proportion of climate mitigation provided by the restoration and protection of natural systems and improved agriculture management compared to this country’s submitted NDC*.  The (color) bar represents the total climate mitigation potential of ten of the twenty climate mitigation pathways without cost constraints.  The dark green bar shows the percentage of the total that is considered cost-effective ($100USD/ton CO2 in 2030).</p>
-						<br>
-						<p>*Source: <a href="http://climate-energy-college.org/ndc-indc-factsheets" target="_blank">http://climate-energy-college.org/ndc-indc-factsheets</a></p>
+						<p>Proportion of climate mitigation provided by the restoration and protection of natural systems and improved agriculture management compared to this country’s submitted NDC*. If a country submitted both an unconditional and a conditional target the number shown represents the unconditional target. The light green bar represents the total climate mitigation potential of ten climate mitigation pathways without cost constraints. The dark green bar shows the percentage of the total that is considered cost-effective ($100USD/ton CO2 in 2030) based on a globally derived marginal abatement costs.</p>
+						<p>All NDC data* presented here relies on a range of assumptions due to the different ways countries have expressed their official NDCs. For official information on each country’s NDC, please refer to our sources below.</p>
+						<div style="display:flex; margin-top:-10px;">
+						<p style="margin-right:10px;">*References:</p>
+							<p> 
+								<a href="http://climate-energy-college.org/ndc-indc-factsheets" target="_blank">http://climate-energy-college.org/ndc-indc-factsheets</a>
+								<a href="http://www4.unfccc.int/ndcregistry/Pages/Home.aspx" target="_blank">http://www4.unfccc.int/ndcregistry/Pages/Home.aspx</a>
+								<a href="https://www.climatewatchdata.org/" target="_blank">https://www.climatewatchdata.org/</a>
+							</p>
+						</div>	
 					</div>
 				</div>
 				<!-- Paris commitment chart and labels wrapper -->
@@ -89,11 +97,11 @@
 						<div class="mobile-legend-wrap">
 							<div class="flex-wrap" style="margin-top:3px">
 								<div class="max-potential-box legend-box"></div>
-								<div class="legend-text">Maximum Potential</div>
+								<div class="legend-text" style="margin-top:-1px;">Maximum Potential</div>
 							</div>
 							<div class="flex-wrap">
 								<div class="cost-efective-box legend-box"></div>
-								<div class="legend-text"><span id="cd_perCe"></span>% Cost Effective</div>
+								<div class="legend-text"><span id="cd_perCe"></span>% Cost Effective<br>(Global MAC)</div>
 							</div>
 						</div>	
 					</div>
@@ -104,7 +112,6 @@
 					<h3>Mitigation Potential for Selected Pathways<img src="images/info.png" alt="show mitigation potential info" class="h3InfoIcon top-one"><img src="images/infoClose.png" alt="hide mitigation potential info" class="hideH3InfoIcon"></h3>
 					<div class="h3Info">	
 						<p>The scientific analysis underlying the climate mitigation pathway data presented in the NCS Dashboard considered 20 pathways, however due to data limitations only 10 climate mitigation pathways area available to view at the country scale. The data for the pathways not included in the Dashboard are either not spatially explicit or only exist at a global scale and cannot be disaggregated accurately to the country level. The 10 spatially explicit pathways presented here represent 75% of the total global NCS mitigation potential.</p>
-						<br>
 						<p>The 10 pathways not detailed on this website are: Improved (Forest) Plantations, (Forest) Fire Management, Avoided Coastal Wetland Impacts of seagrass and salt marsh, Coastal Wetland Restoration of mangroves, seagrass, and salt marsh, Avoided Grassland Conversion, Biochar, Cropland Nutrient Management, Conservation Agriculture, Trees in Croplands, Grazing –Improved Feed, and Grazing –Animal Management.</p>
 					</div>	
 				</div>
@@ -198,6 +205,7 @@
 					</div>	
 				</div>
 			</div>	
+			<div id="poweredBy"><h3>Powered by Natural Solutions Toolkit. <a href="http://naturalsolutionstoolkit.org" target="_blank" style="text-decoration:none;">Learn More</a></h3></div>
 		</div>
 		<!-- map div -->
 		<div id="cd_map"></div>

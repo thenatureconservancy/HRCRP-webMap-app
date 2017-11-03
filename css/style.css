@@ -40,7 +40,7 @@ html, body{
     margin-bottom:-2px; margin-left:3px; cursor:pointer; display:none;
 }
 .h3Info{
-	display:none; font-family:Lato-Light; color:#3c454a; margin:0px 10px 25px 4px; line-height:15px; 
+	display:none; font-family:Lato-Light; color:#3c454a; margin:0px 10px 10px 4px; line-height:15px; 
 }
 
 /* wrapper div for flexbox rows */
@@ -247,7 +247,7 @@ html, body{
 	margin-top:11px;
 }
 .legend-box{
-	height:19px; width:19px; margin:-4px 5px 0 4px;
+	height:19px; width:19px; margin:-2px 5px 0 4px;
 }
 .max-potential-box{
 	background:#81d08f; box-shadow:0 1px 1px rgba(16,22,26,.2);
@@ -259,7 +259,7 @@ html, body{
 	border-top:2px solid #252b2e; margin-top:10px;
 }
 .legend-text{
-	font-size:13px; width:120px; font-family:Lato-Light;
+	font-size:13px; width:120px; font-family:Lato-Light; margin-top:-7px;
 }
 #cd_perCe, #ceVal{
 	font-family:Lato-Regular;
@@ -280,6 +280,9 @@ html, body{
 }
 .esriSimpleSlider div {
     width:26px; height:26px; font-family: Lato-Regular; line-height:26px;
+}
+#poweredBy{
+	position:absolute; bottom:0; left:72px;
 }
 
 /* media queries */

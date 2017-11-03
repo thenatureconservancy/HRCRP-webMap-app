@@ -21,4 +21,5 @@ cd.linkArray = {
 	legumes:"http://naturalclimatesolutions.org/#agriculture-livestock"
 }
 cd.country = "";
-cd.reportCountries = ["Australia", "Brazil", "Canada", "China", "Germany", "India", "Indonesia", "Kenya", "Mexico", "United States"];
+cd.reportCountries = ["Australia", "Brazil", "Canada", "Chile", "China", "Fiji", "Gabon", "Germany", "India", "Indonesia", "Kenya", "Mexico", 
+					  "Mozambique", "Norway",  "Papua New Guinea", "Poland", "Republic of the Marshall Islands", "Russian Federation", "United States"];
