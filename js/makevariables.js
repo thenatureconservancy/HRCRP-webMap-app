@@ -36,7 +36,7 @@ cd.ndcRange = {
 	United_States: "26 - 28%"
 }
 cd.country = "";
-cd.reportCountries =  ["Australia", "Argentina", "Brazil", "Cambodia", "Canada", "Chile", "China", "Columbia", "Democratic Republic of the Congo", "Fiji", "Finland", 
+cd.reportCountries =  ["Australia", "Argentina", "Brazil", "Cambodia", "Canada", "Chile", "China", "Columbia", "Costa Rica", "Democratic Republic of the Congo", "Fiji", "Finland", 
 					 	"France",	"Gabon", "Germany", "Guinea", "India", "Indonesia", "Japan", "Kenya", "Madagascar", "Malaysia", "Mexico", "Mongolia", "Morocco", 
 					 	"Mozambique", "Namibia", "Norway",  "Papua New Guinea", "Peru", "Poland", "Republic of the Marshall Islands", "Russian Federation", 
 					 	"Tanzania", "United States", "Zambia"];
