@@ -49,7 +49,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
 			var b = v.split(",")[0];
 			$('#selectCountry').append("<option value='" + a + "'>"+ b +"</option")
 		})	
-		$('#selectCountry').trigger("chosen:updated");			
+		$('#selectCountry').val(27).trigger("chosen:updated").trigger("change");			
 	});
 	cd.map.setMapCursor("pointer")
 	// handle map clicks
