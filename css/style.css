@@ -1,8 +1,10 @@
+/* main styles ///////////////////////////////////////////////////////////////////*/
+
 html, body{
 	height:100%; padding:0; margin:0; 
 }
 
-/* bring in fonts */
+/* bring in fonts ///////////////////////////////////////////////////////////////////*/
 @font-face {
     font-family: "Lato-Regular";
     src: url(fonts/Lato-Regular.woff);
@@ -16,34 +18,47 @@ html, body{
     src: url(fonts/Lato-Bold.woff);
 }
 
-/* main div with left/app div and right/map div */
+/* main div with left/app div and right/map div ///////////////////////////////////////////////////////////////////*/
 #cd_wrap{
 	display:flex; height:100%; width:100%; color:#3C454A; font-size:13px; font-family:"Lato-Regular";
 }
 #cd_left{
-	flex:0 0 480px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
-	overflow-y:auto; background:#f7f7f7;
+	flex:0 0 350px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
+	overflow-y:auto; background:#f3f3f3; 
 }
-#cd_map{
+#map{
 	height:100%; width:100%; background: #bbb; background: -webkit-radial-gradient(#fff, #bbb); 
     background: -moz-radial-gradient(#fff, #bbb); background: radial-gradient(#fff, #bbb); 
 }
-
-/* h3 styles and info icon and text */
-#cd_wrap h3{
-	font-size:15px; font-weight:normal; margin:14px 0 8px 0; font-family:"Lato-Bold";
+.blueFont{
+	color: #2f6384; font-weight: 700; font-size: 14px; line-height: 20px;
 }
-.h3InfoIcon {
-    margin-bottom:-2px; margin-left:3px; cursor:pointer;
-}
-.hideH3InfoIcon {
-    margin-bottom:-2px; margin-left:3px; cursor:pointer; display:none;
-}
-.h3Info{
-	display:none; font-family:Lato-Light; color:#3c454a; margin:0px 10px 10px 4px; line-height:15px; 
+.mainContentWrapper{
+	margin-top: 10px;
 }
 
-/* wrapper div for flexbox rows */
+/* header styles /////////////////////////////////////////////////////////////////////////////////*/
+
+.mainHeaderWrapper{
+	height: 76px; background:#648CA4; color: white; display: flex;
+}
+.logoWrapper{
+	padding: 5px; width: 100px; padding-left: 5px;
+}
+.titleWrapper{
+	font-size: 16px; font-size: 20px; margin-top: 25px;
+}
+.searchWrapper{
+	position: absolute; right: 300px; top: 21px; background-color: grey; 
+}
+#search {
+    display: block; position: absolute; z-index: 2000; width: 300px;
+ }
+ /* map styles ////////////////////////////////////////////////////////////////////////////////*/
+ .esriSimpleSliderTL{
+ 	right: 20px !important;
+ }
+/* wrapper div for flexbox rows ///////////////////////////////////////////////////////////////////*/
 .flex-wrap{
 	display:flex; flex-direction:row; 
 }
@@ -69,223 +84,16 @@ html, body{
 	font-family: "Lato-Light";
 }
 
-/* hide stats before initial country selection */
-.country-selected{
-	display:none; 
-}
-
-/* country report button */
-.country-report-wrap{
-	margin-left:6px; 
-}	
-.cr-button{
- 	display:inline-block; -webkit-appearance:none; cursor:pointer; vertical-align:middle; text-align:center; text-decoration:none; overflow:visible; 
- 	font-size:13px; line-height:1.2; border-radius:0px; background-color:#fff; border:1px solid #A7ACAF; color:#3C454A; height:28px; width:148px;
-}
-
-/* three large attribute divs */
-.att-div-wrap{
-	margin-right:21px;
-}
-.att-div{
-	margin:3px; border:1pt solid #A7ACAF; padding:5px; position:relative; min-height:84px; background:#fff; flex:1;
-}
-.sum-att{
-	color:#3C454A; font-size:24px; font-weight:bold; text-align:center; margin-top:10px; margin-bottom:0px;
-}
-.sum-att-label{
-	font-size:11px; text-align:center; margin:0; color:#8a8a8a; font-family:Lato-Light;
-}
-.sum-label{
-	text-align:center; font-family:Lato-Light; height:25px; padding:6px 6px 3px 6px;
-}
-.att-div-last{
-	background:#3C454A; color:#fff;
-}
-.sum-att-last{
-	color:#fff;
-}
-.sum-att-info{
-	display:none; font-family:Lato-Light; color:#8a8a8a; margin-top:4px; font-size:11px; margin-right:12px;
-}
-.att-div-last .sum-att-info{
-	color:#fff;
-}
-.ur-corner::before,
-.ur-corner::after {
-    content:''; position:absolute; top:0; right:0; border-color: transparent; border-style:solid;
-}
-.ur-corner::before {
-    border-width: 1px; border-right-color:#B0D6EA; border-top-color:#B0D6EA;
-}
-.ur-corner::after {
-    border-radius:0; border-width:8px; border-right-color:#81d08f; border-top-color:#81d08f;
-}
-.infoIconAttDiv{
-	cursor:pointer; position:absolute; bottom:2px; right:2px;
-}
-.hideInfoIconAttDiv{
-	display:none; cursor:pointer; position:absolute; bottom:2px; right:2px;
-}
-
-.pw-graph-wrap{
-	position:relative; margin-top:0.4em; font-size:1.1em;
-}
-.pw-grid-label-wrap{
-	margin-left:4em; width:400px; 
-}
-.pw-grid{
-	display:flex; width:100%; 
-}
-.pw-grid div{
-	border-top:1pt solid #e5e5e5; border-right:1pt solid #e5e5e5; height:1.61em; flex:1;
-}
-.pw-grid div:first-of-type{
-	flex:0.15;
-}	
-.pw-grid div:last-of-type{
-	flex:0.15; border-right:none
-}
-.pw-grid-wrap .pw-grid:last-of-type div{
-	height:6px;
-}
-.pw-chart-blabel{
-	display:flex; width:109%; margin-left:-36px; text-align:right;
-}
-.pw-chart-blabel div{
-	flex:1; font-size:0.9em; color:#a3a3a3; 
-}
-.pw-bar-wrap{
-	position:absolute; top:1px; left:4.6em; display:flex; flex-direction:column; height:91%;
-}
-.pw-bar-wrap div{
-	height:18px; background:#81d08f; flex:1px; margin:3px 0 3px 0; width:0px;
-}
-.pw-bar{
-	height:18px; background:#81d08f; width:205px; position:absolute; white-space:nowrap; box-shadow: 0 1px 1px rgba(16,22,26,0.6);
-}
-.pw-bar span{
-	padding-left:4px; line-height:22px;
-}
-.over-forty:after{
-    content:""; position:absolute; right:-10px; top:0px; width:0;
-	height:0; border-top:0.6em solid transparent; border-left:0.7em solid #81d08f; border-bottom:0.6em solid transparent;
-}
 
 
 
-/* mitigation portential for select pathways chart and labels */
-#pathwayChart{
-	height:264px !important; width:400px !important; margin-left:54px;
-}
-.pathway-name-wrap{
-	position:absolute; top:0.25em; left:0em; display:flex; flex-direction:column; height:17em;
-}
-.pathway-name{
-	display:flex; font-family:Lato-Light; flex:1;
-}
-.pathway-label{
-	display:flex; justify-content:flex-end; flex:0 0 4.3em; line-height:22px;
-}
-.pathway-link{
-	color:blue; text-decoration:none; flex:0 0 366px; margin-left:5px; cursor:pointer; position:relative;
-}
-.chart-units{
-	font-size:0.9em; color:#8a8a8a; margin-bottom:-5px; margin-left:5px; font-family:Lato-Light;
-}
 
-/* chart showing max vs cost effective */
-#pieChartDiv{
-	border:1px solid #A7ACAF; background:#fff; box-shadow:0 1px 1px rgba(16,22,26,.4); display:none; padding:5px; z-index:50;
-}
-.pwbd-wrap{
-	position:relative; margin:4px 2px 2px 4px; height:50px; width:70px; background:#81d08f; border-bottom:1px solid #a6a6a6;
-    border-left:2px solid #fff; border-right:2px solid #fff;
-}
-#cd_pwbd-chart{
-	position:absolute; bottom:0px; left:5px; height:25px; width:60px; background:#39984a; 
-}
-.pieinfo-wrap{
-	font-size:13px; font-family:Lato-Light; text-align:center; margin-top:4px;
-}
-.pieinfo-wrap .flex-wrap:last-of-type{
-	margin-top:6px;
-}
-.pie-box{
-	height:12px; width:12px; margin:0px 4px 0 5px;
-}
-.pie-text{
-	font-size:13px; font-family:Lato-Light; margin-top:1px;
-}
-#pieCloseWrap{
-	margin-left:6px;
-}
-#closePieInfo{
-	cursor:pointer; margin:-1px -1px 0 0;
-}
-#pie-learn-more-wrap{
-	text-align:center; margin-top:6px; color:#0921ea; font-size:13px; font-family:Lato-Light;
-}
-#pie-link{
-	cursor:pointer; 
-}
 
-/* contribution to paris commitment chart and labels */
-.commit-div{
-	position:relative; display:flex; margin-top:-10px; 
-}
-.commitment-wrap{
-	 margin-top:17px;
-}
-#commitmentChart{
-	height:110px !important; width:252px !important; margin-left:33px;
-}
-.legend-wrap{
-	margin-top:10px; margin-left:10px;
-}
-.legend-wrap .flex-wrap{
-	margin-top:11px;
-}
-.legend-box{
-	height:19px; width:19px; margin:-2px 5px 0 4px;
-}
-.max-potential-box{
-	background:#81d08f; box-shadow:0 1px 1px rgba(16,22,26,.2);
-}
-.cost-efective-box{
-	background:#39984a; box-shadow:0 1px 1px rgba(16,22,26,.2);
-}
-.total-commitment-box{
-	border-top:2px solid #252b2e; margin-top:10px;
-}
-.legend-text{
-	font-size:13px; width:120px; font-family:Lato-Light; margin-top:-7px;
-}
-#cd_perCe, #ceVal{
-	font-family:Lato-Regular;
-}
-.label-wrap{
-	font-size:13px; font-family:Lato-Light; margin:-21px 0px 0px 107px;
-}
-/* esri slider position and colors */
-.esriSimpleSliderTL {
-    top:10px; left:10px;
-}
-.esriSimpleSlider {
-    border: 1px solid #A7ACAF; background-color:#f7f7f7; color:#3C454A; -webkit-border-radius:0px; -moz-border-radius:0px;
-    -o-border-radius:0px; border-radius:0px;
-}
-.esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
-    border-bottom: 1px solid #A7ACAF; -webkit-border-radius:0; border-radius:0;
-}
-.esriSimpleSlider div {
-    width:26px; height:26px; font-family: Lato-Regular; line-height:26px;
-}
-#poweredBy{
-	position:absolute; bottom:0; left:72px;
-}
 
-/* media queries */
+
+
+
+/* media queries //////////////////////////////////////////////////////////////////////////////////////// */ 
 /* drop the map for anything less than 500px wide/portrait view */
 @media only screen and (max-device-width:600px) and (orientation: portrait){
 	#cd_wrap{
@@ -310,196 +118,24 @@ html, body{
 	#cd_left{
 		flex:0 0 400px;
 	}
-	/* chosen menu and country report button widths */
-	#selectCountry_chosen{
-		width:260px !important; 
-	}
-	.cr-button{
-		padding:5px; width:128px;
-	}
-	.att-div-wrap{
-		margin-right:4px;
-	}
-	/* pathway chart width */
-	#pathwayChart{
-		width:330px !important;
-	}
-	.pathway-link{
-		flex:0 0 218px;
-	}
-	.legend-text{
-		width:90px;
-	}
-	.legend-box{
-		margin-top:4px;
-	}
-	.total-commitment-box {
-    	margin-top: 18px;
-	}
-	.legend-wrap{
-		margin-top:-6px;
-	}
 }	
 @media only screen and (max-device-width:375px) and (orientation: portrait), only screen and (max-device-width:650px) and (orientation: landscape){
 	/* left div width */
 	#cd_left{
 		flex:0 0 367px;
 	}
-	/* chosen menu and country report button widths */
-	#selectCountry_chosen{
-		width:238px !important; 
-	}
-	.cr-button{
-		padding:5px; width:116px;
-	}
-	.att-div-wrap{
-		margin-right:4px;
-	}
-	/* pathway chart width */
-	#pathwayChart{
-		width:300px !important;
-	}
-	.pathway-link{
-		flex:0 0 218px;
-	}
 
-	/* commitment chart width and label width */
-	#commitmentChart {
-		margin-left:43px;
-	}	
-	.commit-div{
-		flex-direction:column;
-	}
-	.legend-wrap{
-		display:flex; flex-wrap:wrap; justify-content:center; margin-top:8px;
-	}
-	.legend-box{
-		margin-top:0px;
-	}
-	.mobile-legend-wrap{
-		margin-left:10px;
-	}
-	.legend-wrap .flex-wrap {
-    	margin-top: 0px;
-	}
-	.legend-text{
-		width:auto;
-	}
-	.legend-wrap .flex-wrap:first-of-type{
-		margin-top:8px;
-	}
-	.legend-wrap .flex-wrap:last-of-type{
-		margin-top:8px;
-	}
-	.total-commitment-box {
-    	margin-top: 18px;
-	}
 }
 @media only screen and (max-device-width:360px) and (orientation: portrait), only screen and (max-device-width:580px) and (orientation: landscape){
 	/* left div width */
 	#cd_left{
 		flex:0 0 350px;
 	}
-	/* chosen menu and country report button widths */
-	#selectCountry_chosen{
-		width:228px !important; 
-	}
-	.cr-button{
-		padding:5px; width:110px;
-	}
-	.att-div-wrap{
-		margin-right:4px;
-	}
-	/* pathway chart width */
-	#pathwayChart{
-		width:286px !important;
-	}
-	.pathway-link{
-		flex:0 0 218px;
-	}
-	/* commitment chart width and label width */
-	#commitmentChart {
-		margin-left:43px;
-	}	
-	.commit-div{
-		flex-direction:column;
-	}
-	.legend-wrap{
-		display:flex; flex-wrap:wrap; justify-content:center; margin-top:8px;
-	}
-	.legend-box{
-		margin-top:0px;
-	}
-	.mobile-legend-wrap{
-		margin-left:10px;
-	}
-	.legend-wrap .flex-wrap {
-    	margin-top: 0px;
-	}
-	.legend-text{
-		width:auto;
-	}
-	.legend-wrap .flex-wrap:first-of-type{
-		margin-top:8px;
-	}
-	.legend-wrap .flex-wrap:last-of-type{
-		margin-top:8px;
-	}
-	.total-commitment-box {
-    	margin-top: 18px;
-	}
+	
 }		
 @media only screen and (max-device-width:320px) and (orientation: portrait), only screen and (max-device-width:580px) and (orientation: landscape){
 	/* left div width */
 	#cd_left{
 		flex:0 0 312px;
-	}
-	/* chosen menu and country report button widths */
-	#selectCountry_chosen{
-		width:190px !important; 
-	}
-	.cr-button{
-		padding:5px; width:110px;
-	}
-	.att-div-wrap{
-		margin-right:4px;
-	}
-	/* pathway chart width */
-	#pathwayChart{
-		width:250px !important;
-	}
-	.pathway-link{
-		flex:0 0 218px;
-	}
-	/* commitment chart width and label width */
-	#commitmentChart {
-		margin-left:40px;
-	}	
-	.commit-div{
-		flex-direction:column;
-	}
-	.legend-wrap{
-		display:flex; flex-wrap:wrap; justify-content:center; margin-top:8px;
-	}
-	.legend-box{
-		margin-top:0px;
-	}
-	.mobile-legend-wrap{
-		margin-left:10px;
-	}
-	.legend-wrap .flex-wrap {
-    	margin-top: 0px;
-	}
-	.legend-text{
-		width:auto;
-	}
-	.legend-wrap .flex-wrap:first-of-type{
-		margin-top:8px;
-	}
-	.legend-wrap .flex-wrap:last-of-type{
-		margin-top:8px;
-	}
-	.total-commitment-box {
-    	margin-top: 18px;
 	}
 }	
