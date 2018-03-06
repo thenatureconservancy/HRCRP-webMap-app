@@ -84,15 +84,6 @@ html, body{
 	font-family: "Lato-Light";
 }
 
-
-
-
-
-
-
-
-
-
 /* media queries //////////////////////////////////////////////////////////////////////////////////////// */ 
 /* drop the map for anything less than 500px wide/portrait view */
 @media only screen and (max-device-width:600px) and (orientation: portrait){
