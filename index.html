@@ -7,9 +7,12 @@
  	<!-- Jquery, ESRI stylesheets -->
 	<link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/main.css">
 	<!-- jquery code -->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="js/chosen.jquery.min.js"></script>
 	<!-- bring in main and make vars and ESRI api-->
@@ -40,7 +43,49 @@
 		<!-- wrapper for controls -->
 		<div id="cd_left">
 			<div class="mainContentWrapper">
-				<div class="blueFont">A defining feature of southeastern New York, the Hudson River is recognizable to millions. The most familiar feature, the Hudson River Estuary, is a long arm of the sea subject to tides and the upriver press of salty ocean water. Spanning 153 miles from New York Harbor to the Federal Dam in Troy, the Estuary is home to</div>
+				<div class="blueFont">A defining feature of southeastern New York, the Hudson River is recognizable to millions. The most familiar feature, the Hudson River Estuary, is a long arm of the sea subject to tides and the upriver press of salty ocean water. Spanning 153 miles from New York Harbor to the Federal Dam in Troy, the Estuary is home to......</div>
+				<div class="flex-wrap" style="margin-top: 5px;">
+					<h2 class="headers">View Project Layers Below</h2>
+					<div id="hamburgerTools" class="hamburgerTools hamburgerClick">
+						<div style="margin-top: 9px; margin-left: 3px;" class="hamburgerClick">
+							<div class="hud-hamburger hamburgerClick"></div>
+							<div class="hud-hamburger hamburgerClick"></div>
+							<div class="hud-hamburger hamburgerClick"></div>
+						</div>
+						
+						
+					</div>
+					<div class="dropdownMenu">
+						<div class="toolWrapper">
+							<div>Print Map</div>
+							<div>Download Data</div>
+							<div>Another Tool</div>
+						</div>
+					</div>
+
+				</div>
+				<h3 class="cbHeader">Header 2</h3>
+				<div class="cbWrapper">
+					<label class="form-component" for="c-option">
+						<input checked type="checkbox" id="c-option" name="food">
+						<div class="check"></div>
+						<span class="form-text">Guacamole</span>
+					</label>
+					<br>
+					<label class="form-component disabled" for="z-option">
+						<input type="checkbox" id="z-option" name="food">
+						<div class="check"></div>
+						<span class="form-text">Salsa</span>
+					</label>
+					<br>
+					<label class="form-component" for="y-option">
+						<input type="checkbox" id="y-option" name="food">
+						<div class="check"></div>
+						<span class="form-text">Cheese</span>
+					</label>
+				</div>
+				
+
 			</div>
 		</div>
 		<!-- map div -->

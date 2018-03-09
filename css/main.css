@@ -1,0 +1,402 @@
+/* main styles ///////////////////////////////////////////////////////////////////*/
+
+html, body{
+	height:100%; padding:0; margin:0; 
+}
+
+/* bring in fonts ///////////////////////////////////////////////////////////////////*/
+@font-face {
+    font-family: "Lato-Regular";
+    src: url(fonts/Lato-Regular.woff);
+}
+@font-face {
+    font-family: "Lato-Light";
+    src: url(fonts/Lato-Light.woff);
+}
+@font-face {
+    font-family: "Lato-Bold";
+    src: url(fonts/Lato-Bold.woff);
+}
+
+/* main div with left/app div and right/map div ///////////////////////////////////////////////////////////////////*/
+#cd_wrap{
+	display:flex; height:100%; width:100%; color:#3C454A; font-size:12px; font-family:"Open Sans";
+}
+#cd_left{
+	flex:0 0 350px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
+	overflow-y:auto; background:#f3f3f3; 
+}
+#map{
+	height:100%; width:100%; background: #bbb; background: -webkit-radial-gradient(#fff, #bbb); 
+    background: -moz-radial-gradient(#fff, #bbb); background: radial-gradient(#fff, #bbb); 
+}
+.blueFont{
+	color: #2f6384; font-weight: 700; font-size: 14px; line-height: 20px;
+}
+.mainContentWrapper{
+	margin-top: 10px;
+}
+
+/* header styles /////////////////////////////////////////////////////////////////////////////////*/
+
+.mainHeaderWrapper{
+	height: 76px; background:#648CA4; color: white; display: flex;
+}
+.logoWrapper{
+	padding: 5px; width: 100px; padding-left: 5px;
+}
+.titleWrapper{
+	font-size: 16px; font-size: 20px; margin-top: 25px;
+}
+.searchWrapper{
+	position: absolute; right: 300px; top: 21px; background-color: grey; 
+}
+#search {
+    display: block; position: absolute; z-index: 2000; width: 300px;
+ }
+ .headers{
+ 	color: #101d28; font-size: 16px; font-weight: 900; margin-top: 10px; margin-bottom: 5px;
+ }
+ /* map styles ////////////////////////////////////////////////////////////////////////////////*/
+ .esriSimpleSliderTL{
+ 	right: 20px !important;
+ }
+/* wrapper div for flexbox rows ///////////////////////////////////////////////////////////////////*/
+.flex-wrap{
+	display:flex; flex-direction:row; 
+}
+
+
+
+/* styling for the hamburger menu toolbox ////////////////////////////////////////////////////////*/
+.hamburgerTools{
+	height: 35px; width: 35px; background-color:#e8e8e8; margin-left: 88px; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 1px rgba(16,22,26,.2);
+}
+.hamburgerTools:hover{
+	background-color: #f3f3f3; cursor: pointer;
+}
+.hud-hamburger{
+	width: 20px; margin: 4px; height: 3px; background-color: #2F6384;
+}
+.dropdownMenu{
+	position: absolute; z-index: 1000; list-style:  none; background-color: #f3f3f3; left: 243px; top: 277px; border-radius: 6px; 
+	border: 1px solid #ddd; box-shadow: 0 1px 1px rgba(16,22,26,.2); display: none;
+}
+.dropdownMenu div{
+	list-style: none; padding: 5px; 
+} 
+.toolWrapper div:hover{
+	background-color: #e8e8e8; cursor: pointer;
+}
+/* styling for checkbox section /////////////////////////////////////////////////////////*/
+
+.cbWrapper{
+	margin-left: 8px;
+}
+.cbHeader{
+	color: #101d28; font-size: 13px; font-weight: 900; margin-top: 10px; margin-bottom: 5px;
+}
+
+/* chosen */
+.chosen-wrap .chosen-container-single .chosen-single{
+ 	padding:6px 0 0 10px; height:28px; border:1px solid #A7ACAF; border-radius:0px; background:#fff; background-clip:padding-box;
+ 	color:#3C454A; text-decoration:none; white-space:nowrap; line-height:1.2; text-align:left; box-shadow:none; font-family:"Lato-Light";
+}
+.chosen-wrap .chosen-container-single .chosen-single div b{
+ 	margin-top:2px
+}
+.chosen-wrap .chosen-container-single .chosen-single abbr{
+ 	top:10px;right:20px
+}
+.chosen-wrap .chosen-container-single span{
+ 	color:#3C454A; margin-right:0; font-size:14px; font-family:"Lato-Regular";
+}
+.chosen-container .chosen-default span{
+	font-family: "Lato-Light" !important;
+}
+.chosen-container .chosen-results li.active-result {
+	font-family: "Lato-Light";
+}
+
+/* media queries //////////////////////////////////////////////////////////////////////////////////////// */ 
+/* drop the map for anything less than 500px wide/portrait view */
+@media only screen and (max-device-width:600px) and (orientation: portrait){
+	#cd_wrap{
+		background:#f7f7f7;
+	}
+	#cd_left{
+		box-shadow:none; 
+	}
+	#cd_map{
+		display:none; 
+	}
+	/* width of three large attribute divs */
+	.att-div-wrap{
+		margin-right:4px;
+	}
+	.att-div{
+		padding:5px 5px 12px 5px; 
+	}
+}
+@media only screen and (max-device-width:420px) and (orientation: portrait), only screen and (max-device-width:740px) and (orientation: landscape){
+	/* left div width */
+	#cd_left{
+		flex:0 0 400px;
+	}
+}	
+@media only screen and (max-device-width:375px) and (orientation: portrait), only screen and (max-device-width:650px) and (orientation: landscape){
+	/* left div width */
+	#cd_left{
+		flex:0 0 367px;
+	}
+
+}
+@media only screen and (max-device-width:360px) and (orientation: portrait), only screen and (max-device-width:580px) and (orientation: landscape){
+	/* left div width */
+	#cd_left{
+		flex:0 0 350px;
+	}
+	
+}		
+@media only screen and (max-device-width:320px) and (orientation: portrait), only screen and (max-device-width:580px) and (orientation: landscape){
+	/* left div width */
+	#cd_left{
+		flex:0 0 312px;
+	}
+}	
+
+/* style guide css ////////////////////////////////////*/
+/* Styles in this file are intended to be copied into one of the frameworks main.css file */
+
+/* Overrides the imported jQuery-UI classes for the accordion - .accord is
+   added to isolate jquery-ui.css  class overrides to only those elements 
+   within divs of class accord */
+.accord .ui-accordion .ui-accordion-content{
+	padding:0.5em; 
+	font-size:13px;
+	color:#5d6165;
+}
+.accord .ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+	left:0em;	
+}	
+.accord .ui-accordion .ui-accordion-icons {
+	padding-left:1.2em !important;
+}
+.accord .ui-accordion .ui-accordion-icons:focus {
+	outline:none;
+}
+.accord .ui-accordion .ui-accordion-header {
+	color:#222; 
+	margin:0; 
+	padding:.8em .5em .8em .7em; 
+	text-align:left;
+	font-size:14px;
+}
+.accord .ui-accordion .ui-accordion-header:hover {
+	background:#f3f3f3; 
+	text-shadow:1px 1px #cdcdcd;
+}	
+.accord .ui-accordion-header-active  {
+	font-weight:bold; box-shadow:0 2px 4px rgba(0, 0, 0, 0.25); border:solid 1px #999;
+}	
+.accord .ui-state-default, .accord .ui-widget-content .ui-state-default, .accord .ui-widget-header .ui-state-default {
+    border: 1px solid #aaa; color: #5d6165; background:#fff;
+}
+/*.accord .ui-widget-content {
+   border-left: 1px solid #aaaaaa;
+	border-right: 1px solid #aaaaaa;
+	border-bottom-width:0;
+	box-shadow:inset 0 -1px 4px rgba(0, 0, 0, 0.25);
+}*/
+.accord-header {
+	border-top-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+}
+.accord-body{
+	border-top-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+	border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    border-bottom-width: 0;
+    box-shadow: inset 0 -1px 4px rgba(0,0,0,.25);
+}
+
+
+
+/* Overrides to the imported chosen.css classes - .chosen-wrap is added to isolate
+   chosen.css class overrides to only those elements within divs of class chosen-wrap */
+.chosen-wrap .chosen-container-single .chosen-single {
+	padding: 6px 0 0 10px;
+	height: 33px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	background: #fff;
+	background-clip: padding-box;a
+	box-shadow: 0 1px 1px rgba(16,22,26,.2);
+	color: #5d6165;
+	text-decoration: none;
+	white-space: nowrap;
+	line-height: 1.5;
+	text-align: left;
+}
+.chosen-wrap .chosen-container-single .chosen-single div b{
+	margin-top: 4px;
+}
+.chosen-wrap .chosen-container-single .chosen-single abbr {
+	top: 10px;
+	right: 20px;
+}
+.chosen-wrap .chosen-container-single span{
+	color:#222;
+	margin-right: 0;
+}
+.chosen-wrap .chosen-container-multi .chosen-choices {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	background-image: none;
+	cursor: pointer;
+	box-shadow: 0 1px 1px rgba(16,22,26,.2);
+}
+.chosen-wrap .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+	height: 33px;
+	color: #222;
+	font-size: 100%;
+	cursor:pointer;
+}
+.chosen-wrap .chosen-container-multi .chosen-choices li.search-choice {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	background-color: #fdfdfd;
+	background-image: none;
+	box-shadow: 0 1px 1px rgba(16,22,26,.2);
+	color: #222;
+	line-height: 1.7;
+}
+.chosen-wrap .chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+	top:9px;	
+}	
+/* width of slider bar*/
+.slider{
+	font-size: 1.1em !important;
+}
+/* jQuery-UI overrides for the slider */
+.ui-widget .ui-widget{
+	font-size:1.1em;
+}
+.slider-container .ui-state-default, .slider-container .ui-widget-content .ui-state-default, .slider-container .ui-widget-header .ui-state-default{
+	cursor:pointer;
+}
+.slider-container .ui-slider .ui-slider-handle:focus { 
+	outline: none; 
+}
+.range-slider .ui-widget-header{
+	background:#e8f5fe;
+}
+.slider-container {
+	margin: 16px 0 40px;
+}	
+.range-slider {
+	margin: 10px 0 20px;
+}
+
+/* Toggle Button Styling - all based on the parent divs toggle-btn class - no external 
+   library styles are used */
+.toggle-btn {
+	padding-left:5px;
+	margin-bottom:10px;
+	display:flex;
+}
+.toggle-btn input {
+  display: none;
+}
+.toggle-btn label {
+	padding:5px; 
+	box-shadow: 0 1px 1px rgba(16,22,26,.2);
+	background-clip: padding-box; 
+	background-color:#fff; 
+	text-align:center;
+	border: 1px solid #DDD;  
+	margin:5px 5px 5px -6px;
+	flex:1; 
+  	transition:all 0.1s ease-in-out;
+	cursor: pointer;
+	color:#222;
+}
+.toggle-btn label:hover{
+	background-color:#f3f3f3;
+}
+.toggle-btn input:checked + label {
+	color:#FFF;
+	font-weight:bold;
+	background-color:#0096D6;
+	text-shadow:0 1px 1px rgba(0,0,0,0.5);
+	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.35), 0 1px rgba(255, 255, 255, 0.1); 
+}
+.toggle-btn input:checked + label:hover {
+	cursor:default;
+}
+.toggle-btn label:first-of-type {
+  border-radius: 3px 0 0 3px;
+}
+.toggle-btn label:last-of-type {
+  border-radius: 0 3px 3px 0;
+}
+.form-component {
+    position: relative;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.form-component input[type=checkbox]:checked~.check, .form-component input[type=radio]:checked~.check {
+    background: #0096d6;
+    background: linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #0096d6;
+    border-color: rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.3);
+}
+.form-component input[type=checkbox]~.check, .form-component input[type=radio]~.check {
+    border-radius: 3px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(180deg,#fff,hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #f5f8fa;
+    border: 1px solid;
+    border-color: rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.17);
+    box-shadow: 0 1px 1px rgba(16,22,26,.1);
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+    margin-right: 2px;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+}
+.form-component input[type=checkbox]:checked, .form-component input[type=radio]:checked {
+    display: none;
+}
+.form-component input[type=checkbox], .form-component input[type=radio] {
+    display: none;
+}
+.form-component input[type=checkbox]:checked~.check:after, .form-component input[type=radio]:checked~.check:after {
+    display: inline-block;
+    width: 4px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+}
+*, :after, :before {
+    box-sizing: inherit;
+}
+/* Blue font */
+.blueFont{
+	color:#2F6384;
+	font-weight:600;
+	line-height: 20px;
+	font-size: 14px;
+} 
