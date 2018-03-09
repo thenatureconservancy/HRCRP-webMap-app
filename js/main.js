@@ -2,39 +2,69 @@
 // main js file for the Hudson River web mapping application
 // ESRI api functions ///////////////////////////////////////////////////////////////////////////////////////////////////
 // esri api calls
-var app = {};
+var app = {}; // main app object
+app.visibleLayers = [0,2,3,4]
 require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/TextSymbol",
     "esri/symbols/Font", "esri/Color", "esri/geometry/Extent", "esri/layers/FeatureLayer", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol",
-        "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "dojo/domReady!"], 
+        "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "dojo/domReady!","esri/dijit/Legend"], 
 function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, Color, Extent, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,
-        SimpleRenderer, Graphic, Search) {
-// require([ "esri/map", "esri/dijit/Search", "dojo/domReady!"
-//   ], function (Map, Search) {
-  	// esri map
+        SimpleRenderer, Graphic, Search, Legend) {
+  	// esri map//////////////////////////////////////////////////////////////////////////////////////////////////////
      var map = new Map("map", {
         basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
         center: [-73.9, 42.05], // lon, lat
         zoom: 8,
         sliderPosition: "top-right"
      });
+
      // code for ESRI search
      var search = new Search({
         map: map
      }, "search");
      search.startup();
      map.on("load", function() {
+        console.log('inside load')
         map.enableScrollWheel()
      })
      // add dynamic layer to map
      var url = "http://nyspatial.tnc.org:6080/arcgis/rest/services/HudsonRiverWebServices/HudsonRiverMapService_v03082018/MapServer";
      // Add dynamic map service
     var dynamicLayer = new ArcGISDynamicMapServiceLayer(url, {opacity:0.7});
-    map.addLayer(dynamicLayer);
-    // on dynamic layer load
+    
+    // on dynamic layer load ////////////////////////////////////////////////////////////////////////////////////////////////
     dynamicLayer.on("load", function () {
         console.log('loaded');
+        dynamicLayer.setVisibleLayers(app.visibleLayers);
+        map.addLayer(dynamicLayer);
+        console.log('added layer')
+
     });
+
+    // //add the legend ////////////////////////////////////////////////////////////////////////////////////////
+    var legendLayers = [{ layer: dynamicLayer }]
+    map.on('layers-add-result', function () {
+        console.log('inside')
+      var legend = new Legend({
+        map: map,
+        // layerInfos: legendLayers
+      }, "legendDiv");
+      legend.startup();
+    });
+    
+
 }); // end of main require function
+
+
+
+
+
+
+
+
+
+
+
+
 
 // when document is ready //////////////////////////////////////////////////////////////////////////////////////////////////
 $( document ).ready(function() {
