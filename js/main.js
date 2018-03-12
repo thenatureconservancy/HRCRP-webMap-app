@@ -3,7 +3,7 @@
 // ESRI api functions ///////////////////////////////////////////////////////////////////////////////////////////////////
 // esri api calls
 var app = {}; // main app object
-app.visibleLayers = [0,2,3,4]
+app.visibleLayers = [0,4]
 require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/TextSymbol",
     "esri/symbols/Font", "esri/Color", "esri/geometry/Extent", "esri/layers/FeatureLayer", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol",
         "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "dojo/domReady!","esri/dijit/Legend"], 
@@ -28,28 +28,46 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
      })
      // add dynamic layer to map
      var url = "http://nyspatial.tnc.org:6080/arcgis/rest/services/HudsonRiverWebServices/HudsonRiverMapService_v03082018/MapServer";
+     // for github url
+     // var url = "https://nyspatial.tnc.org/arcgis/rest/services/HudsonRiverWebServices/HudsonRiverMapService_v03082018/MapServer";
+
      // Add dynamic map service
     var dynamicLayer = new ArcGISDynamicMapServiceLayer(url, {opacity:0.7});
     
     // on dynamic layer load ////////////////////////////////////////////////////////////////////////////////////////////////
     dynamicLayer.on("load", function () {
-        console.log('loaded');
         dynamicLayer.setVisibleLayers(app.visibleLayers);
-        map.addLayer(dynamicLayer);
-        console.log('added layer')
-
+        map.addLayer(dynamicLayer); // add dynamic layer
     });
+    // on cb clicks add and remoce layers
+    $('.cbWrapper input').click(function(c){
+        var layerId = parseInt(c.currentTarget.id.split('-')[1]);
+        if(c.currentTarget.checked){
+            console.log('c')
+            app.visibleLayers.push(layerId)
+        }else{
+             console.log('u')
+            var index = app.visibleLayers.indexOf(layerId)
+            if (index !== -1) app.visibleLayers.splice(index, 1);
+        }
+        console.log(app.visibleLayers)
+        dynamicLayer.setVisibleLayers(app.visibleLayers);
+    })
+
+
+
+
 
     // //add the legend ////////////////////////////////////////////////////////////////////////////////////////
-    var legendLayers = [{ layer: dynamicLayer }]
-    map.on('layers-add-result', function () {
-        console.log('inside')
-      var legend = new Legend({
-        map: map,
-        // layerInfos: legendLayers
-      }, "legendDiv");
-      legend.startup();
-    });
+    // var legendLayers = [{ layer: dynamicLayer }]
+    // map.on('layers-add-result', function () {
+    //     console.log('inside')
+    //   var legend = new Legend({
+    //     map: map,
+    //     // layerInfos: legendLayers
+    //   }, "legendDiv");
+    //   legend.startup();
+    // });
     
 
 }); // end of main require function
