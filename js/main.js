@@ -39,21 +39,9 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         dynamicLayer.setVisibleLayers(app.visibleLayers);
         map.addLayer(dynamicLayer); // add dynamic layer
     });
-    // on cb clicks add and remoce layers
-    $('.cbWrapper input').click(function(c){
-        var layerId = parseInt(c.currentTarget.id.split('-')[1]);
-        if(c.currentTarget.checked){
-            console.log('c')
-            app.visibleLayers.push(layerId)
-        }else{
-             console.log('u')
-            var index = app.visibleLayers.indexOf(layerId)
-            if (index !== -1) app.visibleLayers.splice(index, 1);
-        }
-        console.log(app.visibleLayers)
-        dynamicLayer.setVisibleLayers(app.visibleLayers);
-    })
-
+    
+    
+    
 
 
 
@@ -70,38 +58,59 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
     // });
     
 
-}); // end of main require function
 
 
-
-
-
-
-
-
-
-
-
-
-
-// when document is ready //////////////////////////////////////////////////////////////////////////////////////////////////
-$( document ).ready(function() {
-    // on doc click
-    $(document).on('click', function (e) {
-    // Do whatever you want; the event that'd fire if the "special" element has been clicked on has been cancelled.
-        var c = $(e.target).attr('class')
-        if(c){
-             var i = c.indexOf('hamburgerClick')
-        }
-        if(i > -1){
-            $('.dropdownMenu').slideDown();
-        }else{
-            $('.dropdownMenu').slideUp();
-        }
+    // when document is ready //////////////////////////////////////////////////////////////////////////////////////////////////
+    // html code goes here
+    $( document ).ready(function() {
+        // on cb clicks add and remoce layers /////////////////
+        $('.cbWrapper input').click(function(c){
+            var layerId = parseInt(c.currentTarget.id.split('-')[1]);
+            if(c.currentTarget.checked){
+                app.visibleLayers.push(layerId)
+            }else{
+                var index = app.visibleLayers.indexOf(layerId)
+                if (index !== -1) app.visibleLayers.splice(index, 1);
+            }
+            dynamicLayer.setVisibleLayers(app.visibleLayers);
+        })
+        // header collapse functionality
+        $('.cbHeader').on('click', function(e){
+            // check to see the height of the next cbWrapper
+            // if its open close it, change text to show
+            if($(e.currentTarget).next().is(':visible')){
+                $(e.currentTarget).next().slideUp();
+                $(e.currentTarget).find('span').html('Show')
+            }else{ // else open it, chnage text to collapse
+                $(e.currentTarget).next().slideDown();
+                $(e.currentTarget).find('span').html('Collapse')
+            }
+        })
+         // header mouse over functionality
+        $('.cbHeader').on('mouseover', function(e){
+            // add blue font class to span
+            $(e.currentTarget).find('span').css('color', '#2F6384')
+        })
+        $('.cbHeader').on('mouseout', function(e){
+            $(e.currentTarget).find('span').css('color', '#f3f3f3')
+            // remove blue font class to span
+        })
+        // on doc click
+        $(document).on('click', function (e) {
+        // Do whatever you want; the event that'd fire if the "special" element has been clicked on has been cancelled.
+            var c = $(e.target).attr('class')
+            if(c){
+                 var i = c.indexOf('hamburgerClick')
+            }
+            if(i > -1){
+                $('.dropdownMenu').slideDown();
+            }else{
+                $('.dropdownMenu').slideUp();
+            }
+        });
     });
-});
 
-
+}); // end of main require function
 
 
 

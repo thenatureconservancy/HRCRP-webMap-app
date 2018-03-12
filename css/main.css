@@ -20,7 +20,7 @@ html, body{
 
 /* main div with left/app div and right/map div ///////////////////////////////////////////////////////////////////*/
 #cd_wrap{
-	display:flex; height:100%; width:100%; color:#3C454A; font-size:12px; font-family:"Open Sans";
+	display:flex; height:90%; width:100%; color:#3C454A; font-size:12px; font-family:"Open Sans";
 }
 #cd_left{
 	flex:0 0 350px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
@@ -40,7 +40,7 @@ html, body{
 /* header styles /////////////////////////////////////////////////////////////////////////////////*/
 
 .mainHeaderWrapper{
-	height: 76px; background:#648CA4; color: white; display: flex;
+	height: 10%; background:#648CA4; color: white; display: flex;
 }
 .logoWrapper{
 	padding: 5px; width: 100px; padding-left: 5px;
@@ -55,7 +55,7 @@ html, body{
     display: block; position: absolute; z-index: 2000; width: 300px;
  }
  .headers{
- 	color: #101d28; font-size: 16px; font-weight: 900; margin-top: 10px; margin-bottom: 5px;
+ 	color: #101d28; font-size: 16px; font-weight: 900; margin-top: 10px; margin-bottom: 5px; width: 100%;
  }
  /* map styles ////////////////////////////////////////////////////////////////////////////////*/
  .esriSimpleSliderTL{
@@ -70,7 +70,7 @@ html, body{
 
 /* styling for the hamburger menu toolbox ////////////////////////////////////////////////////////*/
 .hamburgerTools{
-	height: 35px; width: 35px; background-color:#e8e8e8; margin-left: 88px; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 1px rgba(16,22,26,.2);
+	height: 35px; width: 35px; background-color:#e8e8e8; margin-left: -45px; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 1px rgba(16,22,26,.2);
 }
 .hamburgerTools:hover{
 	background-color: #f3f3f3; cursor: pointer;
@@ -79,7 +79,7 @@ html, body{
 	width: 20px; margin: 4px; height: 3px; background-color: #2F6384;
 }
 .dropdownMenu{
-	position: absolute; z-index: 1000; list-style:  none; background-color: #f3f3f3; left: 243px; top: 277px; border-radius: 6px; 
+	position: absolute; z-index: 1000; list-style:  none; background-color: #f3f3f3; left: 243px; top: 282px; border-radius: 6px; 
 	border: 1px solid #ddd; box-shadow: 0 1px 1px rgba(16,22,26,.2); display: none;
 }
 .dropdownMenu div{
@@ -94,7 +94,16 @@ html, body{
 	margin-left: 8px;
 }
 .cbHeader{
-	color: #101d28; font-size: 13px; font-weight: 900; margin-top: 10px; margin-bottom: 5px;
+	color: #101d28; font-size: 13px; font-weight: 900; margin: 10px 4px 5px -4px; padding-left: 4px; border-radius: 4px; padding: 2px; display: flex;
+}
+.cbHeader:hover{
+	background-color: #e5e3e3; cursor: pointer;
+}
+.cbHeader h3{
+	margin: 0px; font-size: 13px; color: #101d28; font-weight: 900;
+}
+.cbHeader span{
+	color: #f3f3f3; margin-left: auto; margin-right: 3px; font-size: 12px; font-weight: 600;
 }
 
 /* chosen */
@@ -165,7 +174,7 @@ html, body{
 	}
 }	
 
-/* style guide css ////////////////////////////////////*/
+/* style guide css //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /* Styles in this file are intended to be copied into one of the frameworks main.css file */
 
 /* Overrides the imported jQuery-UI classes for the accordion - .accord is
