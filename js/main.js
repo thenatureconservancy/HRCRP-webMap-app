@@ -27,9 +27,11 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         map.enableScrollWheel()
      })
      // add dynamic layer to map
-     var url = "http://nyspatial.tnc.org:6080/arcgis/rest/services/HudsonRiverWebServices/HudsonRiverMapService_v03082018/MapServer";
+     // var url = "http://nyspatial.tnc.org:6080/arcgis/rest/services/HudsonRiverWebServices/HudsonRiverMapService_v03082018/MapServer";
      // for github url
      // var url = "https://nyspatial.tnc.org/arcgis/rest/services/HudsonRiverWebServices/HudsonRiverMapService_v03082018/MapServer";
+
+     var url = "https://cumulus.tnc.org/arcgis/rest/services/nascience/HudsonRiverMapService/MapServer"
 
      // Add dynamic map service
     var dynamicLayer = new ArcGISDynamicMapServiceLayer(url, {opacity:0.7});
