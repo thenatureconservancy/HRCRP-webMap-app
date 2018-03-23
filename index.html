@@ -34,6 +34,11 @@
 		<div class="searchWrapper">
 			<div id="search"></div>
 		</div>
+		<!-- Basemap toggle ///////////////////////////// -->
+		<div class="basemapWrapper">
+			<div id="BasemapToggle"></div>
+		</div>
+		
 	</div>
 	<!-- wrapper for map and controls -->
 	<div id="cd_wrap">
@@ -50,8 +55,6 @@
 							<div class="hud-hamburger hamburgerClick"></div>
 							<div class="hud-hamburger hamburgerClick"></div>
 						</div>
-						
-						
 					</div>
 					<div class="dropdownMenu">
 						<div class="toolWrapper">
@@ -73,10 +76,18 @@
 						<span class="form-text">All Projects</span>
 					</label>
 				</div>
+				<div id="filterWrapper" class="filterWrapper">
+					<div>Filter projects by type:</div>
+
+					<div>Filter projects by status:</div>
+				</div>
+				
 				<div class="cbHeader">
 					<h3>Physical Habitat Units</h3>
 					<span>Collapse</span>
 				</div>
+				
+
 				<div class="cbWrapper">
 					<label class="form-component" for="layer-6">
 						<input type="checkbox" id="layer-6" name="food">
@@ -151,8 +162,12 @@
 					</label>
 					
 				</div>
+
 				<!-- legend div ///////////////////////////////// -->
 				<div id="legendDiv"></div>
+
+				
+				
 
 			</div>
 		</div>

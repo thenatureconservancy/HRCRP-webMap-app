@@ -6,9 +6,9 @@ var app = {}; // main app object
 app.visibleLayers = [0,4]
 require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/TextSymbol",
     "esri/symbols/Font", "esri/Color", "esri/geometry/Extent", "esri/layers/FeatureLayer", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol",
-        "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "dojo/domReady!","esri/dijit/Legend"], 
+        "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "esri/dijit/Legend", "esri/dijit/BasemapToggle","dojo/domReady!"], 
 function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, Color, Extent, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,
-        SimpleRenderer, Graphic, Search, Legend) {
+        SimpleRenderer, Graphic, Search, Legend, BasemapToggle) {
   	// esri map//////////////////////////////////////////////////////////////////////////////////////////////////////
      var map = new Map("map", {
         basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
@@ -22,6 +22,14 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         map: map
      }, "search");
      search.startup();
+     // code for ESRI basemap
+     var toggle = new BasemapToggle({
+        map: map,
+        basemap: "satellite"
+      }, "BasemapToggle");
+      toggle.startup();
+
+
      map.on("load", function() {
         console.log('inside load')
         map.enableScrollWheel()
