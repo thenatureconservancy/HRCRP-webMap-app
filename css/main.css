@@ -20,12 +20,24 @@ html, body{
 
 /* main div with left/app div and right/map div ///////////////////////////////////////////////////////////////////*/
 #cd_wrap{
-	display:flex; height:91.4%; width:100%; color:#3C454A; font-size:12px; font-family:"Open Sans";
+	display:flex; flex-grow: 1; position: relative; height:91.5%; width:100%; color:#3C454A; font-size:12px; font-family:"Open Sans";
 }
 #cd_left{
 	flex:0 0 350px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
 	overflow-y:auto; background:#f3f3f3; 
 }
+/*.contentWrapper{
+	display: flex; height: 90%;
+}
+.appWrapper{
+	width: 350px;
+}*/
+.mapWrapper{
+	width: 100%;
+}
+/*#cd_right{
+	flex: 1;
+}*/
 #map{
 	height:100%; width:100%; background: #bbb; background: -webkit-radial-gradient(#fff, #bbb); 
     background: -moz-radial-gradient(#fff, #bbb); background: radial-gradient(#fff, #bbb); 
@@ -40,7 +52,7 @@ html, body{
 /* header styles /////////////////////////////////////////////////////////////////////////////////*/
 
 .mainHeaderWrapper{
-	height: 77px; background:#648CA4; color: white; display: flex;
+	 background:#648CA4; color: white; display: flex;
 }
 .logoWrapper{
 	padding: 5px; width: 100px; padding-left: 5px;
@@ -54,21 +66,73 @@ html, body{
 #search {
     display: block; position: absolute; z-index: 2000; width: 300px;
  }
- .headers{
+.headers{
  	color: #101d28; font-size: 16px; font-weight: 900; margin-top: 10px; margin-bottom: 5px; width: 100%;
  }
  /* map styles ////////////////////////////////////////////////////////////////////////////////*/
- .esriSimpleSliderTL{
+.esriSimpleSliderTL{
  	right: 20px !important;
- }
- #BasemapToggle{
+}
+#BasemapToggle{
  	position: absolute; top: 96px; z-index: 1000; left: 379px;
- }
+}
+/* legend styling /////////////////////////////////////////////////////////////////////////////////*/
+.legendDivWrapper{
+	position: absolute; bottom: 40px; right: 20px; z-index: 1000; border: 1px solid #ddd; border-radius: 6px; background-color: #f3f3f3;
+	 overflow: auto; box-shadow: 0 2px 2px rgba(16,22,26,.5); max-height: 50%; min-width: 17%;
+}
+.legendPopupHeader{
+	background-color: #e5e3e3; padding: 6px; font-weight: bold; border-bottom: solid 1px darkgray;
+	position: absolute; width: 94.5%; z-index: 1000;
+}
+.dummyLegendHeader{
+	position: absolute; bottom: 41px; right: 20px; z-index: 1000; background-color: #e5e3e3; padding: 6px; 
+	font-weight: bold; border-bottom: solid 1px darkgray; border-radius: 6px; box-shadow: 0 2px 2px rgba(16,22,26,.5); width: 150px;
+	display: none;
+}
 /* wrapper div for flexbox rows ///////////////////////////////////////////////////////////////////*/
 .flex-wrap{
 	display:flex; flex-direction:row; 
 }
-
+/*  popup styling ////////////////////////////////////////////////////////////////////////////////*/
+.popupWrapper{
+	position: absolute; z-index: 1000; left: 500px; top: 500px; color: #3C454A; background-color: #f3f3f3; display: none; margin-bottom: 25px;
+}
+.bottomPopupWrapper{
+	position: absolute; z-index: 1000; left: 380px; bottom: 40px; background-color: white; 
+	color: black; box-shadow: 0 2px 2px rgba(16,22,26,.5); border: 1px solid #ddd; border-radius: 6px;
+	font-size:12px; font-family:"Open Sans"; background-color: #f3f3f3;
+}
+.popupHeader{
+	background-color: #e5e3e3; padding: 6px; font-weight: bold; border-bottom: solid 1px darkgray;
+}
+.popupHeaderClose{
+	position: absolute; font-size: 16px; margin-left: -4.5px; margin-top: -2px
+}
+.popupHeaderCloseWrapper{
+	height: 20px; width: 20px; /*background-color: darkgrey;*/ position: absolute;border-radius: 10px; text-align: center; right: 3px; top: 4px;
+}
+.popupHeaderCloseWrapper:hover{
+	cursor: pointer; background-color: darkgrey; 
+}
+.popupMinWrapper{
+	position: absolute; right: 24px; font-size: 12px; top: 4px; text-align: center; width: 20px; height: 20px; border-radius: 10px; 
+}
+.popupMinWrapper:hover{
+	cursor: pointer; background-color: darkgrey;
+}
+.popupMinLeg{
+	right: 3px;
+}
+.popupMin{
+	position: absolute; top: 3px; right: 4px;
+}
+.popupItems{
+	padding: 5px;
+}
+/*.popupHeaderClose:hover{
+	cursor: pointer; background-color: blue; border-radius: 20px;
+}*/
 
 
 /* styling for the hamburger menu toolbox ////////////////////////////////////////////////////////*/
@@ -108,6 +172,36 @@ html, body{
 .cbHeader span{
 	color: #f3f3f3; margin-left: auto; margin-right: 3px; font-size: 12px; font-weight: 600;
 }
+/* styling for opacity wrapper*/
+
+.opacityWrapper{
+	width: 358px;
+	height: 54px;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	background-color:#e8e8e8;
+	box-shadow: 0 -1px 1px rgba(16,22,26,0.2);
+	border-top: 1px solid #ddd;
+	display: flex;
+	/*border-top: 1px solid #ddd;
+    height: 54px;
+    padding-top: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fbfbfb;
+    box-shadow: 0 -1px 1px rgba(16,22,26,0.2);*/
+}
+
+.opacitySliderLabels{
+	display: flex; margin-left: 4px; margin-top: 6px;
+}
+.sliderLabels{
+	padding: 14px;
+}
+/* */
 
 /* chosen */
 .chosen-wrap .chosen-container-single .chosen-single{
@@ -309,7 +403,7 @@ html, body{
 	background:#e8f5fe;
 }
 .slider-container {
-	margin: 16px 0 40px;
+	margin: 17px 0 13px;
 }	
 .range-slider {
 	margin: 10px 0 20px;
@@ -362,6 +456,7 @@ html, body{
     margin-right: 5px;
     margin-bottom: 10px;
     display: inline-block;
+    cursor: pointer;
 }
 .form-component input[type=checkbox]:checked~.check, .form-component input[type=radio]:checked~.check {
     background: #0096d6;
@@ -404,6 +499,14 @@ html, body{
 }
 *, :after, :before {
     box-sizing: inherit;
+}
+.slider-container .ui-state-default, .slider-container .ui-widget-content .ui-state-default, .slider-container .ui-widget-header .ui-state-default {
+    border-radius: 100%!important;
+    box-shadow: 0 1px 1px rgba(16,22,26,.1)!important;
+    background: linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #0096d6!important;
+    border-color: rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.3)!important;
+    width: 17px!important;
+    height: 17px!important;
 }
 /* Blue font */
 .blueFont{

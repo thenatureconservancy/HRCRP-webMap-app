@@ -8,11 +8,13 @@
 	<link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.css">
 	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<!-- jquery code -->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="js/chosen.jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<!-- bring in main and make vars and ESRI api-->
 	<script src="https://js.arcgis.com/3.21/"></script>
 	<script src="js/makevariables.js"></script>
@@ -38,13 +40,16 @@
 		<div class="basemapWrapper">
 			<div id="BasemapToggle"></div>
 		</div>
-		
+		<!-- popup wrapper ////////////////////////////////////////////// -->
+		<div id="popupWrapper" class="popupWrapper">
+			<p>This is some text</p>
+		</div>
 	</div>
 	<!-- wrapper for map and controls -->
-	<div id="cd_wrap">
+	<div id="cd_wrap" class="contentWrapper">
 
 		<!-- wrapper for controls -->
-		<div id="cd_left">
+		<div id="cd_left" class="appWrapper">
 			<div class="mainContentWrapper">
 				<div class="blueFont">A defining feature of southeastern New York, the Hudson River is recognizable to millions. The most familiar feature, the Hudson River Estuary, is a long arm of the sea subject to tides and the upriver press of salty ocean water. Spanning 153 miles from New York Harbor to the Federal Dam in Troy, the Estuary is home to......</div>
 				<div class="flex-wrap" style="margin-top: 5px;">
@@ -64,6 +69,7 @@
 						</div>
 					</div>
 				</div>
+				<!-- all projects section //////////////////////////////////////////////// -->
 				<div class="cbHeader">
 					<h3>All Projects</h3>
 					<span>Collapse</span>
@@ -76,12 +82,12 @@
 						<span class="form-text">All Projects</span>
 					</label>
 				</div>
-				<div id="filterWrapper" class="filterWrapper">
+				<!-- <div id="filterWrapper" class="filterWrapper">
 					<div>Filter projects by type:</div>
 
 					<div>Filter projects by status:</div>
-				</div>
-				
+				</div> -->
+				<!-- PHU section //////////////////////////////////////////////////////// -->
 				<div class="cbHeader">
 					<h3>Physical Habitat Units</h3>
 					<span>Collapse</span>
@@ -89,90 +95,104 @@
 				
 
 				<div class="cbWrapper">
-					<label class="form-component" for="layer-6">
-						<input type="checkbox" id="layer-6" name="food">
+					<label class="form-component" for="layer-3">
+						<input type="checkbox" id="layer-3" name="food">
 						<div class="check"></div>
 						<span class="form-text">Physical Habitat Units and Boundaries</span>
 					</label>
 					<br>
-					<label class="form-component" for="layer-7">
-						<input type="checkbox" id="layer-7" name="food">
+					<label class="form-component" for="layer-4">
+						<input type="checkbox" id="layer-4" name="food">
 						<div class="check"></div>
 						<span class="form-text">PHU Depth Classes</span>
 					</label>
 					<br>
-					<label class="form-component disabled" for="layer-8">
-						<input type="checkbox" id="layer-8" name="food">
+					<label class="form-component disabled" for="layer-5">
+						<input type="checkbox" id="layer-5" name="food">
 						<div class="check"></div>
 						<span class="form-text">PHU Sediment Type Classes</span>
 					</label>
 					<br>
-					<label class="form-component disabled" for="layer-9">
-						<input type="checkbox" id="layer-9" name="food">
+					<label class="form-component disabled" for="layer-6">
+						<input type="checkbox" id="layer-6" name="food">
 						<div class="check"></div>
 						<span class="form-text">PHU Slope Classes</span>
 					</label>
 					<br>
-					<label class="form-component disabled" for="layer-10">
-						<input type="checkbox" id="layer-10" name="food">
+					<label class="form-component disabled" for="layer-7">
+						<input type="checkbox" id="layer-7" name="food">
 						<div class="check"></div>
 						<span class="form-text">PHU Sediment Environment Classes</span>
 					</label>
 				</div>
+				<!-- sup data section ///////////////////////////////////////// -->
 				<div class="cbHeader">
-					<h3>Civil Boundaries</h3>
+					<h3>Supplementary Data</h3>
 					<span>Collapse</span>
 				</div>
 				
 				<div class="cbWrapper">
-					<label class="form-component" for="layer-2">
-						<input type="checkbox" id="layer-2" name="food">
+					<label class="form-component" for="layer-1">
+						<input checked="true" type="checkbox" id="layer-1" name="food">
 						<div class="check"></div>
-						<span class="form-text">Villages</span>
+						<span class="form-text">Civil Boundaries</span>
 					</label>
 					<br>
-					<label class="form-component" for="layer-3">
-						<input type="checkbox" id="layer-3" name="food">
-						<div class="check"></div>
-						<span class="form-text">Cities/Towns</span>
-					</label>
-					<br>
-					<label class="form-component disabled" for="layer-4">
-						<input checked type="checkbox" id="layer-4" name="food">
-						<div class="check"></div>
-						<span class="form-text">County Boundaries</span>
-					</label>
-				</div>
-				<div class="cbHeader">
-					<h3>Other Layers</h3>
-					<span>Collapse</span>
-				</div>
-				
-				<div class="cbWrapper">
-					<label class="form-component" for="layer-40">
-						<input type="checkbox" id="layer-40" name="food">
+					<label class="form-component" for="layer-37">
+						<input type="checkbox" id="layer-37" name="food">
 						<div class="check"></div>
 						<span class="form-text">NOAA DEC Open Water</span>
 					</label>
 					<br>
-					<label class="form-component" for="layer-41">
-						<input type="checkbox" id="layer-41" name="food">
+					<label class="form-component" for="layer-38">
+						<input type="checkbox" id="layer-38" name="food">
 						<div class="check"></div>
 						<span class="form-text">Hudson River Estuary study area extent</span>
 					</label>
 					
 				</div>
-
-				<!-- legend div ///////////////////////////////// -->
-				<div id="legendDiv"></div>
-
-				
-				
-
+				<div class="test"></div>
+				<div id="opacityWrapper" class="opacityWrapper">
+					<div class="opacitySliderLabels">
+						<div class="sliderLabels">Opaque</div>
+						<div class="slider-container" style="width:180px;">
+							<div id="sldr" class="slider"></div>	
+						</div>
+						<div class="sliderLabels">Transparent</div>
+					</div>
+					
+				</div>
 			</div>
+
 		</div>
-		<!-- map div -->
-		<div id="map"></div>
+		
+		<div id="cd_right" class="mapWrapper">
+			<!-- map div ///////////////////////////////////////////////////// -->
+			<div id="map"></div>
+		</div>
+		<!-- bottom popup wrapper ///////////////////////////////////////-->
+				<div id="bottomPopupWrapper" class="bottomPopupWrapper" style="display: none;">
+					<div class="popupHeader"><span id="popupHeaderTitle" style="padding-right: 50px;">Ramshorn- Livingston Marsh and Sanctuary</span><span class="popupMinWrapper"><span class="popupMin">&#x25BC;</span></span> <span class="popupHeaderCloseWrapper"><span class="popupHeaderClose">x</span></span></div>
+					<div class="popupItemsWrapper">
+						<div class="popupItems">Project Type: <span>Test text</span></div>
+						<div class="popupItems">Project Description: <span>Test text</span></div>
+						<div class="popupItems">Project Stakeholder: <span>Test text</span></div>
+						<div class="popupItems">Project Name: <span>Test text</span></div>
+						<div class="popupItems">Project Jurisdiction: <span>Test text</span></div>
+						<div class="popupItems">Project County: <span>Test text</span></div>
+						<div class="popupItems">Project Location: <span>Test text</span></div>
+					</div>
+					
+				</div>
+		<!-- legend div ///////////////////////////////////////// -->
+		<div class="dummyLegendHeader"><span id="popupHeaderTitle" style="padding-right: 50px;">Legend</span><span class="popupMinWrapper popupMinLeg"><span class="popupMin" style="top: 1px;">&#9650;</span></span></div>
+
+
+		<div class="legendDivWrapper">
+			<div class="legendPopupHeader"><span id="popupHeaderTitle" style="padding-right: 50px;">Legend</span><span class="popupMinWrapper popupMinLeg"><span class="popupMin">&#x25BC;</span></span></div>
+			<div id="legendDiv" class="legendDiv"></div>
+		</div>
+		
 	</div>	
 </body>
 </html>

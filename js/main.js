@@ -3,13 +3,13 @@
 // ESRI api functions ///////////////////////////////////////////////////////////////////////////////////////////////////
 // esri api calls
 var app = {}; // main app object
-app.visibleLayers = [0,4]
+app.visibleLayers = [0,1]
 require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/TextSymbol",
-    "esri/symbols/Font", "esri/Color", "esri/geometry/Extent", "esri/layers/FeatureLayer", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol",
+    "esri/symbols/Font", "esri/Color", "esri/geometry/Extent", "esri/layers/FeatureLayer", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol","esri/symbols/SimpleMarkerSymbol",
         "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "esri/dijit/Legend", "esri/dijit/BasemapToggle","dojo/domReady!"], 
-function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, Color, Extent, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,
+function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, Color, Extent, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,SimpleMarkerSymbol,
         SimpleRenderer, Graphic, Search, Legend, BasemapToggle) {
-  	// esri map//////////////////////////////////////////////////////////////////////////////////////////////////////
+    // esri map  //////////////////////////////////////////////////////////////////////////////////////////////////////
      var map = new Map("map", {
         basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
         center: [-73.9, 42.05], // lon, lat
@@ -17,62 +17,102 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         sliderPosition: "top-right"
      });
 
-     // code for ESRI search
+     // code for ESRI search/////////////////////////////////////////
      var search = new Search({
         map: map
      }, "search");
      search.startup();
-     // code for ESRI basemap
+     // code for ESRI basemap //////////////////////////////
      var toggle = new BasemapToggle({
         map: map,
         basemap: "satellite"
       }, "BasemapToggle");
       toggle.startup();
+      //add the legend ////////////////////////////////////////////////////////////////////////////////////////
+      var legendLayers =[];
+      legendLayers.push({title: ' ' });
 
-
-     map.on("load", function() {
-        console.log('inside load')
-        map.enableScrollWheel()
-     })
-     // add dynamic layer to map
-     // var url = "http://nyspatial.tnc.org:6080/arcgis/rest/services/HudsonRiverWebServices/HudsonRiverMapService_v03082018/MapServer";
-     // for github url
-     // var url = "https://nyspatial.tnc.org/arcgis/rest/services/HudsonRiverWebServices/HudsonRiverMapService_v03082018/MapServer";
-
-     var url = "https://cumulus.tnc.org/arcgis/rest/services/nascience/HudsonRiverMapService/MapServer"
-
-     // Add dynamic map service
-    var dynamicLayer = new ArcGISDynamicMapServiceLayer(url, {opacity:0.7});
-    
+      var legend = new Legend({
+        map: map,
+        // layerInfos: legendLayers
+        // layerInfos: legendLayers
+      }, "legendDiv");
+      legend.startup();
+      // legend.layerInfos = title = ;
+    // Add dynamic map service
+    app.url = "https://cumulus.tnc.org/arcgis/rest/services/nascience/HudsonRiverMapService/MapServer"
+    var dynamicLayer = new ArcGISDynamicMapServiceLayer(app.url, {opacity:0.7});
     // on dynamic layer load ////////////////////////////////////////////////////////////////////////////////////////////////
     dynamicLayer.on("load", function () {
         dynamicLayer.setVisibleLayers(app.visibleLayers);
         map.addLayer(dynamicLayer); // add dynamic layer
     });
-    
-    
-    
 
+    // on map load ////////////////////////////////////////////////////////////////////////////////////////////
+     map.on("load", function() {
+        // $('#legendDiv').children().first().find('.esriLegendServiceLabel').html('change the title');
+        // console.log('hey')
+        map.enableScrollWheel();
+        map.on("mouse-over", function(e){
+            map.setMapCursor("pointer");
+        })
+        map.on("mouse-out", function(e){
+        })
+        // on map click /////////////////////////////////////////////////////////
+        map.on("click", function(e){
+            // query the map for features
+            var pnt = e.mapPoint;
+            var centerPoint = new esri.geometry.Point(pnt.x,pnt.y,pnt.spatialReference);
+            var mapWidth = map.extent.getWidth();
+            var mapWidthPixels = map.width;
+            var pixelWidth = mapWidth/mapWidthPixels;
+            var tolerance = 10 * pixelWidth;
+            var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, pnt.spatialReference);
+            var p = ext.centerAt(centerPoint);
+            //start of query ///////////////////////////////////////////////////////////////////////
+            var q = new Query();
+            var qt = new QueryTask(app.url + "/0");
+            q.geometry = p;
+            q.returnGeometry = true;
+            q.outFields = ["*"];
+            // execute query ///////////////////
+            // test to see if the project layers is being displayed. if it is execute query
+            var index = app.visibleLayers.indexOf(0)
+            if (index > -1) {
+                qt.execute(q);
+            }
+            // query on complete
+            qt.on('complete', function(evt){
+                map.graphics.clear();
+                // new markey symbol used for selected features
+                var markerSymbol = new SimpleMarkerSymbol();
+                markerSymbol.setColor(new Color("#00FFFF"));
+                markerSymbol.setSize(12);
+                 // if info returned from query
+                if(evt.featureSet.features.length > 0){
+                    // add the selected feature graphic
+                    map.graphics.add(new Graphic(evt.featureSet.features[0].geometry, markerSymbol));
+                    // slide down bottom popup
+                    $("#bottomPopupWrapper").slideDown();
+                    // populate the html with the correct attributes 
+                    var title = evt.featureSet.features[0].attributes.Project_Title
+                    $("#popupHeaderTitle").html(title);
 
-
-
-    // //add the legend ////////////////////////////////////////////////////////////////////////////////////////
-    // var legendLayers = [{ layer: dynamicLayer }]
-    // map.on('layers-add-result', function () {
-    //     console.log('inside')
-    //   var legend = new Legend({
-    //     map: map,
-    //     // layerInfos: legendLayers
-    //   }, "legendDiv");
-    //   legend.startup();
-    // });
-    
-
-
+                }else{
+                    // slide up bottom popup
+                    $("#bottomPopupWrapper").slideUp();
+                }
+            })
+        })
+     })
 
     // when document is ready //////////////////////////////////////////////////////////////////////////////////////////////////
     // html code goes here
     $( document ).ready(function() {
+        // build opacity slider and on slide change map opacity //////
+        $("#sldr").slider({ min: 0, max: 100, range: false, values: [30], slide: function(e, ui){
+            dynamicLayer.setOpacity(1 - ui.value/100);
+        } })
         // on cb clicks add and remoce layers /////////////////
         $('.cbWrapper input').click(function(c){
             var layerId = parseInt(c.currentTarget.id.split('-')[1]);
@@ -82,6 +122,9 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 var index = app.visibleLayers.indexOf(layerId)
                 if (index !== -1) app.visibleLayers.splice(index, 1);
             }
+            // call the legend refresh to add or remove layers from the legend.
+            legend.refresh();
+            // update the viz layers showing on the map
             dynamicLayer.setVisibleLayers(app.visibleLayers);
         })
         // header collapse functionality
@@ -96,6 +139,38 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 $(e.currentTarget).find('span').html('Collapse')
             }
         })
+        // close attribute popup on close click and clear map graphics
+        $('.popupHeaderCloseWrapper').on('click', function(e){
+             map.graphics.clear();
+            $("#bottomPopupWrapper").slideUp();
+        })
+
+
+        // minimize attribute and legend popup on click
+        $('.popupMinWrapper').on('click', function(e){
+            var elem = $(e.currentTarget).parent().next();
+            var tar = $(e.currentTarget)
+            var h = $(elem).is(":visible");
+            if(elem[0].id != 'legendDiv'){
+                if(h){
+                    $(elem).slideUp();
+                    $(tar).show();
+                    $(tar).css('transform', 'rotate(180deg)')
+                }else{
+                    $(elem).slideDown();
+                    $(tar).css('transform', 'rotate(360deg)')
+                }
+            }else{
+                if(h){
+                    $(e.currentTarget).parent().parent().slideUp()
+                    $('.dummyLegendHeader').show();
+                }
+                
+            }
+            
+        })
+
+
          // header mouse over functionality
         $('.cbHeader').on('mouseover', function(e){
             // add blue font class to span
@@ -121,50 +196,3 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
     });
 
 }); // end of main require function
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 
-// var map;
-// // add esri map and zoom to NY
-// require(["esri/map", "dojo/domReady!", "esri/dijit/Search"], function(Map, Search) {
-// 	map = new Map("map", {
-// 	  basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
-// 	  center: [-73.9, 42.05], // longitude, latitude
-// 	  zoom: 8
-// 	});
-// 	
-// 	var s = new Search({ map: map },"search");
-// 	// start search
-// 	s.startup();
-// });
-
-
-// require([
-//   "esri/map", "esri/dijit/Search", ... 
-// ], function(Map, Search, ...) {
-//   var map = new Map(...);
-//   var s = new Search({
-//     map: map
-//   },"search");
-// });
-
-// code for ESRI search
-// var s = new Search({
-//     map: map
-//   },"search");
-// 	s.startup();
-// add code for basemap selector
-
-// 
-

@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Webmap Printing</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <!-- Jquery, ESRI stylesheets -->
+  <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- jquery code -->
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  <script src="js/chosen.jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- bring in main and make vars and ESRI api-->
+  <script src="https://js.arcgis.com/3.21/"></script>
+  <!-- <script src="js/makevariables.js"></script> -->
+  <!-- <script src="js/main.js"></script> -->
+    <script type="text/javascript">
+
+      require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/TextSymbol",
+    "esri/symbols/Font", "esri/Color", "esri/geometry/Extent", "esri/layers/FeatureLayer", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol","esri/symbols/SimpleMarkerSymbol",
+        "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "esri/dijit/Legend", "esri/dijit/BasemapToggle","esri/tasks/Geoprocessor","esri/dijit/Print","dojo/dom","dojo/domReady!"], 
+function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, Color, Extent, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,SimpleMarkerSymbol,
+        SimpleRenderer, Graphic, Search, Legend, BasemapToggle, Geoprocessor, Print,dom) {
+
+      function init(){
+        // esri map  //////////////////////////////////////////////////////////////////////////////////////////////////////
+         var map = new Map("map", {
+            basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
+            center: [-73.9, 42.05], // lon, lat
+            zoom: 8,
+            sliderPosition: "top-right"
+         });
+
+         // print dijit
+        var printer = new Print({
+          map: map,
+          url: "https://cumulus.tnc.org/arcgis/rest/services/nascience/printWebMapTest/GPServer/Export%20Web%20Map"
+        }, dom.byId("printButton"));
+        printer.startup();
+
+
+        //  var printUrl = "https://cumulus.tnc.org/arcgis/rest/services/nascience/printMap/GPServer/printMap";
+        // printTask = new PrintTask(printUrl, {
+        //   async : true
+        // });
+        // params = new PrintParameters();
+        // params.map = map;
+
+
+         // var url = 'https://cumulus.tnc.org/arcgis/rest/services/nascience/printMap/GPServer/printMap'
+         // var gp = new Geoprocessor(url)
+         // params = { title:'title'}
+         // // submit job
+         // console.log('SUBMIT')
+         // gp.submitJob(params, completeCallback, statusCallback);
+      }
+      
+
+     function completeCallback(result){
+      console.log('completeCallback')
+      console.log(result, '/////////////////////')
+      window.open(result.url);
+     }
+
+     function statusCallback(e){
+      console.log(e.jobStatus)
+      console.log(e)
+      console.log('statusCallback')
+     }
+
+     init();
+   }
+   )
+
+    //  var printUrl = "http://MyServer:6080/arcgis/rest/services/BasicTutorial/GPServer/BasicTutorial";
+    //     printTask = new esri.tasks.PrintTask(printUrl, {
+    //       async : true
+    //     });
+    //     params = new esri.tasks.PrintParameters();
+    //     params.map = map;
+
+    // })
+    // function print() {
+    //   var ptemplate = new PrintTemplate();
+    //   // use the extent of the webmap in the output PDF
+    //   ptemplate.preserveScale = false;
+    //   params.template = ptemplate;
+    //   printTask.execute(params, printComplete);
+    // }
+
+    // function printComplete(result) {
+    //   window.open(result.url);
+    // }
+
+
+    </script>
+    <!-- <script type="text/javascript" language="Javascript">
+      // dojo.require("esri.map");
+      // dojo.require("esri.tasks.PrintTask");
+      // var printTask, params;
+
+      // function init() {
+      //   // set the extent of the web app to same extent as the template map document
+      //   var startExtent = new esri.geometry.Extent({
+      //     "xmin" : -13043333,
+      //     "ymin" : 3836078,
+      //     "xmax" : -13030585,
+      //     "ymax" : 3853683,
+      //     "spatialReference" : {
+      //       "wkid" : 102100
+      //     }
+      //   });
+
+      //   var map = new esri.Map("map", {
+      //     extent : startExtent
+      //   });
+
+      //   // add tiled map service to webmap
+      //   var tiledUrl = "http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
+      //   var tiledLayer = new esri.layers.ArcGISTiledMapServiceLayer(tiledUrl);
+      //   map.addLayer(tiledLayer);
+      //   var printUrl = "http://MyServer:6080/arcgis/rest/services/BasicTutorial/GPServer/BasicTutorial";
+      //   printTask = new esri.tasks.PrintTask(printUrl, {
+      //     async : true
+      //   });
+      //   params = new esri.tasks.PrintParameters();
+      //   params.map = map;
+      // }
+
+      // function print() {
+      //   var ptemplate = new esri.tasks.PrintTemplate();
+      //   // use the extent of the webmap in the output PDF
+      //   ptemplate.preserveScale = false;
+      //   params.template = ptemplate;
+      //   printTask.execute(params, printComplete);
+      // }
+
+      // function printComplete(result) {
+      //   window.open(result.url);
+      // }
+
+
+      // dojo.addOnLoad(init);
+
+    </script> -->
+  </head>
+  <body class="claro">
+    <div id="printButton"></div>
+    <!-- <input type="printButton" id="print" value="Print" onclick="print();"/> -->
+    <div id="map" style="width:1000px; height:600px; border:1px solid #000;"></div>
+  </body>
+</html>
