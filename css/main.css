@@ -79,11 +79,11 @@ html, body{
 /* legend styling /////////////////////////////////////////////////////////////////////////////////*/
 .legendDivWrapper{
 	position: absolute; bottom: 40px; right: 20px; z-index: 1000; border: 1px solid #ddd; border-radius: 6px; background-color: #f3f3f3;
-	 overflow: auto; box-shadow: 0 2px 2px rgba(16,22,26,.5); max-height: 50%; min-width: 17%;
+	 overflow: auto; box-shadow: 0 2px 2px rgba(16,22,26,.5); max-height: 50%;width: 257px;
 }
 .legendPopupHeader{
 	background-color: #e5e3e3; padding: 6px; font-weight: bold; border-bottom: solid 1px darkgray;
-	position: absolute; width: 94.5%; z-index: 1000;
+	position: absolute; width: 94.5%; z-index: 1000; width: 245px;
 }
 .dummyLegendHeader{
 	position: absolute; bottom: 41px; right: 20px; z-index: 1000; background-color: #e5e3e3; padding: 6px; 
@@ -122,7 +122,7 @@ html, body{
 	cursor: pointer; background-color: darkgrey;
 }
 .popupMinLeg{
-	right: 3px;
+	right: 15px;
 }
 .popupMin{
 	position: absolute; top: 3px; right: 4px;
@@ -146,7 +146,7 @@ html, body{
 	width: 20px; margin: 4px; height: 3px; background-color: #2F6384;
 }
 .dropdownMenu{
-	position: absolute; z-index: 1000; list-style:  none; background-color: #f3f3f3; left: 243px; top: 282px; border-radius: 6px; 
+	position: absolute; z-index: 1000; list-style:  none; background-color: #f3f3f3; left: 243px; top: 200px; border-radius: 6px; 
 	border: 1px solid #ddd; box-shadow: 0 1px 1px rgba(16,22,26,.2); display: none;
 }
 .dropdownMenu div{
