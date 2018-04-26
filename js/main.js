@@ -124,6 +124,14 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             }
             // call the legend refresh to add or remove layers from the legend.
             legend.refresh();
+            // remove legend if there are no layers checked
+            if (app.visibleLayers.length >=1) {
+                $('.legendDivWrapper').show();
+            }else{
+                $('.legendDivWrapper').hide();
+                $('.dummyLegendHeader').hide();
+                
+            }
             // update the viz layers showing on the map
             dynamicLayer.setVisibleLayers(app.visibleLayers);
         })
