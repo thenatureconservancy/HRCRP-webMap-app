@@ -90,13 +90,44 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 markerSymbol.setSize(12);
                  // if info returned from query
                 if(evt.featureSet.features.length > 0){
+                    app.atts = evt.featureSet.features[0].attributes;
+                    app.items = $("#bottomPopupWrapper").find(".popupItems")
                     // add the selected feature graphic
                     map.graphics.add(new Graphic(evt.featureSet.features[0].geometry, markerSymbol));
                     // slide down bottom popup
                     $("#bottomPopupWrapper").slideDown();
+                    // clean attributes function
+                    var cleanAtts = function(val){
+                        console.log(val)
+                        console.log(val.length);
+                        if (val.length <= 1 ) {
+                            // console.log(val)
+                            val = "N/A"
+                            return val
+                        }else{
+                            return val;
+                        }
+                        // return val;
+                    }
+
+                    // console.log(cleanAtts(''))
+                    // console.log(cleanAtts('hey'))
+
                     // populate the html with the correct attributes 
                     var title = evt.featureSet.features[0].attributes.Project_Title
                     $("#popupHeaderTitle").html(title);
+                    // set the attributes for each attribute span
+                    $(app.items[0]).find('span').html(cleanAtts(app.atts.Project_Type))
+                    $(app.items[1]).find('span').html(cleanAtts(app.atts.Project_Description))
+                    $(app.items[2]).find('span').html(cleanAtts(app.atts.Stakeholder))
+                    $(app.items[3]).find('span').html(cleanAtts(app.atts.Name))
+                    $(app.items[4]).find('span').html(cleanAtts(app.atts.Jurisdiction))
+                    $(app.items[5]).find('span').html(cleanAtts(app.atts.County))
+                    $(app.items[6]).find('span').html(cleanAtts(app.atts.Location))
+                    
+                    // console.log(app.items);
+                    // console.log(app.atts);
+                    // console.log($(app.items[0]).find('span').html(app.atts.Project_Type));
 
                 }else{
                     // slide up bottom popup
@@ -130,7 +161,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             }else{
                 $('.legendDivWrapper').hide();
                 $('.dummyLegendHeader').hide();
-                
+
             }
             // update the viz layers showing on the map
             dynamicLayer.setVisibleLayers(app.visibleLayers);
