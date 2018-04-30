@@ -98,25 +98,13 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                     $("#bottomPopupWrapper").slideDown();
                     // clean attributes function
                     var cleanAtts = function(val){
-                        console.log(val)
-                        console.log(val.length);
                         if (val.length <= 1 ) {
-                            // console.log(val)
                             val = "N/A"
                             return val
                         }else{
                             return val;
                         }
-                        // return val;
                     }
-                    // set layer defs and update the mask layer /////////////////////
-                    // app.layerDefinitions = [];
-                    // app.layerDefinitions[0] =  "Project_Type = Habitat"
-                    // // t.layerDefinitions[5] = t.obj.wetlandWhere
-                    // dynamicLayer.setLayerDefinitions(app.layerDefinitions);
-                    // console.log(cleanAtts(''))
-                    // console.log(cleanAtts('hey'))
-
                     // populate the html with the correct attributes 
                     var title = evt.featureSet.features[0].attributes.Project_Title
                     $("#popupHeaderTitle").html(title);
@@ -128,11 +116,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                     $(app.items[4]).find('span').html(cleanAtts(app.atts.Jurisdiction))
                     $(app.items[5]).find('span').html(cleanAtts(app.atts.County))
                     $(app.items[6]).find('span').html(cleanAtts(app.atts.Location))
-                    
-                    // console.log(app.items);
-                    // console.log(app.atts);
-                    // console.log($(app.items[0]).find('span').html(app.atts.Project_Type));
-
                 }else{
                     // slide up bottom popup
                     $("#bottomPopupWrapper").slideUp();
@@ -170,6 +153,38 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             // update the viz layers showing on the map
             dynamicLayer.setVisibleLayers(app.visibleLayers);
         })
+        // all project filter check boxes /////////////////////////////////////////////////////////////////////////////////////////
+        $('.cb_wrapper_indent input').click(function(c){
+            var id  = c.currentTarget.id
+            app.layerDeffs = ["projectType_web = 'Habitat'","projectType_web = 'Recreation and Access'", "projectType_web = 'Community Infrastructure'", "projectType_web = 'Multiple'"]
+            app.finalDeff = ''
+            // find out which cb's are checked
+            $.each($('.cb_wrapper_indent input'), function(i,v){
+                if(!$(v)[0].checked){
+                    id  = "projectType_web = '" + $(v)[0].id + "'"
+                    var index =  app.layerDeffs.indexOf(id)
+                    if (index > -1) {
+                        app.layerDeffs.splice(index, 1)
+                    }
+                    // loop through layer defs and build the final def string
+                    $.each(app.layerDeffs, function(i,v){
+                        if (i < 1) {
+                            app.finalDeff = app.layerDeffs[0]
+                        }else{
+                            app.finalDeff += " OR " + app.layerDeffs[i]
+                        }
+                    })
+                }
+            })
+            // set layer def to null to display no layers if all cb's are unchecked
+            if(app.layerDeffs.length < 1){
+                app.finalDeff = "projectType_web = 'null'";
+            }
+            // set layer defs and update the mask layer /////////////////////
+            app.layerDefinitions = [];
+            app.layerDefinitions[0] =  app.finalDeff
+            dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+        })
         // header collapse functionality
         $('.cbHeader').on('click', function(e){
             // check to see the height of the next cbWrapper
@@ -187,8 +202,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
              map.graphics.clear();
             $("#bottomPopupWrapper").slideUp();
         })
-
-
         // minimize attribute and legend popup on click
         $('.popupMinWrapper').on('click', function(e){
             var elem = $(e.currentTarget).parent().next();
@@ -208,12 +221,8 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                     $(e.currentTarget).parent().parent().slideUp()
                     $('.dummyLegendHeader').show();
                 }
-                
             }
-            
         })
-
-
          // header mouse over functionality
         $('.cbHeader').on('mouseover', function(e){
             // add blue font class to span

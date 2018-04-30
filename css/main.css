@@ -74,7 +74,7 @@ html, body{
  	right: 20px !important;
 }
 #BasemapToggle{
- 	position: absolute; top: 96px; z-index: 1000; left: 379px;
+ 	position: absolute; top: 11.5%; z-index: 1000; left: 379px;
 }
 /* legend styling /////////////////////////////////////////////////////////////////////////////////*/
 .legendDivWrapper{
@@ -177,6 +177,12 @@ html, body{
 }
 .cbHeader span{
 	color: #f3f3f3; margin-left: auto; margin-right: 3px; font-size: 12px; font-weight: 600;
+}
+.cb_wrapper_indent{
+	margin-left: 15px;
+}
+.cb_wrapper_indent .form-component{
+	padding: 0px; margin-right: 2px; margin-bottom: 4px;
 }
 /* styling for opacity wrapper*/
 
