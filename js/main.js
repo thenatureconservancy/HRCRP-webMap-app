@@ -109,7 +109,11 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                         }
                         // return val;
                     }
-
+                    // set layer defs and update the mask layer /////////////////////
+                    // app.layerDefinitions = [];
+                    // app.layerDefinitions[0] =  "Project_Type = Habitat"
+                    // // t.layerDefinitions[5] = t.obj.wetlandWhere
+                    // dynamicLayer.setLayerDefinitions(app.layerDefinitions);
                     // console.log(cleanAtts(''))
                     // console.log(cleanAtts('hey'))
 
