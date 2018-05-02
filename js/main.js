@@ -227,10 +227,15 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             var item2 = $( "#formItem2" ).val();
             formArray.push(item1, item2)
             console.log(formArray)
-            var obj = {OBJECTID:789, First_Name:'Matt', Last_Name:'Silveira'}
+            var obj = {attributes:{OBJECTID:789, First_Name:'Max', Last_Name:'Cook'}}
+            var spatialReference = {spatialReference:{wkid: 102100, latestWkid: 3857},x:-8230219.569844695 ,y:5120517.075818429}
             console.log(obj)
             console.log(app.addOwnProjectLayer)
-            app.addOwnProjectLayer.applyEdits(null, [obj], null);
+            var incidentGraphic = new Graphic({spatialReference, obj});
+            console.log(incidentGraphic)
+            app.addOwnProjectLayer.applyEdits([obj], null, null, function(e){
+                console.log(e)
+            });
         })
 
         // header collapse functionality
