@@ -5,7 +5,10 @@
 	<title>The Hudson We Share</title>
 	<link rel="icon" type="image/x-icon" href="assets/title_Icon.png" />
  	<!-- Jquery, ESRI stylesheets -->
-	<link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
+ 	<link rel="stylesheet" href="https://js.arcgis.com/4.7/esri/css/main.css">
+  	
+
+	<!-- <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css"> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -16,7 +19,8 @@
 	<script src="js/chosen.jquery.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<!-- bring in main and make vars and ESRI api-->
-	<script src="https://js.arcgis.com/3.21/"></script>
+	<!-- <script src="https://js.arcgis.com/3.21/"></script> -->
+	<script src="https://js.arcgis.com/4.7/"></script>
 	<script src="js/makevariables.js"></script>
 	<script src="js/main.js"></script>
 	<!-- <script src="js/cdcharts.js"></script>
@@ -108,7 +112,12 @@
 							<div class="check"></div>
 							<span class="form-text">Multiple Project Types</span>
 						</label>
+						<!-- add own project button -->
+						<div class="addOwnProject" id="addOwnProject">
+							<button class="button button-primary">Suggest New Project</button>
+						</div>
 					</div>
+
 				</div>
 				<!-- <div id="filterWrapper" class="filterWrapper">
 					<div>Filter projects by type:</div>
@@ -199,6 +208,24 @@
 						</div>
 						<div class="sliderLabels">Transparent</div>
 					</div>
+					
+				</div>
+			</div>
+			<!-- add new project content wrapper ////////////////////////////////////////////// -->
+			<div class="addNewContentWrapper">
+				<div class="blueFont">
+					Add a new project below. Please fill in all the fields and submit the proposed project. We will review the project and if it meets our criteria we will add it to the main database. TEST TEST TEST
+				</div>
+				<h3>add new layer header</h3>
+				<div class="addNewFormWrapper" id="addNewFormWrapper">
+					
+					First name:<br>
+					<input id="formItem1" type="text" name="firstname" value="Mickey">
+					<br>
+				    Last name:<br>
+					<input id="formItem2" type="text" name="lastname" value="Mouse">
+					<br><br>
+					<button id="submitButton">Submit</button>
 					
 				</div>
 			</div>

@@ -39,9 +39,20 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
       }, "legendDiv");
       legend.startup();
       // legend.layerInfos = title = ;
+
+        // add feature layer for add own layers
+        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/newProject_HudsonRiver/FeatureServer/0?token=lFqEnzo_KlQWa_RdREMUOpmSDBU6APr4VFUE8tCkyIZYKZL6WLWsALkRMpQKAPUE8XrmKrUC-WakaW4G34e8l3-zMl0okxz2jY9dW1Eh1ZIdwjnb-VEpRIIvcVODG9IFWue6jadgQVG6LiCXU4FpnuoghcejOjGf3CAzIhOJpeU5zKv2pbrwvELKwEW84JMZuU5mwYZyYip2DaIXcLQ5sH0dkNISnlEfGMG5n5Hjyk3vHQ8apw4xmXLt0PMkBcRF'
+        app.addOwnProjectLayer = new FeatureLayer(app.addOwnProjectLayerURL, {
+              mode: FeatureLayer.MODE_ONDEMAND,
+              outFields: ["*"]
+        });
+        map.addLayer(app.addOwnProjectLayer);
+
+
     // Add dynamic map service
     app.url = "https://cumulus.tnc.org/arcgis/rest/services/nascience/HudsonRiverMapService/MapServer"
     var dynamicLayer = new ArcGISDynamicMapServiceLayer(app.url, {opacity:0.7});
+    app.layerDefinitions  = [];
     // on dynamic layer load ////////////////////////////////////////////////////////////////////////////////////////////////
     dynamicLayer.on("load", function () {
         dynamicLayer.setVisibleLayers(app.visibleLayers);
@@ -134,6 +145,20 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         // on cb clicks add and remoce layers /////////////////
         $('.cbWrapper input').click(function(c){
             var layerId = parseInt(c.currentTarget.id.split('-')[1]);
+            // click on all projects cb and slide down filter cb's
+            if(layerId == 0){
+                // test if cb is checked
+                if (c.currentTarget.checked) {
+                    $(".cb_wrapper_indent").slideDown();
+                    app.layerDefinitions[0] =  app.finalDeff;
+                    dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+                }else{
+                    $(".cb_wrapper_indent").slideUp();
+                    app.layerDefinitions[0] =  "projectType_web = 'null'"
+                    dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+                }
+            }
+            // if cb checked push viz layers into viz layers array
             if(c.currentTarget.checked){
                 app.visibleLayers.push(layerId)
             }else{
@@ -185,6 +210,29 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             app.layerDefinitions[0] =  app.finalDeff
             dynamicLayer.setLayerDefinitions(app.layerDefinitions);
         })
+        // on add new porject button click ///////////////////////////////////////////////////
+        $('#addOwnProject').click(function(c){
+            console.log(c);
+            $(".mainContentWrapper").slideUp();
+            $(".addNewContentWrapper").slideDown();
+        })
+        // on new project submit button click
+        
+        $("#submitButton").click(function(c){
+            // var queryString = $('#addNewFormWrapper').serialize();
+            // console.log(queryString)
+            var formArray = [];
+            console.log(( "#formItem1" ))
+            var item1 = $( "#formItem1" ).val();
+            var item2 = $( "#formItem2" ).val();
+            formArray.push(item1, item2)
+            console.log(formArray)
+            var obj = {OBJECTID:789, First_Name:'Matt', Last_Name:'Silveira'}
+            console.log(obj)
+            console.log(app.addOwnProjectLayer)
+            app.addOwnProjectLayer.applyEdits(null, [obj], null);
+        })
+
         // header collapse functionality
         $('.cbHeader').on('click', function(e){
             // check to see the height of the next cbWrapper

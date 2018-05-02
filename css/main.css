@@ -52,7 +52,7 @@ html, body{
 /* header styles /////////////////////////////////////////////////////////////////////////////////*/
 
 .mainHeaderWrapper{
-	 background:#648CA4; color: white; display: flex; height: 10%; align-items: center;
+	 background:#648CA4; color: white; display: flex; height: 10%; align-items: center; min-height: 75px;
 }
 .logoWrapper{
 	padding: 5px; width: 100px; padding-left: 5px;
@@ -184,6 +184,14 @@ html, body{
 .cb_wrapper_indent .form-component{
 	padding: 0px; margin-right: 2px; margin-bottom: 4px;
 }
+.addOwnProject{
+	margin-left: 15px; margin-top: 10px;
+}
+/* styling for the form that allows a user to submit a new project */
+.addNewContentWrapper{
+	display: none;
+}
+
 /* styling for opacity wrapper*/
 
 .opacityWrapper{
@@ -527,3 +535,34 @@ html, body{
 	line-height: 20px;
 	font-size: 14px;
 } 
+.button {
+    display: inline-block;
+    -webkit-appearance: none;
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    overflow: visible;
+    font-size: 13px;
+    line-height: 1;
+    padding: 6px 14px;
+    border-radius: 3px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #222;
+   }
+.override .button-primary {
+    background-color: #0096D6;
+}
+.button:not(.button-link) {
+    box-shadow: 0 1px 1px rgba(16,22,26,.2);
+    background-clip: padding-box;
+}
+.sidebar-content .button {
+    margin-bottom: 1rem;
+}
+.button-primary {
+    color: #fff;
+    background-color: #0096d6;
+    border-color: #0084bd;
+}
