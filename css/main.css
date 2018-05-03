@@ -187,11 +187,17 @@ html, body{
 .addOwnProject{
 	margin-left: 15px; margin-top: 10px;
 }
+
 /* styling for the form that allows a user to submit a new project */
 .addNewContentWrapper{
 	display: none;
 }
-
+.backToMain{
+	display: flex; align-items: center;
+}
+.backToMainWrapper{
+	margin-left: 35px;
+}
 /* styling for opacity wrapper*/
 
 .opacityWrapper{

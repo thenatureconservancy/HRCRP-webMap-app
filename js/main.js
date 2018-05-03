@@ -3,12 +3,14 @@
 // ESRI api functions ///////////////////////////////////////////////////////////////////////////////////////////////////
 // esri api calls
 var app = {}; // main app object
-app.visibleLayers = [0,1]
+app.visibleLayers = [0,1];
+app.layerDefinitions  = [];
+app.appMode = 'main';
 require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/TextSymbol",
     "esri/symbols/Font", "esri/Color", "esri/geometry/Extent", "esri/layers/FeatureLayer", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol","esri/symbols/SimpleMarkerSymbol",
-        "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "esri/dijit/Legend", "esri/dijit/BasemapToggle","dojo/domReady!"], 
+        "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "esri/dijit/Legend", "esri/dijit/BasemapToggle","esri/tasks/locator","dojo/domReady!"], 
 function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, Color, Extent, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,SimpleMarkerSymbol,
-        SimpleRenderer, Graphic, Search, Legend, BasemapToggle) {
+        SimpleRenderer, Graphic, Search, Legend, BasemapToggle, Locator) {
     // esri map  //////////////////////////////////////////////////////////////////////////////////////////////////////
      var map = new Map("map", {
         basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
@@ -38,8 +40,8 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         // layerInfos: legendLayers
       }, "legendDiv");
       legend.startup();
-      // legend.layerInfos = title = ;
-
+      // geolocator startup
+      var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
         // add feature layer for add own layers
         app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/newProject_HudsonRiver/FeatureServer/0?token=lFqEnzo_KlQWa_RdREMUOpmSDBU6APr4VFUE8tCkyIZYKZL6WLWsALkRMpQKAPUE8XrmKrUC-WakaW4G34e8l3-zMl0okxz2jY9dW1Eh1ZIdwjnb-VEpRIIvcVODG9IFWue6jadgQVG6LiCXU4FpnuoghcejOjGf3CAzIhOJpeU5zKv2pbrwvELKwEW84JMZuU5mwYZyYip2DaIXcLQ5sH0dkNISnlEfGMG5n5Hjyk3vHQ8apw4xmXLt0PMkBcRF'
         app.addOwnProjectLayer = new FeatureLayer(app.addOwnProjectLayerURL, {
@@ -52,7 +54,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
     // Add dynamic map service
     app.url = "https://cumulus.tnc.org/arcgis/rest/services/nascience/HudsonRiverMapService/MapServer"
     var dynamicLayer = new ArcGISDynamicMapServiceLayer(app.url, {opacity:0.7});
-    app.layerDefinitions  = [];
+
     // on dynamic layer load ////////////////////////////////////////////////////////////////////////////////////////////////
     dynamicLayer.on("load", function () {
         dynamicLayer.setVisibleLayers(app.visibleLayers);
@@ -71,67 +73,79 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         })
         // on map click /////////////////////////////////////////////////////////
         map.on("click", function(e){
-            // query the map for features
-            var pnt = e.mapPoint;
-            var centerPoint = new esri.geometry.Point(pnt.x,pnt.y,pnt.spatialReference);
-            var mapWidth = map.extent.getWidth();
-            var mapWidthPixels = map.width;
-            var pixelWidth = mapWidth/mapWidthPixels;
-            var tolerance = 10 * pixelWidth;
-            var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, pnt.spatialReference);
-            var p = ext.centerAt(centerPoint);
-            //start of query ///////////////////////////////////////////////////////////////////////
-            var q = new Query();
-            var qt = new QueryTask(app.url + "/0");
-            q.geometry = p;
-            q.returnGeometry = true;
-            q.outFields = ["*"];
-            // execute query ///////////////////
-            // test to see if the project layers is being displayed. if it is execute query
-            var index = app.visibleLayers.indexOf(0)
-            if (index > -1) {
-                qt.execute(q);
-            }
-            // query on complete
-            qt.on('complete', function(evt){
-                map.graphics.clear();
-                // new markey symbol used for selected features
-                var markerSymbol = new SimpleMarkerSymbol();
-                markerSymbol.setColor(new Color("#00FFFF"));
-                markerSymbol.setSize(12);
-                 // if info returned from query
-                if(evt.featureSet.features.length > 0){
-                    app.atts = evt.featureSet.features[0].attributes;
-                    app.items = $("#bottomPopupWrapper").find(".popupItems")
-                    // add the selected feature graphic
-                    map.graphics.add(new Graphic(evt.featureSet.features[0].geometry, markerSymbol));
-                    // slide down bottom popup
-                    $("#bottomPopupWrapper").slideDown();
-                    // clean attributes function
-                    var cleanAtts = function(val){
-                        if (val.length <= 1 ) {
-                            val = "N/A"
-                            return val
-                        }else{
-                            return val;
-                        }
-                    }
-                    // populate the html with the correct attributes 
-                    var title = evt.featureSet.features[0].attributes.Project_Title
-                    $("#popupHeaderTitle").html(title);
-                    // set the attributes for each attribute span
-                    $(app.items[0]).find('span').html(cleanAtts(app.atts.Project_Type))
-                    $(app.items[1]).find('span').html(cleanAtts(app.atts.Project_Description))
-                    $(app.items[2]).find('span').html(cleanAtts(app.atts.Stakeholder))
-                    $(app.items[3]).find('span').html(cleanAtts(app.atts.Name))
-                    $(app.items[4]).find('span').html(cleanAtts(app.atts.Jurisdiction))
-                    $(app.items[5]).find('span').html(cleanAtts(app.atts.County))
-                    $(app.items[6]).find('span').html(cleanAtts(app.atts.Location))
-                }else{
-                    // slide up bottom popup
-                    $("#bottomPopupWrapper").slideUp();
+            // when in main map mode //////////////////
+            if(app.appMode == 'main'){
+                // query the map for features
+                var pnt = e.mapPoint;
+                var centerPoint = new esri.geometry.Point(pnt.x,pnt.y,pnt.spatialReference);
+                var mapWidth = map.extent.getWidth();
+                var mapWidthPixels = map.width;
+                var pixelWidth = mapWidth/mapWidthPixels;
+                var tolerance = 10 * pixelWidth;
+                var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, pnt.spatialReference);
+                var p = ext.centerAt(centerPoint);
+                //start of query ///////////////////////////////////////////////////////////////////////
+                var q = new Query();
+                var qt = new QueryTask(app.url + "/0");
+                q.geometry = p;
+                q.returnGeometry = true;
+                q.outFields = ["*"];
+                // execute query ///////////////////
+                // test to see if the project layers is being displayed. if it is execute query
+                var index = app.visibleLayers.indexOf(0)
+                if (index > -1) {
+                    qt.execute(q);
                 }
-            })
+                // query on complete
+                qt.on('complete', function(evt){
+                    map.graphics.clear();
+                    // new markey symbol used for selected features
+                    var markerSymbol = new SimpleMarkerSymbol();
+                    markerSymbol.setColor(new Color("#00FFFF"));
+                    markerSymbol.setSize(12);
+                     // if info returned from query
+                    if(evt.featureSet.features.length > 0){
+                        app.atts = evt.featureSet.features[0].attributes;
+                        app.items = $("#bottomPopupWrapper").find(".popupItems")
+                        // add the selected feature graphic
+                        map.graphics.add(new Graphic(evt.featureSet.features[0].geometry, markerSymbol));
+                        // slide down bottom popup
+                        $("#bottomPopupWrapper").slideDown();
+                        // clean attributes function
+                        var cleanAtts = function(val){
+                            if (val.length <= 1 ) {
+                                val = "N/A"
+                                return val
+                            }else{
+                                return val;
+                            }
+                        }
+                        // populate the html with the correct attributes 
+                        var title = evt.featureSet.features[0].attributes.Project_Title
+                        $("#popupHeaderTitle").html(title);
+                        // set the attributes for each attribute span
+                        $(app.items[0]).find('span').html(cleanAtts(app.atts.Project_Type))
+                        $(app.items[1]).find('span').html(cleanAtts(app.atts.Project_Description))
+                        $(app.items[2]).find('span').html(cleanAtts(app.atts.Stakeholder))
+                        $(app.items[3]).find('span').html(cleanAtts(app.atts.Name))
+                        $(app.items[4]).find('span').html(cleanAtts(app.atts.Jurisdiction))
+                        $(app.items[5]).find('span').html(cleanAtts(app.atts.County))
+                        $(app.items[6]).find('span').html(cleanAtts(app.atts.Location))
+                    }else{
+                        // slide up bottom popup
+                        $("#bottomPopupWrapper").slideUp();
+                    }
+                })
+            // when in submit your own project mode /////////////////
+            } else if(app.appMode == 'submit'){
+                console.log('submit');
+                // use the loc var below to geolocate sddresses on map click. use that to populate some of the form.
+                var loc = locator.locationToAddress(e.mapPoint, 100);
+                console.log(loc);
+            }else{
+                console.log('there is a problem with the map mode variable')
+            }
+            
         })
      })
 
@@ -210,29 +224,24 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             app.layerDefinitions[0] =  app.finalDeff
             dynamicLayer.setLayerDefinitions(app.layerDefinitions);
         })
-        // on add new porject button click ///////////////////////////////////////////////////
+        // on add new project button click ///////////////////////////////////////////////////
         $('#addOwnProject').click(function(c){
-            console.log(c);
             $(".mainContentWrapper").slideUp();
             $(".addNewContentWrapper").slideDown();
+            app.appMode = 'submit' // change app mode to submit
         })
-        // on new project submit button click
-        
+        // on new project submit button click //////////////////////////////////////////////
         $("#submitButton").click(function(c){
             // var queryString = $('#addNewFormWrapper').serialize();
             // console.log(queryString)
             var formArray = [];
-            console.log(( "#formItem1" ))
             var item1 = $( "#formItem1" ).val();
             var item2 = $( "#formItem2" ).val();
             formArray.push(item1, item2)
-            console.log(formArray)
             var obj = {attributes:{OBJECTID:789, First_Name:'Max', Last_Name:'Cook'}}
             var spatialReference = {spatialReference:{wkid: 102100, latestWkid: 3857},x:-8230219.569844695 ,y:5120517.075818429}
-            console.log(obj)
-            console.log(app.addOwnProjectLayer)
             var incidentGraphic = new Graphic({spatialReference, obj});
-            console.log(incidentGraphic)
+            console.log(obj);
             app.addOwnProjectLayer.applyEdits([obj], null, null, function(e){
                 console.log(e)
             });
