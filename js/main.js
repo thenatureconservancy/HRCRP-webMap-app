@@ -43,12 +43,13 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
       // geolocator startup
       var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
         // add feature layer for add own layers
-        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/MyHostedMapServiceTest/FeatureServer/0?token=fjGETri6uaN3-pxOa2epv-CAfwl2MVceY_OzXCq-HQ8XG3el0O4HJW5vRNkoP0DeACAzFcNsucyAXRZ02Lz-2nYA2GIvRHxEdANqtRlmTgpczJUoJXN1Wgl03YFEDwzQ0dYdbVtC78XSGO_5Iq6IXi1foJp4Nw0odM7i5jl2bnAT3M15BF__gEvbfmVOZq4VJ1ps20IFK6TDtHCp-g87D6-l3uYoFE3Oxoi4wDujhx6_3njonSBmG7Q89MGFrWVX'
+        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/addNewProject_hudsonRiver_1/FeatureServer/0?token=zi4R08fm5788FKE9BizJSJIthDevbPfaMlIneRqZQg3hYkQzyEjVmDolEeV4qhsxLrRtWTXGJT8m8jjgXvBwmKZJ8-IPg5PwVybeGHd08_mfwBZF2isJXD9FHSnZXN4d-1UwIMo-k3XYR51cjIADIBYyEVXrJh0e7AxFK2csMMRex2eIV8eslxp_Ukt7jRwYgdimiSAwT4S6EGq3kWGJ4VzNJ1WXcJEZdetO2k1Ucy29j1-18z-VQ7lWOXJ8RPBP'
         app.addOwnProjectLayer = new FeatureLayer(app.addOwnProjectLayerURL, {
               mode: FeatureLayer.MODE_ONDEMAND,
               outFields: ["*"]
         });
         map.addLayer(app.addOwnProjectLayer);
+        app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes'");
 
 
     // Add dynamic map service
@@ -258,6 +259,8 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             var item1 = $( "#formItem1" ).val();
             var item2 = $( "#formItem2" ).val();
             var item3 = $( "#formItem3" ).val();
+            var item3 = "Community Infrastructure"
+
             var item4 = $( "#formItem4" ).val();
             var item5 = $( "#formItem5" ).val();
             var item6 = $( "#formItem6" ).val();
@@ -267,14 +270,14 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             formArray.push(item1, item2)
             // split item 6 to get the lat long values
             item6 = item6.split(' ')
-            // var lat = parseFloat(5215704.371526124)
-            // var long = parseFloat(-8329816.546952119)
+            var lat = parseFloat(5275704.371526124)
+            var long = parseFloat(-8429816.546952119)
             // use this code while on the S3 bucket
-            var lat = parseFloat(item6[1])
-            var long = parseFloat(item6[0])
+            // var lat = parseFloat(item6[1])
+            // var long = parseFloat(item6[0])
 
             // use this code below to add attributes and geometry to the projects layer when adding new porokects
-            var obj = { user_name:item1, project_name:item2, project_type:item3, project_desc:item4, stakeholder: item5, jur_name:item7, county: item9, lat:lat, long:long}
+            var obj = { user_name:item1, project_name:item2, project_type:item3, project_desc:item4, stakeholder: item5, jur_name:item7, county: item9, lat:lat, long:long, display_on_web:'no'}
             var spatialReference = new SpatialReference ({spatialReference:{wkid: 102100, latestWkid: 3857}})
             var pt = new Point({x:long,y:lat,spatialReference:{wkid: 102100, latestWkid: 3857}})
             var sms = new SimpleMarkerSymbol().setStyle(
@@ -283,9 +286,10 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
 
             var incidentGraphic = new Graphic(pt,sms, obj);
             // apply a def query to the add own project layer feature layer
-            app.addOwnProjectLayer.setDefinitionExpression("user_name<>'mark'");
-            app.addOwnProjectLayer.setDefinitionExpression("user_name='mark'");
-            app.addOwnProjectLayer.setDefinitionExpression("Project_Type='Habitat'");
+            // app.addOwnProjectLayer.setDefinitionExpression("user_name<>'mark'");
+            // app.addOwnProjectLayer.setDefinitionExpression("user_name='mark'");
+            // app.addOwnProjectLayer.setDefinitionExpression("Project_Type='Habitat'");
+            // app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes'");
 
             // apply edits to the feature layer here
             app.addOwnProjectLayer.applyEdits([incidentGraphic], null, null, function(e){
