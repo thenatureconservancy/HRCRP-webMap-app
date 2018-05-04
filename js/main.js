@@ -252,47 +252,47 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             app.appMode = 'main' // change app mode to submit
         })
         // on new project submit button click //////////////////////////////////////////////
-        // $("#submitButton").click(function(c){
-        //     var formArray = [];
-        //     // collect all the inputs from the form
-        //     var item1 = $( "#formItem1" ).val();
-        //     var item2 = $( "#formItem2" ).val();
-        //     var item3 = $( "#formItem3" ).val();
-        //     var item4 = $( "#formItem4" ).val();
-        //     var item5 = $( "#formItem5" ).val();
-        //     var item6 = $( "#formItem6" ).val();
-        //     var item7 = $( "#formItem7" ).val();
-        //     var item8 = $( "#formItem8" ).val();
-        //     var item9 = $( "#formItem9" ).val();
-        //     formArray.push(item1, item2)
-        //     // split item 6 to get the lat long values
-        //     item6 = item6.split(' ')
-        //     // var lat = parseFloat(5215704.371526124)
-        //     // var long = parseFloat(-8329816.546952119)
-        //     // use this code while on the S3 bucket
-        //     var lat = parseFloat(item6[1])
-        //     var long = parseFloat(item6[0])
+        $("#submitButton").click(function(c){
+            var formArray = [];
+            // collect all the inputs from the form
+            var item1 = $( "#formItem1" ).val();
+            var item2 = $( "#formItem2" ).val();
+            var item3 = $( "#formItem3" ).val();
+            var item4 = $( "#formItem4" ).val();
+            var item5 = $( "#formItem5" ).val();
+            var item6 = $( "#formItem6" ).val();
+            var item7 = $( "#formItem7" ).val();
+            var item8 = $( "#formItem8" ).val();
+            var item9 = $( "#formItem9" ).val();
+            formArray.push(item1, item2)
+            // split item 6 to get the lat long values
+            item6 = item6.split(' ')
+            // var lat = parseFloat(5215704.371526124)
+            // var long = parseFloat(-8329816.546952119)
+            // use this code while on the S3 bucket
+            var lat = parseFloat(item6[1])
+            var long = parseFloat(item6[0])
 
-        //     // use this code below to add attributes and geometry to the projects layer when adding new porokects
-        //     var obj = { user_name:item1, project_name:item2, project_type:item3, project_desc:item4, stakeholder: item5, jur_name:item7, county: item9, lat:lat, long:long}
-        //     var spatialReference = new SpatialReference ({spatialReference:{wkid: 102100, latestWkid: 3857}})
-        //     var pt = new Point({x:long,y:lat,spatialReference:{wkid: 102100, latestWkid: 3857}})
-        //     var sms = new SimpleMarkerSymbol().setStyle(
-        //         SimpleMarkerSymbol.STYLE_SQUARE).setColor(
-        //         new Color([255,0,0,0.5]));
+            // use this code below to add attributes and geometry to the projects layer when adding new porokects
+            var obj = { user_name:item1, project_name:item2, project_type:item3, project_desc:item4, stakeholder: item5, jur_name:item7, county: item9, lat:lat, long:long}
+            var spatialReference = new SpatialReference ({spatialReference:{wkid: 102100, latestWkid: 3857}})
+            var pt = new Point({x:long,y:lat,spatialReference:{wkid: 102100, latestWkid: 3857}})
+            var sms = new SimpleMarkerSymbol().setStyle(
+                SimpleMarkerSymbol.STYLE_SQUARE).setColor(
+                new Color([255,0,0,0.5]));
 
-        //     var incidentGraphic = new Graphic(pt,sms, obj);
-        //     // apply a def query to the add own project layer feature layer
-        //     app.addOwnProjectLayer.setDefinitionExpression("user_name<>'mark'");
-        //     app.addOwnProjectLayer.setDefinitionExpression("user_name='mark'");
-        //     app.addOwnProjectLayer.setDefinitionExpression("Project_Type='Habitat'");
+            var incidentGraphic = new Graphic(pt,sms, obj);
+            // apply a def query to the add own project layer feature layer
+            app.addOwnProjectLayer.setDefinitionExpression("user_name<>'mark'");
+            app.addOwnProjectLayer.setDefinitionExpression("user_name='mark'");
+            app.addOwnProjectLayer.setDefinitionExpression("Project_Type='Habitat'");
 
-        //     // apply edits to the feature layer here
-        //     app.addOwnProjectLayer.applyEdits([incidentGraphic], null, null, function(e){
-        //         console.log(e);
-        //         // console.log('There was an error adding the data!! Please check field data types')
-        //     });
-        // })
+            // apply edits to the feature layer here
+            app.addOwnProjectLayer.applyEdits([incidentGraphic], null, null, function(e){
+                console.log(e);
+                // console.log('There was an error adding the data!! Please check field data types')
+            });
+        })
 
         // header collapse functionality
         $('.cbHeader').on('click', function(e){
