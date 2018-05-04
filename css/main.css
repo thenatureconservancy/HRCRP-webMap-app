@@ -198,6 +198,12 @@ html, body{
 .backToMainWrapper{
 	margin-left: 35px;
 }
+.formItems{
+	width: 80%;
+}
+.formTitle{
+	font-weight: bold; margin-top: 11px; margin-bottom: -14px;
+}
 /* styling for opacity wrapper*/
 
 .opacityWrapper{

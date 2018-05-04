@@ -8,9 +8,9 @@ app.layerDefinitions  = [];
 app.appMode = 'main';
 require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/TextSymbol",
     "esri/symbols/Font", "esri/Color", "esri/geometry/Extent", "esri/layers/FeatureLayer", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol","esri/symbols/SimpleMarkerSymbol",
-        "esri/renderers/SimpleRenderer", "esri/graphic", "esri/dijit/Search", "esri/dijit/Legend", "esri/dijit/BasemapToggle","esri/tasks/locator","dojo/domReady!"], 
+        "esri/renderers/SimpleRenderer", "esri/graphic","esri/geometry/Point","esri/SpatialReference", "esri/dijit/Search", "esri/dijit/Legend", "esri/dijit/BasemapToggle","esri/tasks/locator","esri/geometry/webMercatorUtils","dojo/domReady!"], 
 function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, Color, Extent, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,SimpleMarkerSymbol,
-        SimpleRenderer, Graphic, Search, Legend, BasemapToggle, Locator) {
+        SimpleRenderer, Graphic,Point, SpatialReference, Search, Legend, BasemapToggle, Locator, webMercatorUtils) {
     // esri map  //////////////////////////////////////////////////////////////////////////////////////////////////////
      var map = new Map("map", {
         basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
@@ -43,7 +43,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
       // geolocator startup
       var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
         // add feature layer for add own layers
-        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/newProject_HudsonRiver/FeatureServer/0?token=lFqEnzo_KlQWa_RdREMUOpmSDBU6APr4VFUE8tCkyIZYKZL6WLWsALkRMpQKAPUE8XrmKrUC-WakaW4G34e8l3-zMl0okxz2jY9dW1Eh1ZIdwjnb-VEpRIIvcVODG9IFWue6jadgQVG6LiCXU4FpnuoghcejOjGf3CAzIhOJpeU5zKv2pbrwvELKwEW84JMZuU5mwYZyYip2DaIXcLQ5sH0dkNISnlEfGMG5n5Hjyk3vHQ8apw4xmXLt0PMkBcRF'
+        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/MyHostedMapServiceTest/FeatureServer/0?token=fjGETri6uaN3-pxOa2epv-CAfwl2MVceY_OzXCq-HQ8XG3el0O4HJW5vRNkoP0DeACAzFcNsucyAXRZ02Lz-2nYA2GIvRHxEdANqtRlmTgpczJUoJXN1Wgl03YFEDwzQ0dYdbVtC78XSGO_5Iq6IXi1foJp4Nw0odM7i5jl2bnAT3M15BF__gEvbfmVOZq4VJ1ps20IFK6TDtHCp-g87D6-l3uYoFE3Oxoi4wDujhx6_3njonSBmG7Q89MGFrWVX'
         app.addOwnProjectLayer = new FeatureLayer(app.addOwnProjectLayerURL, {
               mode: FeatureLayer.MODE_ONDEMAND,
               outFields: ["*"]
@@ -77,6 +77,8 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             if(app.appMode == 'main'){
                 // query the map for features
                 var pnt = e.mapPoint;
+                app.pnt = e.mapPoint;
+                console.log(pnt)
                 var centerPoint = new esri.geometry.Point(pnt.x,pnt.y,pnt.spatialReference);
                 var mapWidth = map.extent.getWidth();
                 var mapWidthPixels = map.width;
@@ -140,8 +142,21 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             } else if(app.appMode == 'submit'){
                 console.log('submit');
                 // use the loc var below to geolocate sddresses on map click. use that to populate some of the form.
-                var loc = locator.locationToAddress(e.mapPoint, 100);
-                console.log(loc);
+                var loc = locator.locationToAddress(e.mapPoint, 100, function(t){
+                    console.log(t);
+                    var mp = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
+                    var lat_long = mp.x + ' ' + mp.y;
+                    $('#formItem6').val(lat_long);
+                    $('#formItem7').val(t.address.City);
+                    // $('#formItem8').val(t.address.Type);
+                    $('#formItem9').val(t.address.Subregion);
+                });
+                // map.on("location-to-address-complete"){}
+                // console.log(loc)
+                // console.log(loc[results])
+                // console.log(loc.results[0]);
+                // console.log(loc.results[0].type);
+                
             }else{
                 console.log('there is a problem with the map mode variable')
             }
@@ -230,22 +245,54 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             $(".addNewContentWrapper").slideDown();
             app.appMode = 'submit' // change app mode to submit
         })
-        // on new project submit button click //////////////////////////////////////////////
-        $("#submitButton").click(function(c){
-            // var queryString = $('#addNewFormWrapper').serialize();
-            // console.log(queryString)
-            var formArray = [];
-            var item1 = $( "#formItem1" ).val();
-            var item2 = $( "#formItem2" ).val();
-            formArray.push(item1, item2)
-            var obj = {attributes:{OBJECTID:789, First_Name:'Max', Last_Name:'Cook'}}
-            var spatialReference = {spatialReference:{wkid: 102100, latestWkid: 3857},x:-8230219.569844695 ,y:5120517.075818429}
-            var incidentGraphic = new Graphic({spatialReference, obj});
-            console.log(obj);
-            app.addOwnProjectLayer.applyEdits([obj], null, null, function(e){
-                console.log(e)
-            });
+        // on add new project button click ///////////////////////////////////////////////////
+        $('#backToMain').click(function(c){
+            $(".mainContentWrapper").slideDown();
+            $(".addNewContentWrapper").slideUp();
+            app.appMode = 'main' // change app mode to submit
         })
+        // on new project submit button click //////////////////////////////////////////////
+        // $("#submitButton").click(function(c){
+        //     var formArray = [];
+        //     // collect all the inputs from the form
+        //     var item1 = $( "#formItem1" ).val();
+        //     var item2 = $( "#formItem2" ).val();
+        //     var item3 = $( "#formItem3" ).val();
+        //     var item4 = $( "#formItem4" ).val();
+        //     var item5 = $( "#formItem5" ).val();
+        //     var item6 = $( "#formItem6" ).val();
+        //     var item7 = $( "#formItem7" ).val();
+        //     var item8 = $( "#formItem8" ).val();
+        //     var item9 = $( "#formItem9" ).val();
+        //     formArray.push(item1, item2)
+        //     // split item 6 to get the lat long values
+        //     item6 = item6.split(' ')
+        //     // var lat = parseFloat(5215704.371526124)
+        //     // var long = parseFloat(-8329816.546952119)
+        //     // use this code while on the S3 bucket
+        //     var lat = parseFloat(item6[1])
+        //     var long = parseFloat(item6[0])
+
+        //     // use this code below to add attributes and geometry to the projects layer when adding new porokects
+        //     var obj = { user_name:item1, project_name:item2, project_type:item3, project_desc:item4, stakeholder: item5, jur_name:item7, county: item9, lat:lat, long:long}
+        //     var spatialReference = new SpatialReference ({spatialReference:{wkid: 102100, latestWkid: 3857}})
+        //     var pt = new Point({x:long,y:lat,spatialReference:{wkid: 102100, latestWkid: 3857}})
+        //     var sms = new SimpleMarkerSymbol().setStyle(
+        //         SimpleMarkerSymbol.STYLE_SQUARE).setColor(
+        //         new Color([255,0,0,0.5]));
+
+        //     var incidentGraphic = new Graphic(pt,sms, obj);
+        //     // apply a def query to the add own project layer feature layer
+        //     app.addOwnProjectLayer.setDefinitionExpression("user_name<>'mark'");
+        //     app.addOwnProjectLayer.setDefinitionExpression("user_name='mark'");
+        //     app.addOwnProjectLayer.setDefinitionExpression("Project_Type='Habitat'");
+
+        //     // apply edits to the feature layer here
+        //     app.addOwnProjectLayer.applyEdits([incidentGraphic], null, null, function(e){
+        //         console.log(e);
+        //         // console.log('There was an error adding the data!! Please check field data types')
+        //     });
+        // })
 
         // header collapse functionality
         $('.cbHeader').on('click', function(e){
