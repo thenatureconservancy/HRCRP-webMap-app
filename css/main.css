@@ -54,7 +54,40 @@ html, body{
 .mainContentWrapper{
 	margin-top: 10px;
 }
+/* overwite some esri styles */
+.dijitSelect, .dijitSelect *, .dijitButtonNode, .dijitButtonNode * {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    background-color: #0096d6;
+    color: white;
+    padding: 2px;
+    border-color: #0084bd;
+    /*box-shadow: 0 1px 1px rgba(16,22,26,.2);*/
+    background-clip: padding-box;
+    border-radius: 3px;
 
+ }
+ .dijitArrowButtonChar {
+ 	display: block !important;
+ }
+ .esriPrint{
+ 	padding: 0px;
+ }
+ .dijitReset{
+ 	line-height: 15px;
+ }
+ .dijitArrowButtonInner{
+ 	display: none;
+ }
+ .dijitMenuTable tbody{
+ 	background-color: #e8e8e8; border: solid grey 1px; 
+ }
+ .dijitMenuTable tbody .dijitMenuItemLabel{
+ 	padding: 5px;
+ }
+/*#dijit_form_ComboButton_1_arrow !important{
+	display: none;
+}*/
 /* header styles /////////////////////////////////////////////////////////////////////////////////*/
 
 .mainHeaderWrapper{
@@ -80,7 +113,7 @@ html, body{
  	right: 20px !important;
 }
 #BasemapToggle{
- 	position: absolute; top: 11.5%; z-index: 1000; left: 379px;
+ 	position: absolute; top: 2.5%; z-index: 1000; left: 379px;
 }
 /* legend styling /////////////////////////////////////////////////////////////////////////////////*/
 .legendDivWrapper{
@@ -173,6 +206,17 @@ html, body{
 .toolWrapper div:hover{
 	background-color: #e8e8e8; cursor: pointer;
 }
+.createMapWrapper{
+	position: absolute; bottom: 55px; height: 45px; background-color:#e8e8e8;box-shadow: 0 -1px 1px rgba(16,22,26,0.2);
+	border-top: 1px solid #ddd; width: 358px; left:0px;
+
+}
+.mapInfoWrapper{
+	display: none; position: absolute; width: 358px; bottom: 0px; height: 100px; background-color: #e8e8e8; border-top: 1px solid #ddd;
+}
+.mapFormWrapper{
+	position: absolute; bottom: 7px; width: 212px; margin-left: 15px;
+}
 /* styling for checkbox section /////////////////////////////////////////////////////////*/
 
 .cbWrapper{
@@ -215,6 +259,9 @@ html, body{
 }
 .formTitle{
 	font-weight: bold; margin-top: 11px; margin-bottom: -14px;
+}
+.submitText{
+	display: none; margin-top: 10px;
 }
 /* styling for opacity wrapper*/
 
