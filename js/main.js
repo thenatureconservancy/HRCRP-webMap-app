@@ -3,7 +3,7 @@
 // ESRI api functions ///////////////////////////////////////////////////////////////////////////////////////////////////
 // esri api calls
 var app = {}; // main app object
-app.visibleLayers = [0,1];
+app.visibleLayers = [1];
 app.layerDefinitions  = [];
 app.appMode = 'main';
 require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/TextSymbol",
@@ -43,7 +43,9 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
       // geolocator startup
       var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
         // add feature layer for add own layers
-        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/addNewProject_hudsonRiver_1/FeatureServer/0?token=zi4R08fm5788FKE9BizJSJIthDevbPfaMlIneRqZQg3hYkQzyEjVmDolEeV4qhsxLrRtWTXGJT8m8jjgXvBwmKZJ8-IPg5PwVybeGHd08_mfwBZF2isJXD9FHSnZXN4d-1UwIMo-k3XYR51cjIADIBYyEVXrJh0e7AxFK2csMMRex2eIV8eslxp_Ukt7jRwYgdimiSAwT4S6EGq3kWGJ4VzNJ1WXcJEZdetO2k1Ucy29j1-18z-VQ7lWOXJ8RPBP'
+        // app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/addNewProject_hudsonRiver_1/FeatureServer/0?token=zi4R08fm5788FKE9BizJSJIthDevbPfaMlIneRqZQg3hYkQzyEjVmDolEeV4qhsxLrRtWTXGJT8m8jjgXvBwmKZJ8-IPg5PwVybeGHd08_mfwBZF2isJXD9FHSnZXN4d-1UwIMo-k3XYR51cjIADIBYyEVXrJh0e7AxFK2csMMRex2eIV8eslxp_Ukt7jRwYgdimiSAwT4S6EGq3kWGJ4VzNJ1WXcJEZdetO2k1Ucy29j1-18z-VQ7lWOXJ8RPBP'
+        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/addNewProject_hudsonRiver_1/FeatureServer/0'
+        
         app.addOwnProjectLayer = new FeatureLayer(app.addOwnProjectLayerURL, {
               mode: FeatureLayer.MODE_ONDEMAND,
               outFields: ["*"]
@@ -74,12 +76,12 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         })
         // on map click /////////////////////////////////////////////////////////
         map.on("click", function(e){
+            console.log('map click')
             // when in main map mode //////////////////
             if(app.appMode == 'main'){
                 // query the map for features
                 var pnt = e.mapPoint;
                 app.pnt = e.mapPoint;
-                console.log(pnt)
                 var centerPoint = new esri.geometry.Point(pnt.x,pnt.y,pnt.spatialReference);
                 var mapWidth = map.extent.getWidth();
                 var mapWidthPixels = map.width;
@@ -95,9 +97,8 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 q.outFields = ["*"];
                 // execute query ///////////////////
                 // test to see if the project layers is being displayed. if it is execute query
-                var index = app.visibleLayers.indexOf(0)
-                if (index > -1) {
-                    qt.execute(q);
+                if($("#layer-0")[0].checked){
+                     qt.execute(q);
                 }
                 // query on complete
                 qt.on('complete', function(evt){
@@ -114,6 +115,15 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                         map.graphics.add(new Graphic(evt.featureSet.features[0].geometry, markerSymbol));
                         // slide down bottom popup
                         $("#bottomPopupWrapper").slideDown();
+                        console.log($('.popupItemsWrapper')[0].clientHeight)
+
+                        if($('.popupItemsWrapper')[0].clientHeight == 0){
+                            $('.popupItemsWrapper').slideDown();
+                            $('#bottomPopupWrapper .popupMin').css('transform', 'rotate(180deg)')
+                        }
+                        
+                        
+
                         // clean attributes function
                         var cleanAtts = function(val){
                             if (val.length <= 1 ) {
@@ -141,7 +151,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 })
             // when in submit your own project mode /////////////////
             } else if(app.appMode == 'submit'){
-                console.log('submit');
                 // use the loc var below to geolocate sddresses on map click. use that to populate some of the form.
                 var loc = locator.locationToAddress(e.mapPoint, 100, function(t){
                     console.log(t);
@@ -151,7 +160,11 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                     $('#formItem7').val(t.address.City);
                     // $('#formItem8').val(t.address.Type);
                     $('#formItem9').val(t.address.Subregion);
+                    // trigger change to force call on form validate function
+                    $("#formItem7").trigger("change");
                 });
+                
+                
                 // map.on("location-to-address-complete"){}
                 // console.log(loc)
                 // console.log(loc[results])
@@ -180,17 +193,26 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 // test if cb is checked
                 if (c.currentTarget.checked) {
                     $(".cb_wrapper_indent").slideDown();
-                    app.layerDefinitions[0] =  app.finalDeff;
-                    dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+                    // app.layerDefinitions[0] =  app.finalDeff;
+                    // dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+                    map.addLayer(app.addOwnProjectLayer);
+                    app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND " + app.finalDeff);
                 }else{
                     $(".cb_wrapper_indent").slideUp();
                     app.layerDefinitions[0] =  "projectType_web = 'null'"
                     dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+                    map.removeLayer(app.addOwnProjectLayer);
+                    // app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes'");
                 }
             }
             // if cb checked push viz layers into viz layers array
             if(c.currentTarget.checked){
-                app.visibleLayers.push(layerId)
+                if(layerId == 0){
+                    'dont push in project layers as dynamic map service layer'
+                }else{
+                    app.visibleLayers.push(layerId)   
+                }
+                
             }else{
                 var index = app.visibleLayers.indexOf(layerId)
                 if (index !== -1) app.visibleLayers.splice(index, 1);
@@ -235,10 +257,12 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             if(app.layerDeffs.length < 1){
                 app.finalDeff = "projectType_web = 'null'";
             }
+
             // set layer defs and update the mask layer /////////////////////
             app.layerDefinitions = [];
             app.layerDefinitions[0] =  app.finalDeff
             dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+            app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND " + app.finalDeff);
         })
         // on add new project button click ///////////////////////////////////////////////////
         $('#addOwnProject').click(function(c){
@@ -252,6 +276,35 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             $(".addNewContentWrapper").slideUp();
             app.appMode = 'main' // change app mode to submit
         })
+        // the var inputs is all of the inputs in the form.
+        var inputs = $("#formItem1,#formItem2,#formItem3,#formItem4,#formItem5,#formItem6,#formItem7,#formItem8,#formItem9")
+        // clear form when the user clicks the back button or the submit button
+        var clearForm = function(){
+            console.log('clear form');
+            inputs.each(function(i,v) {
+                $(v).val(''); // set all values back to empty string
+                $(v).trigger('change') // to disable submit button
+            })
+        }
+        // validate form before submit //////////////////////////
+        var validateInputs = function validateInputs(inputs) {
+          var validForm = true;
+          inputs.each(function(index) {
+            var input = $(this);
+            if (!input.val() || (input.type === "radio" && !input.is(':checked'))) {
+              // $("#subnewtide").attr("disabled", "disabled");
+              $("#submitButton").attr("disabled", "disabled");
+              validForm = false;
+            }
+          });
+          return validForm;
+        }
+        // on input change call validate inputs function and make sure everything is good before enabeling submit button
+        inputs.change(function() {
+            if(validateInputs(inputs)){
+                $("#submitButton").removeAttr("disabled");
+            }
+        })
         // on new project submit button click //////////////////////////////////////////////
         $("#submitButton").click(function(c){
             var formArray = [];
@@ -259,14 +312,13 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             var item1 = $( "#formItem1" ).val();
             var item2 = $( "#formItem2" ).val();
             var item3 = $( "#formItem3" ).val();
-            var item3 = "Community Infrastructure"
-
             var item4 = $( "#formItem4" ).val();
             var item5 = $( "#formItem5" ).val();
             var item6 = $( "#formItem6" ).val();
             var item7 = $( "#formItem7" ).val();
             var item8 = $( "#formItem8" ).val();
             var item9 = $( "#formItem9" ).val();
+
             formArray.push(item1, item2)
             // split item 6 to get the lat long values
             item6 = item6.split(' ')
@@ -296,6 +348,11 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 console.log(e);
                 // console.log('There was an error adding the data!! Please check field data types')
             });
+            // clear form after the submit button has been clicked
+            clearForm();
+            // display text that your project has been submited 
+
+            
         })
 
         // header collapse functionality

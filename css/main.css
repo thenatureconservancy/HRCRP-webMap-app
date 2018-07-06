@@ -17,10 +17,16 @@ html, body{
     font-family: "Lato-Bold";
     src: url(fonts/Lato-Bold.woff);
 }
-
+.button.disabled, .button:disabled {
+    opacity: .5; 
+    cursor: not-allowed;
+}
+.button-primary.disabled, .button-primary:disabled {
+    opacity: .5;
+}
 /* main div with left/app div and right/map div ///////////////////////////////////////////////////////////////////*/
 #cd_wrap{
-	display:flex; flex-grow: 1; position: relative; height:90%; width:100%; color:#3C454A; font-size:12px; font-family:"Open Sans";
+	display:flex; flex-grow: 1; position: relative; height:100%; width:100%; color:#3C454A; font-size:12px; font-family:"Open Sans"; overflow-x: hidden;
 }
 #cd_left{
 	flex:0 0 350px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
@@ -79,15 +85,21 @@ html, body{
 /* legend styling /////////////////////////////////////////////////////////////////////////////////*/
 .legendDivWrapper{
 	position: absolute; bottom: 40px; right: 20px; z-index: 1000; border: 1px solid #ddd; border-radius: 6px; background-color: #f3f3f3;
-	 overflow: auto; box-shadow: 0 2px 2px rgba(16,22,26,.5); max-height: 50%;width: 257px;
+	 overflow: auto; box-shadow: 0 2px 2px rgba(16,22,26,.5); max-height: 50%;width: 280px;
 }
 .legendPopupHeader{
 	background-color: #e5e3e3; padding: 6px; font-weight: bold; border-bottom: solid 1px darkgray;
-	position: absolute; width: 94.5%; z-index: 1000; width: 245px;
+	position: absolute; width: 94.5%; z-index: 1000; width: 268px;
 }
 .dummyLegendHeader{
 	position: absolute; bottom: 41px; right: 20px; z-index: 1000; background-color: #e5e3e3; padding: 6px; 
 	font-weight: bold; border-bottom: solid 1px darkgray; border-radius: 6px; box-shadow: 0 2px 2px rgba(16,22,26,.5); width: 150px;
+	display: none;
+}
+.legendDiv{
+	padding-top: 30px;
+}
+.esriLegendServiceLabel{
 	display: none;
 }
 /* wrapper div for flexbox rows ///////////////////////////////////////////////////////////////////*/
