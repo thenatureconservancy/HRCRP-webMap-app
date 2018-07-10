@@ -26,7 +26,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         zoom: 8,
         sliderPosition: "top-right"
      });
-
      // code for ESRI search/////////////////////////////////////////
      var search = new Search({
         map: map
@@ -44,14 +43,11 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
 
       var legend = new Legend({
         map: map,
-        // layerInfos: legendLayers
-        // layerInfos: legendLayers
       }, "legendDiv");
       legend.startup();
       // geolocator startup
       var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
-        // add feature layer for add own layers
-        // app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/addNewProject_hudsonRiver_1/FeatureServer/0?token=zi4R08fm5788FKE9BizJSJIthDevbPfaMlIneRqZQg3hYkQzyEjVmDolEeV4qhsxLrRtWTXGJT8m8jjgXvBwmKZJ8-IPg5PwVybeGHd08_mfwBZF2isJXD9FHSnZXN4d-1UwIMo-k3XYR51cjIADIBYyEVXrJh0e7AxFK2csMMRex2eIV8eslxp_Ukt7jRwYgdimiSAwT4S6EGq3kWGJ4VzNJ1WXcJEZdetO2k1Ucy29j1-18z-VQ7lWOXJ8RPBP'
+        // add feature layer for add own layers, this feature layer is published on AGO
         app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/addNewProject_hudsonRiver_1/FeatureServer/0'
         
         app.addOwnProjectLayer = new FeatureLayer(app.addOwnProjectLayerURL, {
@@ -60,25 +56,34 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         });
         map.addLayer(app.addOwnProjectLayer);
         app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes'");
-
-
-
-
-        app.printUrl = "https://cumulus.tnc.org/arcgis/rest/services/nascience/ExportWebMap2/GPServer/Export%20Web%20Map";
+        // print service URL to create PDF maps
+        app.printUrl = "https://cumulus.tnc.org/arcgis/rest/services/nascience/NYHudsonRiverExportWebMap/GPServer/Export%20Web%20Map";
         // get print templates from the export web map task
         var printInfo = esriRequest({
           "url": app.printUrl,
           "content": { "f": "json" }
         });
         printInfo.then(handlePrintInfo, handleError);
+        // on create print button click
         $("#createPrint").on('click', function(){
             // slide down map create screen
             $('.mapInfoWrapper').slideDown();
-
-            // when both author and title are filled out create print button
+        })
+        // on create map section close button click
+        $('.mapClose').on('click', function(evt){
+            console.log(evt);
+            $('.mapInfoWrapper').slideUp();
+            // clear map form 
+            $('#mapText1').val('')
+            $('#mapText2').val('')
+            // and reset vars 
+            app.printer.templates[0].layoutOptions.titleText = 'NY Hudson River'
+            app.printer.templates[1].layoutOptions.titleText = 'NY Hudson River'
+            app.printer.templates[0].layoutOptions.authorText = 'Not Selected'
+            app.printer.templates[1].layoutOptions.authorText = 'Not Selected'
 
         })
-         // the var inputs is all of the inputs in the form.
+        // the var inputs is all of the inputs in the form.
         var mapInputs = $("#mapText1,#mapText2")
         mapInputs.change(function() {
             mapInputs.each(function(index) {
@@ -102,9 +107,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         
 
         function handlePrintInfo(resp){
-            console.log('in print handler')
             var layoutTemplate, templateNames, mapOnlyIndex, templates;
-
               layoutTemplate = arrayUtils.filter(resp.parameters, function(param, idx) {
                 return param.name === "Layout_Template";
               });
@@ -120,8 +123,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 var mapOnly = templateNames.splice(mapOnlyIndex, mapOnlyIndex + 1)[0];
                 templateNames.push(mapOnly);
               }
-              console.log(templateNames)
-
               // create a print template for each choice
               templates = arrayUtils.map(templateNames, function(ch) {
                 var plate = new PrintTemplate();
@@ -147,10 +148,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         function handleError(err){
             console.log('somthing went wrong', err)
         }
-        
-        
-       
-
     // Add dynamic map service
     app.url = "https://cumulus.tnc.org/arcgis/rest/services/nascience/HudsonRiverMapService/MapServer"
     var dynamicLayer = new ArcGISDynamicMapServiceLayer(app.url, {opacity:0.7});
@@ -212,15 +209,10 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                         map.graphics.add(new Graphic(evt.featureSet.features[0].geometry, markerSymbol));
                         // slide down bottom popup
                         $("#bottomPopupWrapper").slideDown();
-                        console.log($('.popupItemsWrapper')[0].clientHeight)
-
                         if($('.popupItemsWrapper')[0].clientHeight == 0){
                             $('.popupItemsWrapper').slideDown();
                             $('#bottomPopupWrapper .popupMin').css('transform', 'rotate(180deg)')
                         }
-                        
-                        
-
                         // clean attributes function
                         var cleanAtts = function(val){
                             if (val.length <= 1 ) {
@@ -250,7 +242,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             } else if(app.appMode == 'submit'){
                 // use the loc var below to geolocate sddresses on map click. use that to populate some of the form.
                 var loc = locator.locationToAddress(e.mapPoint, 100, function(t){
-                    console.log(t);
                     var mp = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
                     var lat_long = mp.x + ' ' + mp.y;
                     $('#formItem6').val(lat_long);
@@ -260,14 +251,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                     // trigger change to force call on form validate function
                     $("#formItem7").trigger("change");
                 });
-                
-                
-                // map.on("location-to-address-complete"){}
-                // console.log(loc)
-                // console.log(loc[results])
-                // console.log(loc.results[0]);
-                // console.log(loc.results[0].type);
-                
             }else{
                 console.log('there is a problem with the map mode variable')
             }
@@ -278,7 +261,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
     // when document is ready //////////////////////////////////////////////////////////////////////////////////////////////////
     // html code goes here
     $( document ).ready(function() {
-        
         // build opacity slider and on slide change map opacity //////
         $("#sldr").slider({ min: 0, max: 100, range: false, values: [30], slide: function(e, ui){
             dynamicLayer.setOpacity(1 - ui.value/100);
@@ -299,13 +281,11 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                     }else{
                         app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND " + app.finalDeff);
                     }
-                    
                 }else{
                     $(".cb_wrapper_indent").slideUp();
                     app.layerDefinitions[0] =  "projectType_web = 'null'"
                     dynamicLayer.setLayerDefinitions(app.layerDefinitions);
                     map.removeLayer(app.addOwnProjectLayer);
-                    // app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes'");
                 }
             }
             // if cb checked push viz layers into viz layers array
@@ -315,7 +295,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 }else{
                     app.visibleLayers.push(layerId)   
                 }
-                
             }else{
                 var index = app.visibleLayers.indexOf(layerId)
                 if (index !== -1) app.visibleLayers.splice(index, 1);
@@ -328,7 +307,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             }else{
                 $('.legendDivWrapper').hide();
                 $('.dummyLegendHeader').hide();
-
             }
             // update the viz layers showing on the map
             dynamicLayer.setVisibleLayers(app.visibleLayers);
@@ -341,9 +319,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             // find out which cb's are checked
             $.each($('.cb_wrapper_indent input'), function(i,v){
                 if(!$(v)[0].checked){
-                    console.log('inside')
                     id  = "projectType_web = '" + $(v)[0].id + "'"
-                    console.log(id, 'iddddd')
                     var index =  app.layerDeffs.indexOf(id)
                     if (index > -1) {
                         app.layerDeffs.splice(index, 1)
@@ -357,29 +333,22 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                         }
                     })
                 }else{
-                    console.log('add the query back')
                     id  = "projectType_web = '" + $(v)[0].id + "'"
-                    console.log(id)
                     var index =  app.layerDeffs.indexOf(id)
                     if (index > -1) {
-                        console.log(index, 'lllllllllllll')
                         // app.layerDeffs.splice(index, 1)
                     }
 
                 }
             })
             // set layer def to null to display no layers if all cb's are unchecked
-            console.log(app.layerDeffs)
             if(app.layerDeffs.length < 1){
-                console.log('inside 2')
                 app.finalDeff = "projectType_web = 'null'";
             }
-
             // set layer defs and update the mask layer /////////////////////
             app.layerDefinitions = [];
             app.layerDefinitions[0] =  app.finalDeff
             dynamicLayer.setLayerDefinitions(app.layerDefinitions);
-            console.log("display_on_web='yes' AND " + app.finalDeff)
             app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND " + app.finalDeff);
         })
         // on add new project button click ///////////////////////////////////////////////////
@@ -464,18 +433,12 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
 
             // apply edits to the feature layer here
             app.addOwnProjectLayer.applyEdits([incidentGraphic], null, null, function(e){
-                console.log(e, 'apply edits');
-                // console.log('There was an error adding the data!! Please check field data types')
                 // clear form after the submit button has been clicked
                 clearForm();
                 // display text that your project has been submited 
                 $('.submitText').slideDown();
             });
-            
-
-            
         })
-
         // header collapse functionality
         $('.cbHeader').on('click', function(e){
             // check to see the height of the next cbWrapper
