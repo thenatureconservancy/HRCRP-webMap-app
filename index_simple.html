@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>The Hudson We Share</title>
+	<link rel="icon" type="image/x-icon" href="assets/title_Icon.png" />
+ 	<!-- Jquery, ESRI stylesheets -->
+ 	<link rel="stylesheet" href="https://js.arcgis.com/3.24/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.24/esri/css/esri.css">
+	<!-- <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css"> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.css">
+	<!-- <link rel="stylesheet" href="css/main.css"> -->
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<!-- jquery code -->
+	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script src="js/chosen.jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<!-- bring in main and make vars and ESRI api-->
+	<script src="https://js.arcgis.com/3.24/"></script>
+	<!-- style for the entire site -->
+	<style type="text/css">
+		/* main styles ///////////////////////////////////////////////////////////////////*/
+
+		html, body{
+			height:100%; padding:0; margin:0; 
+		}
+
+		/* bring in fonts ///////////////////////////////////////////////////////////////////*/
+		@font-face {
+		    font-family: "Lato-Regular";
+		    src: url(fonts/Lato-Regular.woff);
+		}
+		@font-face {
+		    font-family: "Lato-Light";
+		    src: url(fonts/Lato-Light.woff);
+		}
+		@font-face {
+		    font-family: "Lato-Bold";
+		    src: url(fonts/Lato-Bold.woff);
+		}
+		.button.disabled, .button:disabled {
+		    opacity: .5; 
+		    cursor: not-allowed;
+		}
+		.button-primary.disabled, .button-primary:disabled {
+		    opacity: .5;
+		}
+		/* main div with left/app div and right/map div ///////////////////////////////////////////////////////////////////*/
+		#cd_wrap{
+			display:flex; flex-grow: 1; position: relative; height:100%; width:100%; color:#3C454A; font-size:12px; font-family:"Open Sans"; overflow-x: hidden;
+		}
+		#cd_left{
+			flex:0 0 350px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
+			overflow-y:auto; background:#f3f3f3; 
+		}
+		.welcomeWrapper{
+			position: absolute; top: 0px; left: 0px; z-index: 1100; height: 100%; width: 100%; background-color: rgba(255,255,255,0.4);
+		}
+		.welcomePara{
+			text-align: center;
+			width:50%;
+			font-size:14pt;
+			margin:auto;
+			margin-top:15%;
+			padding:10px;
+			background:#648CA4;
+			border-radius:25px;
+			box-shadow: 
+		    inset 0 3px 2px rgba(255,255,255,0.22), 
+		    inset 0 -3px 2px rgba(0,0,0,0.17), 
+		    inset 0 20px 10px rgba(255,255,255,0.12), 
+		    0 0 4px 1px rgba(0,0,0,0.1), 
+		    0 3px 2px rgba(0,0,0,0.2);
+			color: #f9faf5;
+			text-decoration: none;
+			text-shadow: 0 1px rgba(96, 58, 20,1);
+			border: 1px solid #324617;
+		}
+		#welhide{
+			color: #f9faf5;
+			text-decoration: none;
+			text-shadow: 0 1px rgba(96, 58, 20,1);
+		}
+		#welhide:hover {
+			color:orange;
+			text-decoration: none;
+			/*text-shadow: 0 1px rgba(236, 239, 222,.8);*/
+		}
+		.mapWrapper{
+			width: 100%;
+		}
+		#map{
+			height:100%; width:100%; background: #bbb; background: -webkit-radial-gradient(#fff, #bbb); 
+		    background: -moz-radial-gradient(#fff, #bbb); background: radial-gradient(#fff, #bbb); 
+		}
+		.blueFont{
+			color: #2f6384; font-weight: 700; font-size: 14px; line-height: 20px;
+		}
+		.mainContentWrapper{
+			margin-top: 10px;
+		}
+		/* overwite some esri styles */
+		.dijitSelect, .dijitSelect *, .dijitButtonNode, .dijitButtonNode * {
+		    cursor: pointer;
+		    -webkit-tap-highlight-color: transparent;
+		    background-color: #0096d6;
+		    color: white;
+		    padding: 2px;
+		    border-color: #0084bd;
+		    /*box-shadow: 0 1px 1px rgba(16,22,26,.2);*/
+		    background-clip: padding-box;
+		    border-radius: 3px;
+
+		 }
+		 .dijitArrowButtonChar {
+		 	display: block !important;
+		 }
+		 .esriPrint{
+		 	padding: 0px;
+		 }
+		 .dijitReset{
+		 	line-height: 15px;
+		 }
+		 .dijitArrowButtonInner{
+		 	display: none;
+		 }
+		 .dijitMenuTable tbody{
+		 	background-color: #e8e8e8; border: solid grey 1px; 
+		 }
+		 .dijitMenuTable tbody .dijitMenuItemLabel{
+		 	padding: 5px;
+		 }
+		/*#dijit_form_ComboButton_1_arrow !important{
+			display: none;
+		}*/
+		/* header styles /////////////////////////////////////////////////////////////////////////////////*/
+
+		.mainHeaderWrapper{
+			 background:#648CA4; color: white; display: flex; height: 10%; align-items: center; min-height: 75px;
+		}
+		.logoWrapper{
+			padding: 5px; width: 100px; padding-left: 5px;
+		}
+		.titleWrapper{
+			font-size: 16px; font-size: 20px;
+		}
+		.searchWrapper{
+			   background-color: grey; margin-left: auto; margin-right: 8px;
+		}
+		/*#search {
+		    display: block; position: absolute; z-index: 2000; width: 300px;
+		 }*/
+		.headers{
+		 	color: #101d28; font-size: 16px; font-weight: 900; margin-top: 10px; margin-bottom: 5px; width: 100%;
+		 }
+		 /* map styles ////////////////////////////////////////////////////////////////////////////////*/
+		.esriSimpleSliderTL{
+		 	right: 20px !important;
+		}
+		#BasemapToggle{
+		 	position: absolute; top: 2.5%; z-index: 1000; left: 379px;
+		}
+		/* legend styling /////////////////////////////////////////////////////////////////////////////////*/
+		.legendDivWrapper{
+			position: absolute; bottom: 40px; right: 20px; z-index: 1000; border: 1px solid #ddd; border-radius: 6px; background-color: #f3f3f3;
+			 overflow: auto; box-shadow: 0 2px 2px rgba(16,22,26,.5); max-height: 50%;width: 280px;
+		}
+		.legendPopupHeader{
+			background-color: #e5e3e3; padding: 6px; font-weight: bold; border-bottom: solid 1px darkgray;
+			position: absolute; width: 94.5%; z-index: 1000; width: 268px;
+		}
+		.dummyLegendHeader{
+			position: absolute; bottom: 41px; right: 20px; z-index: 1000; background-color: #e5e3e3; padding: 6px; 
+			font-weight: bold; border-bottom: solid 1px darkgray; border-radius: 6px; box-shadow: 0 2px 2px rgba(16,22,26,.5); width: 150px;
+			display: none;
+		}
+		.legendDiv{
+			padding-top: 30px;
+		}
+		.esriLegendServiceLabel{
+			display: none;
+		}
+		/* wrapper div for flexbox rows ///////////////////////////////////////////////////////////////////*/
+		.flex-wrap{
+			display:flex; flex-direction:row; 
+		}
+		/*  popup styling ////////////////////////////////////////////////////////////////////////////////*/
+		.popupWrapper{
+			position: absolute; z-index: 1000; left: 500px; top: 500px; color: #3C454A; background-color: #f3f3f3; display: none; margin-bottom: 25px;
+		}
+		.bottomPopupWrapper{
+			position: absolute; z-index: 1000; left: 380px; bottom: 40px; background-color: white; 
+			color: black; box-shadow: 0 2px 2px rgba(16,22,26,.5); border: 1px solid #ddd; border-radius: 6px;
+			font-size:12px; font-family:"Open Sans"; background-color: #f3f3f3; max-width: 400px;
+		}
+		.popupHeader{
+			background-color: #e5e3e3; padding: 6px; font-weight: bold; border-bottom: solid 1px darkgray;
+		}
+		.popupHeaderClose{
+			position: absolute; font-size: 16px; margin-left: -4.5px; margin-top: -2px
+		}
+		.popupHeaderCloseWrapper{
+			height: 20px; width: 20px; /*background-color: darkgrey;*/ position: absolute;border-radius: 10px; text-align: center; right: 3px; top: 4px;
+		}
+		.popupHeaderCloseWrapper:hover{
+			cursor: pointer; background-color: darkgrey; 
+		}
+		.popupMinWrapper{
+			position: absolute; right: 24px; font-size: 12px; top: 4px; text-align: center; width: 20px; height: 20px; border-radius: 10px; 
+		}
+		.popupMinWrapper:hover{
+			cursor: pointer; background-color: darkgrey;
+		}
+		.popupMinLeg{
+			right: 15px;
+		}
+		.popupMin{
+			position: absolute; top: 3px; right: 4px;
+		}
+		.popupItems{
+			padding:3px;
+		}
+		.popupItems span{
+			color: black; font-weight: 100;
+		}
+		.popupItems2 span{
+			color: black; font-weight: 100;
+		}
+		.popupItemsWrapper{
+			padding: 5px;
+		}
+		/*.popupHeaderClose:hover{
+			cursor: pointer; background-color: blue; border-radius: 20px;
+		}*/
+
+
+		/* styling for the hamburger menu toolbox ////////////////////////////////////////////////////////*/
+		.hamburgerTools{
+			height: 35px; width: 35px; background-color:#e8e8e8; margin-left: -45px; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 1px rgba(16,22,26,.2);
+		}
+		.hamburgerTools:hover{
+			background-color: #f3f3f3; cursor: pointer;
+		}
+		.hud-hamburger{
+			width: 20px; margin: 4px; height: 3px; background-color: #2F6384;
+		}
+		.dropdownMenu{
+			position: absolute; z-index: 1000; list-style:  none; background-color: #f3f3f3; left: 243px; top: 200px; border-radius: 6px; 
+			border: 1px solid #ddd; box-shadow: 0 1px 1px rgba(16,22,26,.2); display: none;
+		}
+		.dropdownMenu div{
+			list-style: none; padding: 5px; 
+		} 
+		.toolWrapper div:hover{
+			background-color: #e8e8e8; cursor: pointer;
+		}
+		.createMapWrapper{
+			position: absolute; bottom: 55px; height: 45px; background-color:#e8e8e8;box-shadow: 0 -1px 1px rgba(16,22,26,0.2);
+			border-top: 1px solid #ddd; width: 358px; left:0px;
+
+		}
+		.mapInfoWrapper{
+			display: none; position: absolute; width: 358px; bottom: 0px; height: 100px; background-color: #e8e8e8; border-top: 1px solid #ddd; box-shadow: 0 -1px 1px rgba(16,22,26,0.2);
+		}
+		.mapFormWrapper{
+			position: absolute; bottom: 7px; width: 212px; margin-left: 15px;
+		}
+		.mapClose{
+			position: absolute; height: 20px; width: 20px; font-size: 14px; top: 5px; right: 20px; text-align: center;
+			font-weight: bold; color: black;
+		}
+		.mapClose:hover{
+			cursor: pointer; background-color: darkgrey; border-radius: 100px;
+		}
+		/* styling for checkbox section /////////////////////////////////////////////////////////*/
+
+		.cbWrapper{
+			margin-left: 8px;
+		}
+		.cbHeader{
+			color: #101d28; font-size: 13px; font-weight: 900; margin: 10px 4px 5px -4px; padding-left: 4px; border-radius: 4px; padding: 2px; display: flex;
+		}
+		.cbHeader:hover{
+			background-color: #e5e3e3; cursor: pointer;
+		}
+		.cbHeader h3{
+			margin: 0px; font-size: 13px; color: #101d28; font-weight: 900;
+		}
+		.cbHeader span{
+			color: #f3f3f3; margin-left: auto; margin-right: 3px; font-size: 12px; font-weight: 600;
+		}
+		.cb_wrapper_indent{
+			margin-left: 15px;
+		}
+		.cb_wrapper_indent .form-component{
+			padding: 0px; margin-right: 2px; margin-bottom: 4px;
+		}
+		.addOwnProject{
+			margin-left: 15px; margin-top: 10px;
+		}
+
+		/* styling for the form that allows a user to submit a new project */
+		.addNewContentWrapper{
+			display: none;
+		}
+		.backToMain{
+			display: flex; align-items: center;
+		}
+		.backToMainWrapper{
+			margin-left: 35px;
+		}
+		.formItems{
+			width: 80%;
+		}
+		.formTitle{
+			font-weight: bold; margin-top: 11px; margin-bottom: -14px;
+		}
+		.submitText{
+			display: none; margin-top: 10px;
+		}
+		/* styling for opacity wrapper*/
+
+		.opacityWrapper{
+			width: 358px;
+			height: 54px;
+			position: absolute;
+			left: 0px;
+			bottom: 0px;
+			background-color:#e8e8e8;
+			box-shadow: 0 -1px 1px rgba(16,22,26,0.2);
+			border-top: 1px solid #ddd;
+			display: flex;
+		}
+
+		.opacitySliderLabels{
+			display: flex; margin-left: 4px; margin-top: 6px;
+		}
+		.sliderLabels{
+			padding: 14px;
+		}
+		/* */
+
+		/* chosen */
+		.chosen-wrap .chosen-container-single .chosen-single{
+		 	padding:6px 0 0 10px; height:28px; border:1px solid #A7ACAF; border-radius:0px; background:#fff; background-clip:padding-box;
+		 	color:#3C454A; text-decoration:none; white-space:nowrap; line-height:1.2; text-align:left; box-shadow:none; font-family:"Lato-Light";
+		}
+		.chosen-wrap .chosen-container-single .chosen-single div b{
+		 	margin-top:2px
+		}
+		.chosen-wrap .chosen-container-single .chosen-single abbr{
+		 	top:10px;right:20px
+		}
+		.chosen-wrap .chosen-container-single span{
+		 	color:#3C454A; margin-right:0; font-size:14px; font-family:"Lato-Regular";
+		}
+		.chosen-container .chosen-default span{
+			font-family: "Lato-Light" !important;
+		}
+		.chosen-container .chosen-results li.active-result {
+			font-family: "Lato-Light";
+		}
+
+		/* media queries //////////////////////////////////////////////////////////////////////////////////////// */ 
+		/* drop the map for anything less than 500px wide/portrait view */
+		@media only screen and (max-device-width:600px) and (orientation: portrait){
+			#cd_wrap{
+				background:#f7f7f7;
+			}
+			#cd_left{
+				box-shadow:none; 
+			}
+			#cd_map{
+				display:none; 
+			}
+			/* width of three large attribute divs */
+			.att-div-wrap{
+				margin-right:4px;
+			}
+			.att-div{
+				padding:5px 5px 12px 5px; 
+			}
+		}
+		@media only screen and (max-device-width:420px) and (orientation: portrait), only screen and (max-device-width:740px) and (orientation: landscape){
+			/* left div width */
+			#cd_left{
+				flex:0 0 400px;
+			}
+		}	
+		@media only screen and (max-device-width:375px) and (orientation: portrait), only screen and (max-device-width:650px) and (orientation: landscape){
+			/* left div width */
+			#cd_left{
+				flex:0 0 367px;
+			}
+
+		}
+		@media only screen and (max-device-width:360px) and (orientation: portrait), only screen and (max-device-width:580px) and (orientation: landscape){
+			/* left div width */
+			#cd_left{
+				flex:0 0 350px;
+			}
+			
+		}		
+		@media only screen and (max-device-width:320px) and (orientation: portrait), only screen and (max-device-width:580px) and (orientation: landscape){
+			/* left div width */
+			#cd_left{
+				flex:0 0 312px;
+			}
+		}	
+
+		/* style guide css //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+		/* Styles in this file are intended to be copied into one of the frameworks main.css file */
+
+		/* Overrides the imported jQuery-UI classes for the accordion - .accord is
+		   added to isolate jquery-ui.css  class overrides to only those elements 
+		   within divs of class accord */
+		/* Overrides to the imported chosen.css classes - .chosen-wrap is added to isolate
+		   chosen.css class overrides to only those elements within divs of class chosen-wrap */
+		.chosen-wrap .chosen-container-single .chosen-single {
+			padding: 6px 0 0 10px;
+			height: 33px;
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			background: #fff;
+			background-clip: padding-box;a
+			box-shadow: 0 1px 1px rgba(16,22,26,.2);
+			color: #5d6165;
+			text-decoration: none;
+			white-space: nowrap;
+			line-height: 1.5;
+			text-align: left;
+		}
+		.chosen-wrap .chosen-container-single .chosen-single div b{
+			margin-top: 4px;
+		}
+		.chosen-wrap .chosen-container-single .chosen-single abbr {
+			top: 10px;
+			right: 20px;
+		}
+		.chosen-wrap .chosen-container-single span{
+			color:#222;
+			margin-right: 0;
+		}
+		.chosen-wrap .chosen-container-multi .chosen-choices {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			background-image: none;
+			cursor: pointer;
+			box-shadow: 0 1px 1px rgba(16,22,26,.2);
+		}
+		.chosen-wrap .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+			height: 33px;
+			color: #222;
+			font-size: 100%;
+			cursor:pointer;
+		}
+		.chosen-wrap .chosen-container-multi .chosen-choices li.search-choice {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			background-color: #fdfdfd;
+			background-image: none;
+			box-shadow: 0 1px 1px rgba(16,22,26,.2);
+			color: #222;
+			line-height: 1.7;
+		}
+		.chosen-wrap .chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+			top:9px;	
+		}	
+		/* width of slider bar*/
+		.slider{
+			font-size: 1.1em !important;
+		}
+		/* jQuery-UI overrides for the slider */
+		.ui-widget .ui-widget{
+			font-size:1.1em;
+		}
+		.slider-container .ui-state-default, .slider-container .ui-widget-content .ui-state-default, .slider-container .ui-widget-header .ui-state-default{
+			cursor:pointer;
+		}
+		.slider-container .ui-slider .ui-slider-handle:focus { 
+			outline: none; 
+		}
+		.range-slider .ui-widget-header{
+			background:#e8f5fe;
+		}
+		.slider-container {
+			margin: 17px 0 13px;
+		}	
+		.range-slider {
+			margin: 10px 0 20px;
+		}
+
+		/* Toggle Button Styling - all based on the parent divs toggle-btn class - no external 
+		   library styles are used */
+		.toggle-btn {
+			padding-left:5px;
+			margin-bottom:10px;
+			display:flex;
+		}
+		.toggle-btn input {
+		  display: none;
+		}
+		.toggle-btn label {
+			padding:5px; 
+			box-shadow: 0 1px 1px rgba(16,22,26,.2);
+			background-clip: padding-box; 
+			background-color:#fff; 
+			text-align:center;
+			border: 1px solid #DDD;  
+			margin:5px 5px 5px -6px;
+			flex:1; 
+		  	transition:all 0.1s ease-in-out;
+			cursor: pointer;
+			color:#222;
+		}
+		.toggle-btn label:hover{
+			background-color:#f3f3f3;
+		}
+		.toggle-btn input:checked + label {
+			color:#FFF;
+			font-weight:bold;
+			background-color:#0096D6;
+			text-shadow:0 1px 1px rgba(0,0,0,0.5);
+			box-shadow: inset 0px 1px 1px rgba(0,0,0,0.35), 0 1px rgba(255, 255, 255, 0.1); 
+		}
+		.toggle-btn input:checked + label:hover {
+			cursor:default;
+		}
+		.toggle-btn label:first-of-type {
+		  border-radius: 3px 0 0 3px;
+		}
+		.toggle-btn label:last-of-type {
+		  border-radius: 0 3px 3px 0;
+		}
+		.form-component {
+		    position: relative;
+		    margin-right: 5px;
+		    margin-bottom: 10px;
+		    display: inline-block;
+		    cursor: pointer;
+		}
+		.form-component input[type=checkbox]:checked~.check, .form-component input[type=radio]:checked~.check {
+		    background: #0096d6;
+		    background: linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #0096d6;
+		    border-color: rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.3);
+		}
+		.form-component input[type=checkbox]~.check, .form-component input[type=radio]~.check {
+		    border-radius: 3px;
+		    width: 12px;
+		    height: 12px;
+		    background: linear-gradient(180deg,#fff,hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #f5f8fa;
+		    border: 1px solid;
+		    border-color: rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.17);
+		    box-shadow: 0 1px 1px rgba(16,22,26,.1);
+		    cursor: pointer;
+		    width: 14px;
+		    height: 14px;
+		    margin-right: 2px;
+		    display: inline-block;
+		    position: relative;
+		    top: 3px;
+		}
+		.form-component input[type=checkbox]:checked, .form-component input[type=radio]:checked {
+		    display: none;
+		}
+		.form-component input[type=checkbox], .form-component input[type=radio] {
+		    display: none;
+		}
+		.form-component input[type=checkbox]:checked~.check:after, .form-component input[type=radio]:checked~.check:after {
+		    display: inline-block;
+		    width: 4px;
+		    height: 8px;
+		    border: solid #fff;
+		    border-width: 0 2px 2px 0;
+		    transform: rotate(45deg);
+		    content: "";
+		    position: absolute;
+		    left: 4px;
+		    top: 1px;
+		}
+		*, :after, :before {
+		    box-sizing: inherit;
+		}
+		.slider-container .ui-state-default, .slider-container .ui-widget-content .ui-state-default, .slider-container .ui-widget-header .ui-state-default {
+		    border-radius: 100%!important;
+		    box-shadow: 0 1px 1px rgba(16,22,26,.1)!important;
+		    background: linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #0096d6!important;
+		    border-color: rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.3)!important;
+		    width: 17px!important;
+		    height: 17px!important;
+		}
+		/* Blue font */
+		.blueFont{
+			color:#2F6384;
+			font-weight:600;
+			line-height: 20px;
+			font-size: 14px;
+		} 
+		.button {
+		    display: inline-block;
+		    -webkit-appearance: none;
+		    cursor: pointer;
+		    vertical-align: middle;
+		    text-align: center;
+		    text-decoration: none;
+		    overflow: visible;
+		    font-size: 13px;
+		    line-height: 1;
+		    padding: 6px 14px;
+		    border-radius: 3px;
+		    background-color: #fff;
+		    border: 1px solid #ddd;
+		    color: #222;
+		   }
+		.override .button-primary {
+		    background-color: #0096D6;
+		}
+		.button:not(.button-link) {
+		    box-shadow: 0 1px 1px rgba(16,22,26,.2);
+		    background-clip: padding-box;
+		}
+		.sidebar-content .button {
+		    margin-bottom: 1rem;
+		}
+		.button-primary {
+		    color: #fff;
+		    background-color: #0096d6;
+		    border-color: #0084bd;
+		}
+	</style>
+	<!-- JS code for the entire site -->
+	<script type="text/javascript">
+		// #########################################################
+		// main js file for the Hudson River web mapping application
+		// ESRI api functions ///////////////////////////////////////////////////////////////////////////////////////////////////
+		// esri api calls
+		var app = {}; // main app object
+		app.visibleLayers = [1];
+		app.layerDefinitions  = [];
+		app.authorText = 'Not Selected';
+		app.titleText = 'NY Hudson River'
+		app.appMode = 'main';
+		require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/TextSymbol",
+		    "esri/symbols/Font", "esri/Color", "esri/geometry/Extent", "esri/layers/FeatureLayer", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol","esri/symbols/SimpleMarkerSymbol",
+		        "esri/renderers/SimpleRenderer", "esri/graphic","esri/geometry/Point","esri/SpatialReference", "esri/dijit/Search", "esri/dijit/Legend", "esri/dijit/BasemapToggle",
+		        "esri/tasks/locator","esri/geometry/webMercatorUtils","esri/dijit/Print","esri/tasks/PrintTemplate","esri/request", "esri/config","dojo/i18n!esri/nls/jsapi", "dojo/_base/array", "dojo/dom", "dojo/parser","dojo/domReady!"], 
+		function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, Color, Extent, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,SimpleMarkerSymbol,
+		        SimpleRenderer, Graphic,Point, SpatialReference, Search, Legend, BasemapToggle, Locator, webMercatorUtils,Print, PrintTemplate, esriRequest,esriConfig,esriBundle,arrayUtils, dom, parser) {
+		    parser.parse();
+		    esriConfig.defaults.io.proxyUrl = "/proxy/";
+		    esriBundle.widgets.print.NLS_print = "Create PDF Map";
+		    esriBundle.widgets.print.NLS_printing = "Creating Map....";
+		    esriBundle.widgets.print.NLS_printout= "Click to Open PDF";
+		    // esri map  //////////////////////////////////////////////////////////////////////////////////////////////////////
+		     var map = new Map("map", {
+		        basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
+		        center: [-73.9, 42.05], // lon, lat
+		        zoom: 8,
+		        sliderPosition: "top-right"
+		     });
+		     // code for ESRI search/////////////////////////////////////////
+		     var search = new Search({
+		        map: map
+		     }, "search");
+		     search.startup();
+		     // code for ESRI basemap //////////////////////////////
+		     var toggle = new BasemapToggle({
+		        map: map,
+		        basemap: "satellite"
+		      }, "BasemapToggle");
+		      toggle.startup();
+		      //add the legend ////////////////////////////////////////////////////////////////////////////////////////
+		      var legendLayers =[];
+		      legendLayers.push({title: ' ' });
+
+		      var legend = new Legend({
+		        map: map,
+		      }, "legendDiv");
+		      legend.startup();
+		      // geolocator startup
+		      var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+		        // add feature layer for add own layers, this feature layer is published on AGO
+		        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/addNewProject_hudsonRiver_1/FeatureServer/0'
+		        
+		        app.addOwnProjectLayer = new FeatureLayer(app.addOwnProjectLayerURL, {
+		              mode: FeatureLayer.MODE_ONDEMAND,
+		              outFields: ["*"]
+		        });
+		        map.addLayer(app.addOwnProjectLayer);
+		        app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes'");
+		        // print service URL to create PDF maps
+		        app.printUrl = "https://cumulus.tnc.org/arcgis/rest/services/nascience/NYHudsonRiverExportWebMap/GPServer/Export%20Web%20Map";
+		        // get print templates from the export web map task
+		        var printInfo = esriRequest({
+		          "url": app.printUrl,
+		          "content": { "f": "json" }
+		        });
+		        printInfo.then(handlePrintInfo, handleError);
+		        // on create print button click
+		        $("#createPrint").on('click', function(){
+		            // slide down map create screen
+		            $('.mapInfoWrapper').slideDown();
+		        })
+		        // on create map section close button click
+		        $('.mapClose').on('click', function(evt){
+		            console.log(evt);
+		            $('.mapInfoWrapper').slideUp();
+		            // clear map form 
+		            $('#mapText1').val('')
+		            $('#mapText2').val('')
+		            // and reset vars 
+		            app.printer.templates[0].layoutOptions.titleText = 'NY Hudson River'
+		            app.printer.templates[1].layoutOptions.titleText = 'NY Hudson River'
+		            app.printer.templates[0].layoutOptions.authorText = 'Not Selected'
+		            app.printer.templates[1].layoutOptions.authorText = 'Not Selected'
+
+		        })
+		        // the var inputs is all of the inputs in the form.
+		        var mapInputs = $("#mapText1,#mapText2")
+		        mapInputs.change(function() {
+		            mapInputs.each(function(index) {
+		                var input = $(this);
+		                if(index == 0){
+		                    if(input[0].value){
+		                        // app.titleText = input[0].value
+		                        app.printer.templates[0].layoutOptions.titleText = input[0].value;
+		                        app.printer.templates[1].layoutOptions.titleText = input[0].value;
+		                    }
+		                }else if(index == 1){
+		                    if(input[0].value){
+		                        // app.authorText = input[0].value
+		                        // console.log(app.printer)
+		                        app.printer.templates[0].layoutOptions.authorText = input[0].value;
+		                        app.printer.templates[1].layoutOptions.authorText = input[0].value;
+		                    }
+		                }
+		            })
+		        })
+		        
+
+		        function handlePrintInfo(resp){
+		            var layoutTemplate, templateNames, mapOnlyIndex, templates;
+		              layoutTemplate = arrayUtils.filter(resp.parameters, function(param, idx) {
+		                return param.name === "Layout_Template";
+		              });
+		              
+		              if ( layoutTemplate.length === 0 ) {
+		                console.log("print service parameters name for templates must be \"Layout_Template\"");
+		                return;
+		              }
+		              templateNames = layoutTemplate[0].choiceList;
+		              // remove the MAP_ONLY template then add it to the end of the list of templates 
+		              mapOnlyIndex = arrayUtils.indexOf(templateNames, "MAP_ONLY");
+		              if ( mapOnlyIndex > -1 ) {
+		                var mapOnly = templateNames.splice(mapOnlyIndex, mapOnlyIndex + 1)[0];
+		                templateNames.push(mapOnly);
+		              }
+		              // create a print template for each choice
+		              templates = arrayUtils.map(templateNames, function(ch) {
+		                var plate = new PrintTemplate();
+		                plate.layout = plate.label = ch;
+		                plate.format = "PDF";
+		                plate.layoutOptions = { 
+		                  "authorText": app.authorText,
+		                  "copyrightText": "<copyright info here>",
+		                  "legendLayers": [], 
+		                  "titleText": app.titleText, 
+		                  "scalebarUnit": "Miles" 
+		                };
+		                return plate;
+		              });
+		             // print dijit ////////////////////
+		                app.printer = new Print({
+		                      map: map,
+		                      "templates": templates,
+		                      url: app.printUrl,
+		                }, dom.byId("createMap"));
+		                app.printer.startup();
+		        }
+		        function handleError(err){
+		            console.log('somthing went wrong', err)
+		        }
+		    // Add dynamic map service
+		    app.url = "https://cumulus.tnc.org/arcgis/rest/services/nascience/HudsonRiverMapService/MapServer"
+		    var dynamicLayer = new ArcGISDynamicMapServiceLayer(app.url, {opacity:0.7});
+
+		    // on dynamic layer load ////////////////////////////////////////////////////////////////////////////////////////////////
+		    dynamicLayer.on("load", function () {
+		        dynamicLayer.setVisibleLayers(app.visibleLayers);
+		        map.addLayer(dynamicLayer); // add dynamic layer
+		    });
+
+		    // on map load ////////////////////////////////////////////////////////////////////////////////////////////
+		     map.on("load", function() {
+		        // $('#legendDiv').children().first().find('.esriLegendServiceLabel').html('change the title');
+		        // console.log('hey')
+		        map.enableScrollWheel();
+		        map.on("mouse-over", function(e){
+		            map.setMapCursor("pointer");
+		        })
+		        map.on("mouse-out", function(e){
+		        })
+		        // on map click /////////////////////////////////////////////////////////
+		        map.on("click", function(e){
+		            // when in main map mode //////////////////
+		            if(app.appMode == 'main'){
+		                // query the map for features
+		                var pnt = e.mapPoint;
+		                app.pnt = e.mapPoint;
+		                var centerPoint = new esri.geometry.Point(pnt.x,pnt.y,pnt.spatialReference);
+		                var mapWidth = map.extent.getWidth();
+		                var mapWidthPixels = map.width;
+		                var pixelWidth = mapWidth/mapWidthPixels;
+		                var tolerance = 10 * pixelWidth;
+		                var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, pnt.spatialReference);
+		                var p = ext.centerAt(centerPoint);
+		                //start of query ///////////////////////////////////////////////////////////////////////
+		                var q = new Query();
+		                var qt = new QueryTask(app.url + "/0");
+		                q.geometry = p;
+		                q.returnGeometry = true;
+		                q.outFields = ["*"];
+		                // execute query ///////////////////
+		                // test to see if the project layers is being displayed. if it is execute query
+		                if($("#layer-0")[0].checked){
+		                     qt.execute(q);
+		                }
+		                // query on complete
+		                qt.on('complete', function(evt){
+		                    map.graphics.clear();
+		                    // new markey symbol used for selected features
+		                    var markerSymbol = new SimpleMarkerSymbol();
+		                    markerSymbol.setColor(new Color("#00FFFF"));
+		                    markerSymbol.setSize(12);
+		                     // if info returned from query
+		                    if(evt.featureSet.features.length > 0){
+		                        app.pointClick = true;
+		                        app.atts = evt.featureSet.features[0].attributes;
+		                        app.items = $("#bottomPopupWrapper").find(".popupItems")
+		                        // add the selected feature graphic
+		                        map.graphics.add(new Graphic(evt.featureSet.features[0].geometry, markerSymbol));
+		                        // slide down bottom popup
+		                        $("#bottomPopupWrapper").slideDown();
+		                        if($('.popupItemsWrapper')[0].clientHeight == 0){
+		                            $('.popupItemsWrapper').slideDown();
+		                            $('#bottomPopupWrapper .popupMin').css('transform', 'rotate(180deg)')
+		                        }
+		                        // clean attributes function
+		                        var cleanAtts = function(val){
+		                            if (val.length <= 1 ) {
+		                                val = "N/A"
+		                                return val
+		                            }else{
+		                                return val;
+		                            }
+		                        }
+		                        // populate the html with the correct attributes 
+		                        var title = evt.featureSet.features[0].attributes.Project_Title
+		                        $("#popupHeaderTitle").html(title);
+		                        // set the attributes for each attribute span
+		                        $(app.items[0]).find('span').html(cleanAtts(app.atts.Project_Type))
+		                        $(app.items[1]).find('span').html(cleanAtts(app.atts.Project_Description))
+		                        $(app.items[2]).find('span').html(cleanAtts(app.atts.Stakeholder))
+		                        $(app.items[3]).find('span').html(cleanAtts(app.atts.Name))
+		                        $(app.items[4]).find('span').html(cleanAtts(app.atts.Jurisdiction))
+		                        $(app.items[5]).find('span').html(cleanAtts(app.atts.County))
+		                        $(app.items[6]).find('span').html(cleanAtts(app.atts.Location))
+		                        $('.pointAttsWrapper').show();
+		                        $('.polyAttsWrapper').hide();
+		                    }else{
+		                        // slide up bottom popup
+		                        $("#bottomPopupWrapper").slideUp();
+		                        app.pointClick = false
+		                    }
+		                    // check to see if any of the PHU cb's are checked to on before executing query                    
+		                    var isChecked = $(".phuCBWrapper input[type=checkbox]").is(":checked");
+		                    if(isChecked){
+		                        query2Execute();
+		                    }
+		                    
+		                })
+		                var query2Execute = function(){
+		                    //start of query 2 PHU polygons ///////////////////////////////////////////////////////////////////////
+		                    var q2 = new Query();
+		                    var qt2 = new QueryTask(app.url + "/3");
+		                    q2.geometry = p;
+		                    q2.returnGeometry = true;
+		                    q2.outFields = ["*"];
+		                    // execute query ///////////////////
+		                    // test to see if the project layers is being displayed. if it is execute query
+		                    if($("#layer-0")[0].checked){
+		                         qt2.execute(q2);
+		                    }
+		                     // query on complete
+		                    qt2.on('complete', function(evt){
+		                        // map.graphics.clear();
+		                         // new markey symbol used for selected features
+		                         var polygonSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+		                            new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+		                            new Color("#00FFFF"), 2),new Color([255,255,0,0.25])
+		                        );
+		                        if(app.pointClick == false){
+		                            if(evt.featureSet.features.length > 0){
+		                                // add a map polygon graphic
+		                                 // add the selected feature graphic
+		                                map.graphics.add(new Graphic(evt.featureSet.features[0].geometry, polygonSymbol));
+		                                // show attributes
+		                                $('.pointAttsWrapper').hide();
+		                                $('.polyAttsWrapper').show();
+		                                 // clean attributes function
+		                                var cleanAtts = function(val){
+		                                    if (val.length <= 1 ) {
+		                                        val = "N/A"
+		                                        return val
+		                                    }else{
+		                                        return val;
+		                                    }
+		                                }
+		                                app.atts2 = evt.featureSet.features[0].attributes;
+		                                app.items2 = $("#bottomPopupWrapper").find(".popupItems2")
+		                                // populate the html with the correct attributes 
+		                                var title = "Physical Habitat Units"
+		                                $("#popupHeaderTitle").html(title);
+		                                // set the attributes for each attribute span
+		                                $(app.items2[0]).find('span').html(cleanAtts(app.atts2.depth_desc))
+		                                $(app.items2[1]).find('span').html(cleanAtts(app.atts2.sedtype_desc))
+		                                $(app.items2[2]).find('span').html(cleanAtts(app.atts2.slope_desc))
+		                                $(app.items2[3]).find('span').html(cleanAtts(app.atts2.sedenv_desc))
+		                                 // slide down bottom popup
+		                                $("#bottomPopupWrapper").slideDown();
+		                            }
+		                            else{
+		                                  $("#bottomPopupWrapper").slideUp();
+		                            }
+		                        }
+		                        
+		                    })
+		                }
+		            // when in submit your own project mode /////////////////
+		            } else if(app.appMode == 'submit'){
+		                // use the loc var below to geolocate sddresses on map click. use that to populate some of the form.
+		                var loc = locator.locationToAddress(e.mapPoint, 100, function(t){
+		                    var mp = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
+		                    var lat_long = mp.x + ' ' + mp.y;
+		                    $('#formItem6').val(lat_long);
+		                    $('#formItem7').val(t.address.City);
+		                    // $('#formItem8').val(t.address.Type);
+		                    $('#formItem9').val(t.address.Subregion);
+		                    // trigger change to force call on form validate function
+		                    $("#formItem7").trigger("change");
+		                });
+		            }else{
+		                console.log('there is a problem with the map mode variable')
+		            }
+		            
+		        })
+		     })
+
+		    // when document is ready //////////////////////////////////////////////////////////////////////////////////////////////////
+		    // html code goes here
+		    $( document ).ready(function() {
+		        //welcome exit click
+		        $('#welhide').click(function() {
+		            $('.welcomePara').slideUp('slow');
+		            $('.welcomeWrapper').delay(100).slideUp('slow');
+		            return false
+		        }); 
+		        // build opacity slider and on slide change map opacity //////
+		        $("#sldr").slider({ min: 0, max: 100, range: false, values: [30], slide: function(e, ui){
+		            dynamicLayer.setOpacity(1 - ui.value/100);
+		        } })
+
+		        // on cb clicks add and remoce layers /////////////////
+		        $('.cbWrapper input').click(function(c){
+		            var layerId = parseInt(c.currentTarget.id.split('-')[1]);
+		            // click on all projects cb and slide down filter cb's
+		            if(layerId == 0){
+		                // test if cb is checked
+		                if (c.currentTarget.checked) {
+		                    $(".cb_wrapper_indent").slideDown();
+		                    // app.layerDefinitions[0] =  app.finalDeff;
+		                    // dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+		                    map.addLayer(app.addOwnProjectLayer);
+		                    if(!app.finalDeff){
+		                        app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND projectType_web = 'Habitat' OR projectType_web = 'Recreation and Access' OR projectType_web = 'Community Infrastructure' OR projectType_web = 'Multiple'" );
+		                    }else{
+		                        app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND " + app.finalDeff);
+		                    }
+		                }else{
+		                    $(".cb_wrapper_indent").slideUp();
+		                    app.layerDefinitions[0] =  "projectType_web = 'null'"
+		                    dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+		                    map.removeLayer(app.addOwnProjectLayer);
+		                }
+		            }
+		            // if cb checked push viz layers into viz layers array
+		            if(c.currentTarget.checked){
+		                if(layerId == 0){
+		                    'dont push in project layers as dynamic map service layer'
+		                }else{
+		                    app.visibleLayers.push(layerId)   
+		                }
+		            }else{
+		                var index = app.visibleLayers.indexOf(layerId)
+		                if (index !== -1) app.visibleLayers.splice(index, 1);
+		            }
+		            // call the legend refresh to add or remove layers from the legend.
+		            legend.refresh();
+		            // remove legend if there are no layers checked
+		            if (app.visibleLayers.length >=1) {
+		                $('.legendDivWrapper').show();
+		            }else{
+		                $('.legendDivWrapper').hide();
+		                $('.dummyLegendHeader').hide();
+		            }
+		            // update the viz layers showing on the map
+		            dynamicLayer.setVisibleLayers(app.visibleLayers);
+		        })
+		        // all project filter check boxes /////////////////////////////////////////////////////////////////////////////////////////
+		        $('.cb_wrapper_indent input').click(function(c){
+		            var id  = c.currentTarget.id
+		            app.layerDeffs = ["projectType_web = 'Habitat'","projectType_web = 'Recreation and Access'", "projectType_web = 'Community Infrastructure'", "projectType_web = 'Multiple'"]
+		            app.finalDeff = ''
+		            // find out which cb's are checked
+		            $.each($('.cb_wrapper_indent input'), function(i,v){
+		                if(!$(v)[0].checked){
+		                    id  = "projectType_web = '" + $(v)[0].id + "'"
+		                    var index =  app.layerDeffs.indexOf(id)
+		                    if (index > -1) {
+		                        app.layerDeffs.splice(index, 1)
+		                    }
+		                    // loop through layer defs and build the final def string
+		                    $.each(app.layerDeffs, function(i,v){
+		                        if (i < 1) {
+		                            app.finalDeff = app.layerDeffs[0]
+		                        }else{
+		                            app.finalDeff += " OR " + app.layerDeffs[i]
+		                        }
+		                    })
+		                }else{
+		                    id  = "projectType_web = '" + $(v)[0].id + "'"
+		                    var index =  app.layerDeffs.indexOf(id)
+		                    if (index > -1) {
+		                        // app.layerDeffs.splice(index, 1)
+		                    }
+
+		                }
+		            })
+		            // set layer def to null to display no layers if all cb's are unchecked
+		            if(app.layerDeffs.length < 1){
+		                app.finalDeff = "projectType_web = 'null'";
+		            }
+		            // set layer defs and update the mask layer /////////////////////
+		            app.layerDefinitions = [];
+		            app.layerDefinitions[0] =  app.finalDeff
+		            dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+		            app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND " + app.finalDeff);
+		        })
+		        // on add new project button click ///////////////////////////////////////////////////
+		        $('#addOwnProject').click(function(c){
+		            $(".mainContentWrapper").slideUp();
+		            $(".addNewContentWrapper").slideDown();
+		            app.appMode = 'submit' // change app mode to submit
+		        })
+		        // on add new project button click ///////////////////////////////////////////////////
+		        $('#backToMain').click(function(c){
+		            $(".mainContentWrapper").slideDown();
+		            $(".addNewContentWrapper").slideUp();
+		            $('.submitText').slideUp(); 
+		            app.appMode = 'main' // change app mode to submit
+		        })
+		        // the var inputs is all of the inputs in the form.
+		        var inputs = $("#formItem1,#formItem2,#formItem3,#formItem4,#formItem5,#formItem6,#formItem7,#formItem8,#formItem9")
+		        // clear form when the user clicks the back button or the submit button
+		        var clearForm = function(){
+		            inputs.each(function(i,v) {
+		                $(v).val(''); // set all values back to empty string
+		                $(v).trigger('change') // to disable submit button
+		            })
+		        }
+		        // validate form before submit //////////////////////////
+		        var validateInputs = function validateInputs(inputs) {
+		          var validForm = true;
+		          inputs.each(function(index) {
+		            var input = $(this);
+		            if (!input.val() || (input.type === "radio" && !input.is(':checked'))) {
+		              // $("#subnewtide").attr("disabled", "disabled");
+		              $("#submitButton").attr("disabled", "disabled");
+		              validForm = false;
+		            }
+		          });
+		          return validForm;
+		        }
+		        // on input change call validate inputs function and make sure everything is good before enabeling submit button
+		        inputs.change(function() {
+		            $('.submitText').slideUp();
+		            if(validateInputs(inputs)){
+		                $("#submitButton").removeAttr("disabled");
+		            }
+		        })
+		        // on new project submit button click //////////////////////////////////////////////
+		        $("#submitButton").click(function(c){
+		            var formArray = [];
+		            // collect all the inputs from the form
+		            var item1 = $( "#formItem1" ).val();
+		            var item2 = $( "#formItem2" ).val();
+		            var item3 = $( "#formItem3" ).val();
+		            var item4 = $( "#formItem4" ).val();
+		            var item5 = $( "#formItem5" ).val();
+		            var item6 = $( "#formItem6" ).val();
+		            var item7 = $( "#formItem7" ).val();
+		            var item8 = $( "#formItem8" ).val();
+		            var item9 = $( "#formItem9" ).val();
+
+		            formArray.push(item1, item2)
+		            // split item 6 to get the lat long values
+		            item6 = item6.split(' ')
+		            var lat = parseFloat(5275704.371526124)
+		            var long = parseFloat(-8429816.546952119)
+		            // use this code while on the S3 bucket
+		            // var lat = parseFloat(item6[1])
+		            // var long = parseFloat(item6[0])
+
+		            // use this code below to add attributes and geometry to the projects layer when adding new porokects
+		            var obj = { user_name:item1, project_name:item2, project_type:item3, project_desc:item4, stakeholder: item5, jur_name:item7, county: item9, lat:lat, long:long, display_on_web:'no'}
+		            var spatialReference = new SpatialReference ({spatialReference:{wkid: 102100, latestWkid: 3857}})
+		            var pt = new Point({x:long,y:lat,spatialReference:{wkid: 102100, latestWkid: 3857}})
+		            var sms = new SimpleMarkerSymbol().setStyle(
+		                SimpleMarkerSymbol.STYLE_SQUARE).setColor(
+		                new Color([255,0,0,0.5]));
+
+		            var incidentGraphic = new Graphic(pt,sms, obj);
+		            // apply a def query to the add own project layer feature layer
+		            // app.addOwnProjectLayer.setDefinitionExpression("user_name<>'mark'");
+		            // app.addOwnProjectLayer.setDefinitionExpression("user_name='mark'");
+		            // app.addOwnProjectLayer.setDefinitionExpression("Project_Type='Habitat'");
+		            // app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes'");
+
+		            // apply edits to the feature layer here
+		            app.addOwnProjectLayer.applyEdits([incidentGraphic], null, null, function(e){
+		                // clear form after the submit button has been clicked
+		                clearForm();
+		                // display text that your project has been submited 
+		                $('.submitText').slideDown();
+		            });
+		        })
+		        // header collapse functionality
+		        $('.cbHeader').on('click', function(e){
+		            // check to see the height of the next cbWrapper
+		            // if its open close it, change text to show
+		            if($(e.currentTarget).next().is(':visible')){
+		                $(e.currentTarget).next().slideUp();
+		                $(e.currentTarget).find('span').html('Show')
+		            }else{ // else open it, chnage text to collapse
+		                $(e.currentTarget).next().slideDown();
+		                $(e.currentTarget).find('span').html('Collapse')
+		            }
+		        })
+		        // close attribute popup on close click and clear map graphics
+		        $('.popupHeaderCloseWrapper').on('click', function(e){
+		             map.graphics.clear();
+		            $("#bottomPopupWrapper").slideUp();
+		        })
+		        // minimize attribute and legend popup on click
+		        $('.popupMinWrapper').on('click', function(e){
+		            var elem = $(e.currentTarget).parent().next();
+		            var tar = $(e.currentTarget)
+		            var h = $(elem).is(":visible");
+		            if(elem[0].id != 'legendDiv'){
+		                if(h){
+		                    $(elem).slideUp();
+		                    $(tar).show();
+		                    $(tar).css('transform', 'rotate(180deg)')
+		                }else{
+		                    $(elem).slideDown();
+		                    $(tar).css('transform', 'rotate(360deg)')
+		                }
+		            }else{
+		                if(h){
+		                    $(e.currentTarget).parent().parent().slideUp()
+		                    $('.dummyLegendHeader').show();
+		                }
+		            }
+		        })
+		         // header mouse over functionality
+		        $('.cbHeader').on('mouseover', function(e){
+		            // add blue font class to span
+		            $(e.currentTarget).find('span').css('color', '#2F6384')
+		        })
+		        $('.cbHeader').on('mouseout', function(e){
+		            $(e.currentTarget).find('span').css('color', '#f3f3f3')
+		            // remove blue font class to span
+		        })
+		        // on doc click
+		        $(document).on('click', function (e) {
+		        // Do whatever you want; the event that'd fire if the "special" element has been clicked on has been cancelled.
+		            var c = $(e.target).attr('class')
+		            if(c){
+		                 var i = c.indexOf('hamburgerClick')
+		            }
+		            if(i > -1){
+		                $('.dropdownMenu').slideDown();
+		            }else{
+		                $('.dropdownMenu').slideUp();
+		            }
+		        });
+		    });
+
+		}); // end of main require function
+
+	</script>
+</head>
+
+<body>
+	<!-- welcome popup wrapper -->
+		<div class="welcomeWrapper" id="welcomeWrapper">
+			<div class="welcomePara">
+				A defining feature of southeastern New York, the Hudson River is recognizable to millions. The most familiar feature, the Hudson River Estuary.<br><br>
+				<a id="welhide" href="#">Explore Site<a/>
+			</div>
+			
+		</div>
+	<!-- <div class="mainHeaderWrapper">
+		<div class="logoWrapper">
+			<a href="http://thehudsonweshare.org" title="The Hudson We Share">
+				<img src="assets/HRCRP_logo_32_32.png" alt="The Hudson We Share" data-retina="" style="height: 65px;">
+			</a>
+		</div>
+		
+		<div class="titleWrapper">Hudson River Comprehensive Restoration Plan</div>
+		
+		<div class="searchWrapper">
+			<div id="search"></div>
+		</div>
+		
+		
+		
+	</div> -->
+	<!-- Basemap toggle ///////////////////////////// -->
+		<div class="basemapWrapper">
+			<div id="BasemapToggle"></div>
+		</div>
+		<!-- popup wrapper ////////////////////////////////////////////// -->
+		<div id="popupWrapper" class="popupWrapper">
+			<p>This is some text</p>
+		</div>
+	<!-- wrapper for map and controls -->
+	<div id="cd_wrap" class="contentWrapper">
+
+		<!-- wrapper for controls -->
+		<div id="cd_left" class="appWrapper">
+			<div class="mainContentWrapper">
+				<div class="blueFont">Through a participatory community planning process, Partners Restoring the Hudson gathered information about possible project opportunities that will enhance the future of the river. These projects are related to habitat restoration, community infrastructure and/or recreation and access in Hudson River Estuary and the communities along its shoreline and tributaries.</div>
+				<!-- <div class="flex-wrap" style="margin-top: 5px;">
+					<h2 class="headers">View Project Layers Below</h2>
+					<div id="hamburgerTools" class="hamburgerTools hamburgerClick">
+						<div style="margin-top: 9px; margin-left: 3px;" class="hamburgerClick">
+							<div class="hud-hamburger hamburgerClick"></div>
+							<div class="hud-hamburger hamburgerClick"></div>
+							<div class="hud-hamburger hamburgerClick"></div>
+						</div>
+					</div>
+					<div class="dropdownMenu">
+						<div class="toolWrapper">
+							<div>Print Map</div>
+							<div>Download Data</div>
+							<div>Another Tool</div>
+						</div>
+					</div>
+				</div> -->
+				<!-- all projects section //////////////////////////////////////////////// -->
+				<div class="cbHeader" style="margin-top: 20px;">
+					<h3>All Projects</h3>
+					<span>Collapse</span>
+				</div>
+			
+				<div class="cbWrapper">
+					<label class="form-component" for="layer-0">
+						<input checked type="checkbox" id="layer-0" name="food">
+						<div class="check"></div>
+						<span class="form-text">Hudson River Project Sites</span>
+					</label>
+					<div class="cb_wrapper_indent">
+						<label class="form-component" for="Habitat">
+							<input checked type="checkbox" id="Habitat" name="food">
+							<div class="check"></div>
+							<span class="form-text">Habitat</span>
+						</label>
+						<br>
+						<label class="form-component" for="Recreation and Access">
+							<input checked type="checkbox" id="Recreation and Access" name="food">
+							<div class="check"></div>
+							<span class="form-text">Recreation and Access</span>
+						</label>
+						<br>
+						<label class="form-component" for="Community Infrastructure">
+							<input checked type="checkbox" id="Community Infrastructure" name="food">
+							<div class="check"></div>
+							<span class="form-text">Community Infrastructure</span>
+						</label>
+						<br>
+						<label class="form-component" for="Multiple">
+							<input checked type="checkbox" id="Multiple" name="food">
+							<div class="check"></div>
+							<span class="form-text">Multiple Project Types</span>
+						</label>
+						<!-- add own project button -->
+						<div class="addOwnProject" id="addOwnProject">
+							<button class="button button-primary">Propose a New Project</button>
+						</div>
+					</div>
+
+				</div>
+				<!-- <div id="filterWrapper" class="filterWrapper">
+					<div>Filter projects by type:</div>
+
+					<div>Filter projects by status:</div>
+				</div> -->
+				<!-- PHU section //////////////////////////////////////////////////////// -->
+				<div class="cbHeader">
+					<h3>Physical Habitat Units (PHU)</h3>
+					<span>Collapse</span>
+				</div>
+				
+
+				<div class="cbWrapper phuCBWrapper">
+					<label class="form-component" for="layer-3">
+						<input type="checkbox" id="layer-3" name="food">
+						<div class="check"></div>
+						<span class="form-text">Physical Habitat Units and Boundaries</span>
+					</label>
+					<br>
+					<label class="form-component" for="layer-4">
+						<input type="checkbox" id="layer-4" name="food">
+						<div class="check"></div>
+						<span class="form-text">PHU Depth Classes</span>
+					</label>
+					<br>
+					<label class="form-component disabled" for="layer-5">
+						<input type="checkbox" id="layer-5" name="food">
+						<div class="check"></div>
+						<span class="form-text">PHU Sediment Type Classes</span>
+					</label>
+					<br>
+					<label class="form-component disabled" for="layer-6">
+						<input type="checkbox" id="layer-6" name="food">
+						<div class="check"></div>
+						<span class="form-text">PHU Slope Classes</span>
+					</label>
+					<br>
+					<label class="form-component disabled" for="layer-7">
+						<input type="checkbox" id="layer-7" name="food">
+						<div class="check"></div>
+						<span class="form-text">PHU Sediment Environment Classes</span>
+					</label>
+				</div>
+				<div class="cbHeader">
+					<h3>All Threats</h3>
+					<span>Collapse</span>
+				</div>
+				<div class="cbWrapper">
+					<label class="form-component" for="layer-13">
+						<input type="checkbox" id="layer-13" name="food">
+						<div class="check"></div>
+						<span class="form-text">All  Threats Summary</span>
+					</label>
+				</div>
+				<!-- sup data section ///////////////////////////////////////// -->
+				<div class="cbHeader">
+					<h3>Supplementary Data</h3>
+					<span>Collapse</span>
+				</div>
+				
+				<div class="cbWrapper" style="margin-bottom: 120px;">
+					<label class="form-component" for="layer-1">
+						<input checked="true" type="checkbox" id="layer-1" name="food">
+						<div class="check"></div>
+						<span class="form-text">Civil Boundaries</span>
+					</label>
+					<br>
+					<label class="form-component" for="layer-37">
+						<input type="checkbox" id="layer-37" name="food">
+						<div class="check"></div>
+						<span class="form-text">NOAA DEC Open Water</span>
+					</label>
+					<br>
+					<label class="form-component" for="layer-38">
+						<input type="checkbox" id="layer-38" name="food">
+						<div class="check"></div>
+						<span class="form-text">Hudson River CRP Study Area</span>
+					</label>
+					
+				</div>
+				<!-- <div class="test"></div> -->
+				<div id="createMap2"></div>
+				<!-- add own project button -->
+					<div class="createMapWrapper">
+						<button class="button button-primary" id="createPrint" style="position: absolute; left: 102px; bottom: 9px;">Create PDF Map</button>
+						<div class="mapInfoWrapper">
+							<div class="mapFormWrapper">
+								<div class="formTitle">Map Title:</div><br>
+								<input id="mapText1" class="formItems" type="text" name="mapText" value="">
+								<br>
+								<div class="formTitle">Author:</div><br>
+								<input id="mapText2" class="formItems" type="text" name="mapText" value="">
+								
+							</div>
+							<div class="mapClose">X</div>
+							<div id="createMap" style="position: absolute; left: 211px; bottom: 3px;"></div>
+						</div>
+						<!-- <button style="position: absolute; left: 100px; bottom: 10px;" id="createMap2" class="button button-primary">Create PDF Map</button> -->
+					</div>
+				<div id="opacityWrapper" class="opacityWrapper">
+					
+					<div class="opacitySliderLabels">
+						<div class="sliderLabels">Opaque</div>
+						<div class="slider-container" style="width:180px;">
+							<div id="sldr" class="slider"></div>	
+						</div>
+						<div class="sliderLabels">Transparent</div>
+					</div>
+					
+				</div>
+				<div class=""></div>
+			</div>
+			<!-- add new project content wrapper ////////////////////////////////////////////// -->
+			<div class="addNewContentWrapper">
+				<div class="blueFont">
+					Share your ideas for project opportunities that relate to habitat restoration and protection, community infrastructure, and recreation and access. We will review the project and if it meets our criteria, we will add it to the database.
+				</div>
+				
+				<!-- go back button -->
+				<div class="backToMain" id="backToMain">
+					<h3>Please fill in all the fields below:</h3>
+					<div class="backToMainWrapper">
+						<button class="button button-primary" style="width: 55px; padding: 6px;">Go back</button>
+					</div>
+					
+				</div>
+				<div class="addNewFormWrapper" id="addNewFormWrapper">
+					<div class="formTitle">User Name:</div><br>
+					<input id="formItem1" class="formItems" type="text" name="firstname" value="">
+					<br>
+					<div class="formTitle">Project Name:</div><br>
+					<input id="formItem2" class="formItems" type="text" name="firstname" value="">
+					<br>
+					<div class="formTitle">Project Type:</div><br>
+					<select id="formItem3" class="formItems" style="width: 284px;" name="firstname">
+					    <!-- <option value="">Pick a project type</option> -->
+					    <option value=""></option>
+					    <option value="Community Infrastructure">Community Infrastructure</option>
+					    <option value="Habitat">Habitat</option>
+					    <option value="Recreation and Access">Recreation and Access</option>
+					    <option value="Multiple">Multiple</option>
+					</select>
+					<!-- <input id="formItem3" class="formItems" type="text" name="firstname" value=""> -->
+					<br>
+					<div class="formTitle">Description:</div><br>
+					<textarea class="formItems" id="formItem4"></textarea>
+					<!-- <input id="formItem4" type="text" name="firstname" value=""> -->
+					<br>
+					<div class="formTitle">Stakeholder:</div><br>
+					<input id="formItem5" class="formItems" type="text" name="firstname" value="">
+					<br>
+					<h3 style="width: 80%">For the following fields click on the map once to populate:</h3>
+					<div class="formTitle">Lat/Long (click on map):</div><br>
+					<input id="formItem6" class="formItems" type="text" name="firstname" value="">
+					<br>
+					<div class="formTitle">Jurisdiction Name:</div><br>
+					<input id="formItem7" class="formItems" type="text" name="firstname" value="">
+					<br>
+					<!-- <div class="formTitle">Jurisdiction:</div><br>
+					<input id="formItem8" class="formItems" type="text" name="firstname" value="">
+					<br> -->
+					<div class="formTitle">County:</div><br>
+					<input id="formItem9" class="formItems" type="text" name="firstname" value="">
+					<br>
+					<div class="submitText blueFont">Thank you for submiting your project. We will review the data soon.</div>
+					<button id="submitButton" disabled="true" class="button button-primary" style="margin-top: 12px;">Submit</button>
+					
+				</div>
+			</div>
+
+		</div>
+		
+		<div id="cd_right" class="mapWrapper">
+			<!-- map div ///////////////////////////////////////////////////// -->
+			<div id="map"></div>
+		</div>
+		<!-- bottom popup wrapper ///////////////////////////////////////-->
+				<div id="bottomPopupWrapper" class="bottomPopupWrapper" style="display: none;">
+					<div class="popupHeader"><span id="popupHeaderTitle" style="padding-right: 50px;">Ramshorn- Livingston Marsh and Sanctuary</span><span class="popupMinWrapper"><span class="popupMin">&#x25BC;</span></span> <span class="popupHeaderCloseWrapper"><span class="popupHeaderClose">x</span></span></div>
+					<div class="popupItemsWrapper pointAttsWrapper">
+						<div class="popupItems blueFont">Type: <span>Test text</span></div>
+						<div class="popupItems blueFont">Description: <span>Test text</span></div>
+						<!-- <div class="popupItems blueFont">Stakeholder: <span>Test text</span></div> -->
+						<div class="popupItems blueFont">Name: <span>Test text</span></div>
+						<div class="popupItems blueFont">Jurisdiction: <span>Test text</span></div>
+						<div class="popupItems blueFont">County: <span>Test text</span></div>
+						<div class="popupItems blueFont">Location: <span>Test text</span></div>
+						
+					</div>
+					<div class="popupItemsWrapper polyAttsWrapper">
+						<div class="popupItems2 blueFont">PHU Depth: <span>Test text</span></div>
+						<div class="popupItems2 blueFont">PHU Sediment: <span>Test text</span></div>
+						<div class="popupItems2 blueFont">PHU Slope: <span>Test text</span></div>
+						<div class="popupItems2 blueFont">PHU Sediment Environment: <span>Test text</span></div>
+					</div>
+					
+				</div>
+		<!-- legend div ///////////////////////////////////////// -->
+		<div class="dummyLegendHeader"><span id="popupHeaderTitle" style="padding-right: 50px;">Legend</span><span class="popupMinWrapper popupMinLeg"><span class="popupMin" style="top: 1px;">&#9650;</span></span></div>
+
+
+		<div class="legendDivWrapper">
+			<div class="legendPopupHeader"><span id="popupHeaderTitle" style="padding-right: 50px;">Legend</span><span class="popupMinWrapper popupMinLeg"><span class="popupMin">&#x25BC;</span></span></div>
+			<div id="legendDiv" class="legendDiv"></div>
+		</div>
+		
+	</div>	
+</body>
+</html>
