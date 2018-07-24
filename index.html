@@ -23,6 +23,14 @@
 </head>
 
 <body>
+	<!-- welcome popup wrapper -->
+		<div class="welcomeWrapper" id="welcomeWrapper">
+			<div class="welcomePara">
+				A defining feature of southeastern New York, the Hudson River is recognizable to millions. The most familiar feature, the Hudson River Estuary.<br><br>
+				<a id="welhide" href="#">Explore Site<a/>
+			</div>
+			
+		</div>
 	<!-- <div class="mainHeaderWrapper">
 		<div class="logoWrapper">
 			<a href="http://thehudsonweshare.org" title="The Hudson We Share">
@@ -53,7 +61,7 @@
 		<!-- wrapper for controls -->
 		<div id="cd_left" class="appWrapper">
 			<div class="mainContentWrapper">
-				<div class="blueFont">A defining feature of southeastern New York, the Hudson River is recognizable to millions. The most familiar feature, the Hudson River Estuary, is a long arm of the sea subject to tides and the upriver press of salty ocean water. Spanning 153 miles from New York Harbor to the Federal Dam in Troy, the Estuary is home to......</div>
+				<div class="blueFont">Through a participatory community planning process, Partners Restoring the Hudson gathered information about possible project opportunities that will enhance the future of the river. These projects are related to habitat restoration, community infrastructure and/or recreation and access in Hudson River Estuary and the communities along its shoreline and tributaries.</div>
 				<!-- <div class="flex-wrap" style="margin-top: 5px;">
 					<h2 class="headers">View Project Layers Below</h2>
 					<div id="hamburgerTools" class="hamburgerTools hamburgerClick">
@@ -109,7 +117,7 @@
 						</label>
 						<!-- add own project button -->
 						<div class="addOwnProject" id="addOwnProject">
-							<button class="button button-primary">Suggest New Project</button>
+							<button class="button button-primary">Propose a New Project</button>
 						</div>
 					</div>
 
@@ -126,7 +134,7 @@
 				</div>
 				
 
-				<div class="cbWrapper">
+				<div class="cbWrapper phuCBWrapper">
 					<label class="form-component" for="layer-3">
 						<input type="checkbox" id="layer-3" name="food">
 						<div class="check"></div>
@@ -174,7 +182,7 @@
 					<span>Collapse</span>
 				</div>
 				
-				<div class="cbWrapper" style="margin-bottom: 70px;">
+				<div class="cbWrapper" style="margin-bottom: 120px;">
 					<label class="form-component" for="layer-1">
 						<input checked="true" type="checkbox" id="layer-1" name="food">
 						<div class="check"></div>
@@ -194,7 +202,7 @@
 					</label>
 					
 				</div>
-				<div class="test"></div>
+				<!-- <div class="test"></div> -->
 				<div id="createMap2"></div>
 				<!-- add own project button -->
 					<div class="createMapWrapper">
@@ -209,7 +217,7 @@
 								
 							</div>
 							<div class="mapClose">X</div>
-							<div id="createMap" style="position: absolute; left: 221px; bottom: 7px;"></div>
+							<div id="createMap" style="position: absolute; left: 211px; bottom: 3px;"></div>
 						</div>
 						<!-- <button style="position: absolute; left: 100px; bottom: 10px;" id="createMap2" class="button button-primary">Create PDF Map</button> -->
 					</div>
@@ -229,14 +237,14 @@
 			<!-- add new project content wrapper ////////////////////////////////////////////// -->
 			<div class="addNewContentWrapper">
 				<div class="blueFont">
-					TEST TEST TEST Add a new project below. Please fill in all the fields and submit the proposed project. We will review the project and if it meets our criteria we will add it to the main database. TEST TEST TEST
+					Share your ideas for project opportunities that relate to habitat restoration and protection, community infrastructure, and recreation and access. We will review the project and if it meets our criteria, we will add it to the database.
 				</div>
 				
 				<!-- go back button -->
 				<div class="backToMain" id="backToMain">
 					<h3>Please fill in all the fields below:</h3>
 					<div class="backToMainWrapper">
-						<button class="button button-primary">Go back</button>
+						<button class="button button-primary" style="width: 55px; padding: 6px;">Go back</button>
 					</div>
 					
 				</div>
@@ -293,7 +301,7 @@
 		<!-- bottom popup wrapper ///////////////////////////////////////-->
 				<div id="bottomPopupWrapper" class="bottomPopupWrapper" style="display: none;">
 					<div class="popupHeader"><span id="popupHeaderTitle" style="padding-right: 50px;">Ramshorn- Livingston Marsh and Sanctuary</span><span class="popupMinWrapper"><span class="popupMin">&#x25BC;</span></span> <span class="popupHeaderCloseWrapper"><span class="popupHeaderClose">x</span></span></div>
-					<div class="popupItemsWrapper">
+					<div class="popupItemsWrapper pointAttsWrapper">
 						<div class="popupItems blueFont">Type: <span>Test text</span></div>
 						<div class="popupItems blueFont">Description: <span>Test text</span></div>
 						<!-- <div class="popupItems blueFont">Stakeholder: <span>Test text</span></div> -->
@@ -301,6 +309,13 @@
 						<div class="popupItems blueFont">Jurisdiction: <span>Test text</span></div>
 						<div class="popupItems blueFont">County: <span>Test text</span></div>
 						<div class="popupItems blueFont">Location: <span>Test text</span></div>
+						
+					</div>
+					<div class="popupItemsWrapper polyAttsWrapper">
+						<div class="popupItems2 blueFont">PHU Depth: <span>Test text</span></div>
+						<div class="popupItems2 blueFont">PHU Sediment: <span>Test text</span></div>
+						<div class="popupItems2 blueFont">PHU Slope: <span>Test text</span></div>
+						<div class="popupItems2 blueFont">PHU Sediment Environment: <span>Test text</span></div>
 					</div>
 					
 				</div>

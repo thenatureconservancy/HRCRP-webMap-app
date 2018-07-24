@@ -32,18 +32,42 @@ html, body{
 	flex:0 0 350px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
 	overflow-y:auto; background:#f3f3f3; 
 }
-/*.contentWrapper{
-	display: flex; height: 90%;
+.welcomeWrapper{
+	position: absolute; top: 0px; left: 0px; z-index: 1100; height: 100%; width: 100%; background-color: rgba(255,255,255,0.4);
 }
-.appWrapper{
-	width: 350px;
-}*/
+.welcomePara{
+	text-align: center;
+	width:50%;
+	font-size:14pt;
+	margin:auto;
+	margin-top:12%;
+	padding:10px;
+	background:#648CA4;
+	border-radius:25px;
+	box-shadow: 
+    inset 0 3px 2px rgba(255,255,255,0.22), 
+    inset 0 -3px 2px rgba(0,0,0,0.17), 
+    inset 0 20px 10px rgba(255,255,255,0.12), 
+    0 0 4px 1px rgba(0,0,0,0.1), 
+    0 3px 2px rgba(0,0,0,0.2);
+	color: #f9faf5;
+	text-decoration: none;
+	text-shadow: 0 1px rgba(96, 58, 20,1);
+	border: 1px solid #324617;
+}
+#welhide{
+	color: #f9faf5;
+	text-decoration: none;
+	text-shadow: 0 1px rgba(96, 58, 20,1);
+}
+#welhide:hover {
+	color:orange;
+	text-decoration: none;
+	/*text-shadow: 0 1px rgba(236, 239, 222,.8);*/
+}
 .mapWrapper{
 	width: 100%;
 }
-/*#cd_right{
-	flex: 1;
-}*/
 #map{
 	height:100%; width:100%; background: #bbb; background: -webkit-radial-gradient(#fff, #bbb); 
     background: -moz-radial-gradient(#fff, #bbb); background: radial-gradient(#fff, #bbb); 
@@ -178,6 +202,9 @@ html, body{
 .popupItems span{
 	color: black; font-weight: 100;
 }
+.popupItems2 span{
+	color: black; font-weight: 100;
+}
 .popupItemsWrapper{
 	padding: 5px;
 }
@@ -218,7 +245,7 @@ html, body{
 	position: absolute; bottom: 7px; width: 212px; margin-left: 15px;
 }
 .mapClose{
-	position: absolute; height: 20px; width: 20px; font-size: 14px; top: 5px; right: 5px; text-align: center;
+	position: absolute; height: 20px; width: 20px; font-size: 14px; top: 5px; right: 20px; text-align: center;
 	font-weight: bold; color: black;
 }
 .mapClose:hover{
@@ -282,15 +309,6 @@ html, body{
 	box-shadow: 0 -1px 1px rgba(16,22,26,0.2);
 	border-top: 1px solid #ddd;
 	display: flex;
-	/*border-top: 1px solid #ddd;
-    height: 54px;
-    padding-top: 10px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #fbfbfb;
-    box-shadow: 0 -1px 1px rgba(16,22,26,0.2);*/
 }
 
 .opacitySliderLabels{
@@ -375,62 +393,6 @@ html, body{
 /* Overrides the imported jQuery-UI classes for the accordion - .accord is
    added to isolate jquery-ui.css  class overrides to only those elements 
    within divs of class accord */
-.accord .ui-accordion .ui-accordion-content{
-	padding:0.5em; 
-	font-size:13px;
-	color:#5d6165;
-}
-.accord .ui-accordion .ui-accordion-header .ui-accordion-header-icon {
-	left:0em;	
-}	
-.accord .ui-accordion .ui-accordion-icons {
-	padding-left:1.2em !important;
-}
-.accord .ui-accordion .ui-accordion-icons:focus {
-	outline:none;
-}
-.accord .ui-accordion .ui-accordion-header {
-	color:#222; 
-	margin:0; 
-	padding:.8em .5em .8em .7em; 
-	text-align:left;
-	font-size:14px;
-}
-.accord .ui-accordion .ui-accordion-header:hover {
-	background:#f3f3f3; 
-	text-shadow:1px 1px #cdcdcd;
-}	
-.accord .ui-accordion-header-active  {
-	font-weight:bold; box-shadow:0 2px 4px rgba(0, 0, 0, 0.25); border:solid 1px #999;
-}	
-.accord .ui-state-default, .accord .ui-widget-content .ui-state-default, .accord .ui-widget-header .ui-state-default {
-    border: 1px solid #aaa; color: #5d6165; background:#fff;
-}
-/*.accord .ui-widget-content {
-   border-left: 1px solid #aaaaaa;
-	border-right: 1px solid #aaaaaa;
-	border-bottom-width:0;
-	box-shadow:inset 0 -1px 4px rgba(0, 0, 0, 0.25);
-}*/
-.accord-header {
-	border-top-left-radius: 0px !important;
-	border-top-right-radius: 0px !important;
-	border-bottom-left-radius: 0px !important;
-	border-bottom-right-radius: 0px !important;
-}
-.accord-body{
-	border-top-left-radius: 0px !important;
-	border-top-right-radius: 0px !important;
-	border-bottom-left-radius: 0px !important;
-	border-bottom-right-radius: 0px !important;
-	border-left: 1px solid #aaa;
-    border-right: 1px solid #aaa;
-    border-bottom-width: 0;
-    box-shadow: inset 0 -1px 4px rgba(0,0,0,.25);
-}
-
-
-
 /* Overrides to the imported chosen.css classes - .chosen-wrap is added to isolate
    chosen.css class overrides to only those elements within divs of class chosen-wrap */
 .chosen-wrap .chosen-container-single .chosen-single {

@@ -170,7 +170,6 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         })
         // on map click /////////////////////////////////////////////////////////
         map.on("click", function(e){
-            console.log('map click')
             // when in main map mode //////////////////
             if(app.appMode == 'main'){
                 // query the map for features
@@ -203,6 +202,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                     markerSymbol.setSize(12);
                      // if info returned from query
                     if(evt.featureSet.features.length > 0){
+                        app.pointClick = true;
                         app.atts = evt.featureSet.features[0].attributes;
                         app.items = $("#bottomPopupWrapper").find(".popupItems")
                         // add the selected feature graphic
@@ -233,11 +233,77 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                         $(app.items[4]).find('span').html(cleanAtts(app.atts.Jurisdiction))
                         $(app.items[5]).find('span').html(cleanAtts(app.atts.County))
                         $(app.items[6]).find('span').html(cleanAtts(app.atts.Location))
+                        $('.pointAttsWrapper').show();
+                        $('.polyAttsWrapper').hide();
                     }else{
                         // slide up bottom popup
                         $("#bottomPopupWrapper").slideUp();
+                        app.pointClick = false
                     }
+                    // check to see if any of the PHU cb's are checked to on before executing query                    
+                    var isChecked = $(".phuCBWrapper input[type=checkbox]").is(":checked");
+                    if(isChecked){
+                        query2Execute();
+                    }
+                    
                 })
+                var query2Execute = function(){
+                    //start of query 2 PHU polygons ///////////////////////////////////////////////////////////////////////
+                    var q2 = new Query();
+                    var qt2 = new QueryTask(app.url + "/3");
+                    q2.geometry = p;
+                    q2.returnGeometry = true;
+                    q2.outFields = ["*"];
+                    // execute query ///////////////////
+                    // test to see if the project layers is being displayed. if it is execute query
+                    if($("#layer-0")[0].checked){
+                         qt2.execute(q2);
+                    }
+                     // query on complete
+                    qt2.on('complete', function(evt){
+                        // map.graphics.clear();
+                         // new markey symbol used for selected features
+                         var polygonSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+                            new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                            new Color("#00FFFF"), 2),new Color([255,255,0,0.25])
+                        );
+                        if(app.pointClick == false){
+                            if(evt.featureSet.features.length > 0){
+                                // add a map polygon graphic
+                                 // add the selected feature graphic
+                                map.graphics.add(new Graphic(evt.featureSet.features[0].geometry, polygonSymbol));
+                                // show attributes
+                                $('.pointAttsWrapper').hide();
+                                $('.polyAttsWrapper').show();
+                                 // clean attributes function
+                                var cleanAtts = function(val){
+                                    if (val.length <= 1 ) {
+                                        val = "N/A"
+                                        return val
+                                    }else{
+                                        return val;
+                                    }
+                                }
+                                app.atts2 = evt.featureSet.features[0].attributes;
+                                app.items2 = $("#bottomPopupWrapper").find(".popupItems2")
+                                // populate the html with the correct attributes 
+                                var title = "Physical Habitat Units"
+                                $("#popupHeaderTitle").html(title);
+                                // set the attributes for each attribute span
+                                $(app.items2[0]).find('span').html(cleanAtts(app.atts2.depth_desc))
+                                $(app.items2[1]).find('span').html(cleanAtts(app.atts2.sedtype_desc))
+                                $(app.items2[2]).find('span').html(cleanAtts(app.atts2.slope_desc))
+                                $(app.items2[3]).find('span').html(cleanAtts(app.atts2.sedenv_desc))
+                                 // slide down bottom popup
+                                $("#bottomPopupWrapper").slideDown();
+                            }
+                            else{
+                                  $("#bottomPopupWrapper").slideUp();
+                            }
+                        }
+                        
+                    })
+                }
             // when in submit your own project mode /////////////////
             } else if(app.appMode == 'submit'){
                 // use the loc var below to geolocate sddresses on map click. use that to populate some of the form.
@@ -261,10 +327,17 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
     // when document is ready //////////////////////////////////////////////////////////////////////////////////////////////////
     // html code goes here
     $( document ).ready(function() {
+        //welcome exit click
+        $('#welhide').click(function() {
+            $('.welcomePara').slideUp('slow');
+            $('.welcomeWrapper').delay(100).slideUp('slow');
+            return false
+        }); 
         // build opacity slider and on slide change map opacity //////
         $("#sldr").slider({ min: 0, max: 100, range: false, values: [30], slide: function(e, ui){
             dynamicLayer.setOpacity(1 - ui.value/100);
         } })
+
         // on cb clicks add and remoce layers /////////////////
         $('.cbWrapper input').click(function(c){
             var layerId = parseInt(c.currentTarget.id.split('-')[1]);
