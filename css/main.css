@@ -41,7 +41,7 @@ html, body{
 	font-size:14pt;
 	margin:auto;
 	margin-top:15%;
-	padding:10px;
+	padding:20px;
 	background:#648CA4;
 	border-radius:25px;
 	box-shadow: 
@@ -54,6 +54,9 @@ html, body{
 	text-decoration: none;
 	text-shadow: 0 1px rgba(96, 58, 20,1);
 	border: 1px solid #324617;
+}
+.disclosureWrapper{
+	text-align: left; font-size: 14px; max-height: 400px; height: 400px; overflow: auto;
 }
 #welhide{
 	color: #f9faf5;

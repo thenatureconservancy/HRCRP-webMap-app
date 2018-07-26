@@ -306,9 +306,13 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 }
             // when in submit your own project mode /////////////////
             } else if(app.appMode == 'submit'){
+                map.graphics.clear()
+                 var mp = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
                 // use the loc var below to geolocate sddresses on map click. use that to populate some of the form.
                 var loc = locator.locationToAddress(e.mapPoint, 100, function(t){
                     var mp = webMercatorUtils.webMercatorToGeographic(e.mapPoint);
+                    var mp3 = webMercatorUtils.lngLatToXY(mp.x, mp.y)
+                    app.utmCords = mp3
                     var lat_long = mp.x + ' ' + mp.y;
                     $('#formItem6').val(lat_long);
                     $('#formItem7').val(t.address.City);
@@ -316,7 +320,18 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                     $('#formItem9').val(t.address.Subregion);
                     // trigger change to force call on form validate function
                     $("#formItem7").trigger("change");
+
+
+
+                    var pt = new Point({x:app.utmCords[0],y:app.utmCords[1],spatialReference:{wkid: 102100, latestWkid: 3857}})
+                    console.log(pt)
+                    var sms = new SimpleMarkerSymbol().setStyle(SimpleMarkerSymbol.STYLE_SQUARE).setColor(new Color([255,0,0,0.5]));
+                    // create project point graphic
+                    app.projectGraphic = new Graphic(pt,sms);
+                    map.graphics.add(app.projectGraphic)
                 });
+
+
             }else{
                 console.log('there is a problem with the map mode variable')
             }
@@ -468,7 +483,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
         })
         // on new project submit button click //////////////////////////////////////////////
         $("#submitButton").click(function(c){
-            var formArray = [];
+            // var formArray = [];
             // collect all the inputs from the form
             var item1 = $( "#formItem1" ).val();
             var item2 = $( "#formItem2" ).val();
@@ -480,36 +495,27 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             var item8 = $( "#formItem8" ).val();
             var item9 = $( "#formItem9" ).val();
 
-            formArray.push(item1, item2)
+            // formArray.push(item1, item2)
             // split item 6 to get the lat long values
-            item6 = item6.split(' ')
-            var lat = parseFloat(5275704.371526124)
-            var long = parseFloat(-8429816.546952119)
-            // use this code while on the S3 bucket
-            // var lat = parseFloat(item6[1])
-            // var long = parseFloat(item6[0])
-
+            // item6 = item6.split(' ')
+            // var lat = parseFloat(5245704.371526124)
+            // var long = parseFloat(-8429816.546952119)
+            lat  = parseFloat(app.utmCords[1])
+            long = parseFloat(app.utmCords[0])
             // use this code below to add attributes and geometry to the projects layer when adding new porokects
-            var obj = { user_name:item1, project_name:item2, project_type:item3, project_desc:item4, stakeholder: item5, jur_name:item7, county: item9, lat:lat, long:long, display_on_web:'no'}
+            var obj = { user_name:item1, project_name:item2, project_type:item3, project_desc:item4, stakeholder: item5, jur_name:item7, county: item9, lat:lat, long:long, display_on_web:'pending'}
             var spatialReference = new SpatialReference ({spatialReference:{wkid: 102100, latestWkid: 3857}})
             var pt = new Point({x:long,y:lat,spatialReference:{wkid: 102100, latestWkid: 3857}})
-            var sms = new SimpleMarkerSymbol().setStyle(
-                SimpleMarkerSymbol.STYLE_SQUARE).setColor(
-                new Color([255,0,0,0.5]));
-
-            var incidentGraphic = new Graphic(pt,sms, obj);
-            // apply a def query to the add own project layer feature layer
-            // app.addOwnProjectLayer.setDefinitionExpression("user_name<>'mark'");
-            // app.addOwnProjectLayer.setDefinitionExpression("user_name='mark'");
-            // app.addOwnProjectLayer.setDefinitionExpression("Project_Type='Habitat'");
-            // app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes'");
-
+            var sms = new SimpleMarkerSymbol().setStyle(SimpleMarkerSymbol.STYLE_SQUARE).setColor(new Color([255,0,0,0.0]));
+            app.projectGraphic.attributes = obj
             // apply edits to the feature layer here
-            app.addOwnProjectLayer.applyEdits([incidentGraphic], null, null, function(e){
+            app.addOwnProjectLayer.applyEdits([app.projectGraphic], null, null, function(e){
                 // clear form after the submit button has been clicked
                 clearForm();
                 // display text that your project has been submited 
                 $('.submitText').slideDown();
+                // project graphic hide
+                app.projectGraphic.hide()
             });
         })
         // header collapse functionality
