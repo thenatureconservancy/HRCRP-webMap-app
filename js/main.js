@@ -3,7 +3,7 @@
 // ESRI api functions ///////////////////////////////////////////////////////////////////////////////////////////////////
 // esri api calls
 var app = {}; // main app object
-app.visibleLayers = [1];
+app.visibleLayers = [0,1];
 app.layerDefinitions  = [];
 app.authorText = 'Not Selected';
 app.titleText = 'NY Hudson River'
@@ -48,13 +48,13 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
       // geolocator startup
       var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
         // add feature layer for add own layers, this feature layer is published on AGO
-        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/addNewProject_hudsonRiver_1/FeatureServer/0'
+        app.addOwnProjectLayerURL = 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/HudsonRiver_addNewProject/FeatureServer/0'
         
         app.addOwnProjectLayer = new FeatureLayer(app.addOwnProjectLayerURL, {
               mode: FeatureLayer.MODE_ONDEMAND,
               outFields: ["*"]
         });
-        map.addLayer(app.addOwnProjectLayer);
+        // map.addLayer(app.addOwnProjectLayer);
         app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes'");
         // print service URL to create PDF maps
         app.printUrl = "https://cumulus.tnc.org/arcgis/rest/services/nascience/NYHudsonRiverExportWebMap/GPServer/Export%20Web%20Map";
@@ -228,11 +228,36 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                         // set the attributes for each attribute span
                         $(app.items[0]).find('span').html(cleanAtts(app.atts.Project_Type))
                         $(app.items[1]).find('span').html(cleanAtts(app.atts.Project_Description))
-                        $(app.items[2]).find('span').html(cleanAtts(app.atts.Stakeholder))
-                        $(app.items[3]).find('span').html(cleanAtts(app.atts.Name))
-                        $(app.items[4]).find('span').html(cleanAtts(app.atts.Jurisdiction))
-                        $(app.items[5]).find('span').html(cleanAtts(app.atts.County))
-                        $(app.items[6]).find('span').html(cleanAtts(app.atts.Location))
+                        // $(app.items[2]).find('span').html(cleanAtts(app.atts.Stakeholder))
+                        // $(app.items[3]).find('span').html(cleanAtts(app.atts.Name))
+                        $(app.items[2]).find('span').html(cleanAtts(app.atts.Municipality))
+                        $(app.items[3]).find('span').html(cleanAtts(app.atts.County))
+                        $(app.items[4]).find('span').html(cleanAtts(app.atts.Disclaimer))
+                        // https://www.efc.ny.gov/2018-cw-iup
+                        $(app.items[5]).find('span').html(cleanAtts('<a target="_blank" href="' +  app.atts.URL + '">New York State Water Resources Institute</a>'))
+                        $(app.items[6]).find('span').html(cleanAtts('<a target="_blank" href="' +  app.atts.URL + '">New York State Environmental Facilities</a>'))
+                        // attributes for legal disclaimer and URL.
+                        if(app.atts.Disclaimer){
+                            $('#disclaimerPopUpText').show()
+
+                        }else{
+                            $('#disclaimerPopUpText').hide()
+                        }
+                        // urlPopUpText
+                        if(app.atts.URL){
+                            if(app.atts.URL == ' https://www.efc.ny.gov/2018-cw-iup'){
+                                $('#urlText2').show();
+                                $('#urlText1').hide();
+                            }else{
+                                $('#urlText1').show();
+                                $('#urlText2').hide();
+                            }
+                        }else{
+                            $('#urlText1').hide();
+                            $('#urlText2').hide();
+                        }
+
+                        // $(app.items[6]).find('span').html(cleanAtts(app.atts.Location))
                         $('.pointAttsWrapper').show();
                         $('.polyAttsWrapper').hide();
                     }else{
@@ -361,19 +386,20 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                 // test if cb is checked
                 if (c.currentTarget.checked) {
                     $(".cb_wrapper_indent").slideDown();
-                    // app.layerDefinitions[0] =  app.finalDeff;
-                    // dynamicLayer.setLayerDefinitions(app.layerDefinitions);
-                    map.addLayer(app.addOwnProjectLayer);
-                    if(!app.finalDeff){
-                        app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND projectType_web = 'Habitat' OR projectType_web = 'Recreation and Access' OR projectType_web = 'Community Infrastructure' OR projectType_web = 'Multiple'" );
-                    }else{
-                        app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND " + app.finalDeff);
-                    }
+                    app.layerDefinitions[0] =  app.finalDeff;
+                    dynamicLayer.setLayerDefinitions(app.layerDefinitions);
+                    app.visibleLayers.push(layerId)
+                    // map.addLayer(app.addOwnProjectLayer);
+                    // if(!app.finalDeff){
+                    //     app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND projectType_web = 'Habitat' OR projectType_web = 'Recreation and Access' OR projectType_web = 'Community Infrastructure' OR projectType_web = 'Multiple'" );
+                    // }else{
+                    //     app.addOwnProjectLayer.setDefinitionExpression("display_on_web='yes' AND " + app.finalDeff);
+                    // }
                 }else{
                     $(".cb_wrapper_indent").slideUp();
                     app.layerDefinitions[0] =  "projectType_web = 'null'"
                     dynamicLayer.setLayerDefinitions(app.layerDefinitions);
-                    map.removeLayer(app.addOwnProjectLayer);
+                    // map.removeLayer(app.addOwnProjectLayer);
                 }
             }
             // if cb checked push viz layers into viz layers array
@@ -453,7 +479,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             app.appMode = 'main' // change app mode to submit
         })
         // the var inputs is all of the inputs in the form.
-        var inputs = $("#formItem1,#formItem2,#formItem3,#formItem4,#formItem5,#formItem6,#formItem7,#formItem8,#formItem9")
+        var inputs = $("#formItem1,#formItem2,#formItem3,#formItem4,#formItem5,#formItem6,#formItem7,#formItem8,#formItem9, #formItem10")
         // clear form when the user clicks the back button or the submit button
         var clearForm = function(){
             inputs.each(function(i,v) {
@@ -494,6 +520,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             var item7 = $( "#formItem7" ).val();
             var item8 = $( "#formItem8" ).val();
             var item9 = $( "#formItem9" ).val();
+            var item10 = $( "#formItem10" ).val();
 
             // formArray.push(item1, item2)
             // split item 6 to get the lat long values
@@ -503,7 +530,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
             lat  = parseFloat(app.utmCords[1])
             long = parseFloat(app.utmCords[0])
             // use this code below to add attributes and geometry to the projects layer when adding new porokects
-            var obj = { user_name:item1, project_name:item2, project_type:item3, project_desc:item4, stakeholder: item5, jur_name:item7, county: item9, lat:lat, long:long, display_on_web:'pending'}
+            var obj = { Submitter:item1, Project_Title:item2, Project_Type:item3, Project_Description:item4, Stakeholder: item5, Submit_Email:item10, Municipality:item7, County: item9, lat:lat, long:long}
             var spatialReference = new SpatialReference ({spatialReference:{wkid: 102100, latestWkid: 3857}})
             var pt = new Point({x:long,y:lat,spatialReference:{wkid: 102100, latestWkid: 3857}})
             var sms = new SimpleMarkerSymbol().setStyle(SimpleMarkerSymbol.STYLE_SQUARE).setColor(new Color([255,0,0,0.0]));

@@ -1,11 +1,11 @@
 /* main styles ///////////////////////////////////////////////////////////////////*/
 
 html, body{
-	height:100%; padding:0; margin:0; 
+	height:100%; padding:0; margin:0; font-family: colfax, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Arial, sans-serif;
 }
 
 /* bring in fonts ///////////////////////////////////////////////////////////////////*/
-@font-face {
+/*@font-face {
     font-family: "Lato-Regular";
     src: url(fonts/Lato-Regular.woff);
 }
@@ -16,7 +16,7 @@ html, body{
 @font-face {
     font-family: "Lato-Bold";
     src: url(fonts/Lato-Bold.woff);
-}
+}*/
 .button.disabled, .button:disabled {
     opacity: .5; 
     cursor: not-allowed;
@@ -26,7 +26,7 @@ html, body{
 }
 /* main div with left/app div and right/map div ///////////////////////////////////////////////////////////////////*/
 #cd_wrap{
-	display:flex; flex-grow: 1; position: relative; height:100%; width:100%; color:#3C454A; font-size:12px; font-family:"Open Sans"; overflow-x: hidden;
+	display:flex; flex-grow: 1; position: relative; height:100%; width:100%; color:#3C454A; font-size:12px; font-family: colfax, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Arial, sans-serif; overflow-x: hidden;
 }
 #cd_left{
 	flex:0 0 350px; padding:8px 0px 8px 8px; box-shadow: 0px 0px 16px 0px rgba(51, 51, 51, 0.42); z-index:10; 
