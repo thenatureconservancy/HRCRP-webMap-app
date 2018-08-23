@@ -17,6 +17,10 @@ html, body{
     font-family: "Lato-Bold";
     src: url(fonts/Lato-Bold.woff);
 }*/
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
 .button.disabled, .button:disabled {
     opacity: .5; 
     cursor: not-allowed;
@@ -40,9 +44,14 @@ html, body{
 	width:50%;
 	font-size:14pt;
 	margin:auto;
-	margin-top:15%;
+	position: absolute;
+	top: 15%;
+	margin-left: 25%;
 	padding:20px;
 	background:#648CA4;
+	/*background:lightblue;*/
+	/*background:rgba(100, 140, 164, 0.5);*/
+	
 	border-radius:25px;
 	box-shadow: 
     inset 0 3px 2px rgba(255,255,255,0.22), 
@@ -50,16 +59,16 @@ html, body{
     inset 0 20px 10px rgba(255,255,255,0.12), 
     0 0 4px 1px rgba(0,0,0,0.1), 
     0 3px 2px rgba(0,0,0,0.2);
-	color: #f9faf5;
+	color: black;
 	text-decoration: none;
-	text-shadow: 0 1px rgba(96, 58, 20,1);
+	/*text-shadow: 0 1px rgba(96, 58, 20,1);*/
 	border: 1px solid #324617;
 }
 .disclosureWrapper{
 	text-align: left; font-size: 14px; max-height: 400px; height: 400px; overflow: auto;
 }
 #welhide{
-	color: #f9faf5;
+	color: black;
 	text-decoration: none;
 	text-shadow: 0 1px rgba(96, 58, 20,1);
 }
@@ -67,6 +76,18 @@ html, body{
 	color:orange;
 	text-decoration: none;
 	/*text-shadow: 0 1px rgba(236, 239, 222,.8);*/
+}
+.reportDisclaimerWtapper{
+	display: flex; margin-top: 10px;
+}
+.reportDisclaimerWtapper a{
+	text-decoration: none; font-size: 14px;
+}
+.welcomePara a{
+	text-decoration: none;
+}
+a:visited{
+  color:blue;
 }
 .mapWrapper{
 	width: 100%;
@@ -238,7 +259,7 @@ html, body{
 }
 .createMapWrapper{
 	position: absolute; bottom: 55px; height: 45px; background-color:#e8e8e8;box-shadow: 0 -1px 1px rgba(16,22,26,0.2);
-	border-top: 1px solid #ddd; width: 358px; left:0px;
+	border-top: 1px solid #ddd; width: 358px; left:0px; z-index: 1000;
 
 }
 .mapInfoWrapper{
@@ -312,6 +333,7 @@ html, body{
 	box-shadow: 0 -1px 1px rgba(16,22,26,0.2);
 	border-top: 1px solid #ddd;
 	display: flex;
+	z-index: 1000;
 }
 
 .opacitySliderLabels{

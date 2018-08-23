@@ -225,6 +225,7 @@ function(Map, ArcGISDynamicMapServiceLayer, Query, QueryTask, TextSymbol, Font, 
                         // populate the html with the correct attributes 
                         var title = evt.featureSet.features[0].attributes.Project_Title
                         $("#popupHeaderTitle").html(title);
+                        console.log(app.atts)
                         // set the attributes for each attribute span
                         $(app.items[0]).find('span').html(cleanAtts(app.atts.Project_Type))
                         $(app.items[1]).find('span').html(cleanAtts(app.atts.Project_Description))
